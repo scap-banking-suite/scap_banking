@@ -18,6 +18,15 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        current: "currentColor",
+        transparent: "transparent",
+				white: "#FFFFFF",
+        lightgray: "#F2F2F2",
+        primary: "#003366",
+        secondary: "#00A8CC",
+        accent: "#A6CE39"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
