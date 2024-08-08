@@ -24,6 +24,7 @@ const config = {
 				white: "#FFFFFF",
         lightgray: "#F2F2F2",
         primary: "#003366",
+       btnprimary: "#0357EE",
         secondary: "#00A8CC",
         accent: "#A6CE39"
       },
