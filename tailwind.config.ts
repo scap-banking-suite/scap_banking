@@ -26,7 +26,8 @@ const config = {
         primary: "#003366",
        btnprimary: "#0357EE",
         secondary: "#00A8CC",
-        accent: "#A6CE39"
+        accent: "#A6CE39",
+        borderblack: '#1C1C1C1A',
       },
       keyframes: {
         "accordion-down": {
