@@ -7,7 +7,7 @@ import QueryProviders from "@/contexts/query-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SCAP",
+  title: "BANK X",
   description: "BANKING SUITE",
 };
 
