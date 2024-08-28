@@ -3,7 +3,17 @@ import React, { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BankX from "@/icons/svgs/logo.svg";
 import Image from "next/image";
-import { DropdownIconUP } from "@/icons/svgComp/dropdown";
+
+// import {
+//   AccountIcon,
+//   AdminIcon,
+//   ChannelIcon,
+//   CollectionsIcon,
+//   DashboardIcon,
+//   FinanceIcon,
+//   OperationsIcon,
+// }
+import Link from "next/link";
 import {
   AccountIcon,
   AdminIcon,
@@ -12,8 +22,8 @@ import {
   DashboardIcon,
   FinanceIcon,
   OperationsIcon,
-} from "@/icons/svgComp/sidebarIcons";
-import Link from "next/link";
+} from "@/icons/svgComp/SidebarIcons";
+import { DropdownIconUP } from "@/icons/svgComp/Dropdown"; 
 
 type Props = {};
 
@@ -42,25 +52,6 @@ const sidebarItems: SidebarItem[] = [
         link: "/dashboard/overview",
         icon: <DashboardIcon />,
       },
-      { name: "Loans", link: "/dashboard/loans", icon: <DashboardIcon /> },
-      {
-        name: "Overview",
-        link: "/dashboard/overview",
-        icon: <DashboardIcon />,
-      },
-      { name: "Loans", link: "/dashboard/loans", icon: <DashboardIcon /> },
-      {
-        name: "Overview",
-        link: "/dashboard/overview",
-        icon: <DashboardIcon />,
-      },
-      { name: "Loans", link: "/dashboard/loans", icon: <DashboardIcon /> },
-      {
-        name: "Overview",
-        link: "/dashboard/overview",
-        icon: <DashboardIcon />,
-      },
-      { name: "Loans", link: "/dashboard/loans", icon: <DashboardIcon /> },
     ],
   },
   {
@@ -259,5 +250,3 @@ export const Sidebar = ({}: Props) => {
     </div>
   );
 };
-
-export default Sidebar;

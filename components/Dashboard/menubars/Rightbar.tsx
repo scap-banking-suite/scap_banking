@@ -10,4 +10,4 @@ export const Rightbar = (props: Props) => {
   );
 };
 
-export default Rightbar;
+
