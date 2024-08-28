@@ -1,33 +1,72 @@
-import React, { ButtonHTMLAttributes, ReactNode } from "react";
+import React, { ButtonHTMLAttributes, FC } from "react";
+import { Button as HeadlessButton } from "@headlessui/react";
+import { cn } from "@/lib/utils";
 import { Spinner } from "../shared/Spinner";
 
-type CustomBtnProps = {
-  children: ReactNode;
-  isPending?: boolean;
-  className?: string;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "danger" | "transparent" | "white";
+  size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
+  label?: string;
+  icon?: FC<React.ComponentProps<"svg">>;
+}
 
-export const CustomButton = ({
+export const CustomButton: FC<ButtonProps> = ({
+  label,
   children,
   className,
-  isPending,
-  ...rest
-}: CustomBtnProps) => {
-  const { disabled, type, onClick } = rest;
+  type = "button",
+  variant = "primary",
+  size = "lg",
+  isLoading = false,
+  icon: Icon,
+  ...props
+}) => {
+  const baseStyles =
+    "font-bold w-fit rounded-[20px] text-sm transition-all leading-[140%] flex items-center justify-center gap-x-1 capitalize duration-300 ease-in font-medium disabled:cursor-not-allowed";
+  const variants = {
+    primary:
+      "bg-primary text-white border-primary hover:bg-primary/80 active:bg-primary/90 disabled:bg-primary/30",
+    secondary:
+      "bg-gray-600 text-white hover:bg-secondary/80 active:bg-secondary/90 disabled:bg-secondary/30",
+    danger:
+      "bg-red-600 border-red-600 text-white hover:bg-red-500 active:bg-red-700 disabled:bg-red-700/30",
+    transparent:
+      "bg-transparent text-black/90 border hover:text-primary active:text-primary/90 disabled:bg-primary/30",
+    white:
+      " bg-white text-secondary border hover:text-primary active:text-primary/90 disabled:bg-primary/30",
+  };
+  const sizes = {
+    sm: "py-1 px-2 text-sm",
+    md: "py-1.5 px-4 text-base",
+    lg: "py-2.5 px-6 text-sm",
+    xl: "py-3 px-6 text-xl",
+  };
+
+  const classes = cn(
+    baseStyles,
+    variants[variant],
+    sizes[size],
+    isLoading && "opacity-50 cursor-not-allowed ",
+    className
+  );
+
   return (
-    <>
-      
-      <button
-        type={type}
-        className={`  py-4  h-14 bg-btnprimary whitespace-nowrap rounded-lg flex items-center justify-center text-white text-lg  font-semibold  ${className} ${
-          isPending || (disabled && "opacity-70 cursor-not-allowed")
-        }`}
-        onClick={onClick}
-        disabled={isPending || disabled}
-        {...rest}
-      >
-        {isPending ? <Spinner /> : children}
-      </button>
-    </>
+    <HeadlessButton
+      type={type}
+      className={classes}
+      disabled={isLoading}
+      {...props}
+    >
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {Icon && <Icon className="mr-2" />}
+          {children}
+        </>
+      )}
+      {label}
+    </HeadlessButton>
   );
 };
