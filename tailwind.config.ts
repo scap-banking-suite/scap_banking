@@ -23,7 +23,7 @@ const config = {
         transparent: "transparent",
 				white: "#FFFFFF",
         lightgray: "#F2F2F2",
-        primary: "#003366",
+        primary: "#1C0477",
        btnprimary: "#0357EE",
         secondary: "#00A8CC",
         accent: "#A6CE39",
