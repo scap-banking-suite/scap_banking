@@ -1,5 +1,5 @@
 
-import SearchInputComp from "@/components/controlInput/SearchInputComp";
+import SearchInputComp from "@/components/controlInputs/SearchInputComp";
 import { CollapseActiveIcon, FavouriteIcon, LightModeIcon, NotificationIcon } from "@/icons/svgComp/NavbarIcons";
 import React from "react";
 
