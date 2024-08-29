@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: "SatoshiRegular";
+  src: url("../public/satoshi/fonts/Satoshi-Regular.woff"),
+    url("../public/satoshi/fonts/Satoshi-Regular.ttf"),
+    url("../public/satoshi/fonts/Satoshi-Regular.woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "SatoshiBold";
   src: url("../public/satoshi/fonts/Satoshi-Medium.woff"),
     url("../public/satoshi/fonts/Satoshi-Medium.ttf"),
