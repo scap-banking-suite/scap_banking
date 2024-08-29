@@ -23,7 +23,7 @@ const NotificationBoard = ({ notificationsData }: props) => {
       <h4 className="text-sm font-normal text-black my-5">Notifications</h4>
       {notificationsData?.map((item) => {
         return (
-          <main className="flex gap-4 mt-4">
+          <main className="flex gap-2 mt-4">
             <div>{notificationImages[item?.type as NotificationType]}</div>
             <div className="">
               <p className="text-sm font-normal text-black">

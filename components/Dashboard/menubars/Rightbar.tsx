@@ -1,9 +1,11 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownIcon } from "@/icons/svgComp/Dropdown";
 import profileAvatar from "@/icons/svgs/profileAvatar.svg";
 import Image from "next/image";
 import NotificationBoard from "../otherComp/NotificationBoard";
+import ActivityBoard from "../otherComp/ActivityBoard";
+import ActiveUsers from "../otherComp/ActiveUsers";
+import { DropdownIcon } from "@/icons/svgComp/Dropdown";
 
 type Props = {};
 
@@ -12,6 +14,13 @@ export type NotificationDataType = {
   type: string;
   description: string;
 }[];
+
+export type ActivityDataType = {
+  image: string;
+  description: string;
+  time?: string;
+}[];
+
 export const Rightbar = (props: Props) => {
   const notificationsData: NotificationDataType = [
     {
@@ -36,8 +45,58 @@ export const Rightbar = (props: Props) => {
     },
   ];
 
+  const activitiesData: ActivityDataType = [
+    {
+      image: profileAvatar,
+      description: "Changed the style.",
+      time: "Just now",
+    },
+    {
+      image: profileAvatar,
+      description: "Released a new version.",
+      time: "59 minutes ago",
+    },
+    {
+      image: profileAvatar,
+      description: "Submitted a bug.",
+      time: "12 hours ago",
+    },
+    {
+      image: profileAvatar,
+      description: "Modified A data in Page X.",
+      time: "Today, 11:59 AM",
+    },
+    {
+      image: profileAvatar,
+      description: "Deleted a page in Project X.",
+      time: "Feb 2, 2024",
+    },
+  ];
+  const activeUsers: ActivityDataType = [
+    {
+      image: profileAvatar,
+      description: "Natali Craig",
+    },
+    {
+      image: profileAvatar,
+      description: "Drew Cano",
+    },
+    {
+      image: profileAvatar,
+      description: "Andi Lane",
+    },
+    {
+      image: profileAvatar,
+      description: "Koray Okumus",
+    },
+    {
+      image: profileAvatar,
+      description: "Melody Macy",
+    },
+  ];
+
   return (
-    <section className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-white flex flex-col items-center">
+    <section className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-transparent  overflow-y-scroll scrollbar-hidden">
       <div className="flex items-center justify-between gap-3 bg-accent border border-[#8F96A1] rounded-[34px] px-3 py-2 w-[220px] h-[47px] cursor-pointer">
         <h3
           className="text-xs "
@@ -58,6 +117,8 @@ export const Rightbar = (props: Props) => {
         </div>
       </div>
       <NotificationBoard notificationsData={notificationsData} />
+      <ActivityBoard activitiesData={activitiesData} />
+      <ActiveUsers activeUsers={activeUsers} />
     </section>
   );
 };

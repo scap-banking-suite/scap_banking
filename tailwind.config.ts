@@ -30,6 +30,15 @@ const config = {
         accent: "#F0C422",
         black: "#1C1C1C",
         borderblack: "#1C1C1C1A",
+        textcolor: '#64748B'
+      },
+      backgroundImage: {
+        upvector: "url('/new.png')",
+        downvector: "url('/downvector.png')",
+        logobg: "url('/logoBackground.png')",
+        heromobile: "url('/mobilebg-hero.png')",
+        swapbg: "url('/bg-swap.png')",
+        "hero-gradient": "linear-gradient(180deg, #3C42D1 70%, #00000033 30%)",
       },
       keyframes: {
         "accordion-down": {
@@ -41,6 +50,7 @@ const config = {
           to: { height: "0" },
         },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
