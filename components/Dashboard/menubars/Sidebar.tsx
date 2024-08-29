@@ -195,7 +195,7 @@ export const Sidebar = ({}: Props) => {
               >
                 <div className="flex items-center">
                   <p>{item.icon}</p>
-                  <span className="ml-2">{item.name}</span>
+                  <span className="ml-2 text">{item.name?.length > 15 ? `${item?.name?.substring(0,15)+ "."}` : item?.name}</span>
                 </div>
                 {item.isDrop && (
                   <motion.div
