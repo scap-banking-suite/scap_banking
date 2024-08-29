@@ -4,15 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BankX from "@/icons/svgs/logo.svg";
 import Image from "next/image";
 
-// import {
-//   AccountIcon,
-//   AdminIcon,
-//   ChannelIcon,
-//   CollectionsIcon,
-//   DashboardIcon,
-//   FinanceIcon,
-//   OperationsIcon,
-// }
+
 import Link from "next/link";
 import {
   AccountIcon,
