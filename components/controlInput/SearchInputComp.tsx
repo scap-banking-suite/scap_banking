@@ -40,7 +40,7 @@ const SearchInputComp = ({
 
   return (
     <div
-      className={`flex items-center bg-[#1C1C1C0D] rounded-[8px] p-2 h-[28px] w-[160px] focus-within:border-darkBlue focus-within:outline-none focus-within:border ${className}`}
+      className={`flex items-center bg-black bg-opacity-5 rounded-[8px] p-2 h-[28px] w-[160px] focus-within:border-darkBlue focus-within:outline-none focus-within:border ${className}`}
     >
       {/* Search Icon */}
       <div className="mr-2">
@@ -55,11 +55,11 @@ const SearchInputComp = ({
         onChange={onChange}
         onClick={onClick}
         onKeyDown={onKeyDown}
-        className="flex-grow bg-transparent outline-none placeholder-[#1C1C1C33] text-darkBlue text-sm font-normal w-full "
+        className="flex-grow bg-transparent outline-none placeholder-black placeholder-opacity-20 text-darkBlue text-sm font-normal w-full "
       />
 
       {/* Command + / Shortcut */}
-      <p className="ml-2 flex items-center text-[#1C1C1C33] text-sm font-normal">
+      <p className="ml-2 flex items-center text-black opacity-20 text-sm font-normal">
         ⌘/
       </p>
     </div>
