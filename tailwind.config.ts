@@ -25,9 +25,11 @@ const config = {
         lightgray: "#F2F2F2",
         primary: "#1C0477",
        btnprimary: "#0357EE",
+       darkBlue: "#020E23",
         secondary: "#00A8CC",
         accent: "#A6CE39",
         borderblack: "#1C1C1C1A",
+        
       },
       keyframes: {
         "accordion-down": {
