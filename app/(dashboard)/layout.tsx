@@ -1,4 +1,3 @@
-
 import { Navbar } from "@/components/Dashboard/menubars/Navbar";
 import { Rightbar } from "@/components/Dashboard/menubars/Rightbar";
 import { Sidebar } from "@/components/Dashboard/menubars/Sidebar";
@@ -10,7 +9,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="flex">
+    <div className="flex bg-[url('/backgrounddash.png')] bg-no-repeat bg-contain bg-bottom ">
       <Sidebar />
       <div className="w-[66%]">
         <Navbar />
