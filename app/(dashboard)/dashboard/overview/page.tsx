@@ -1,4 +1,5 @@
 "use client";
+import BankLineChart from "@/components/Dashboard/charts/BankLineChart";
 import StatCard from "@/components/Dashboard/otherComp/StatCard";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import React, { useState } from "react";
@@ -68,10 +69,13 @@ const Overview = () => {
               );
             })}
           </div>
+          <div className="mt-4">
+            <BankLineChart />
+          </div>
         </section>
         <section className="w-[20%]">
           <StatCard
-            className="w-[200px]"
+            className="!w-[200px]"
             type={"user"}
             amount="2,856"
             percent={"+6.08"}

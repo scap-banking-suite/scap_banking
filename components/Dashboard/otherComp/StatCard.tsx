@@ -34,7 +34,7 @@ const StatCard = ({
       //       : "bg-[#D7E5FF]"
       //   }`}
       className={clsx(
-        "h-[96px] bg-[#D7E5FF] rounded-2xl w-[270px]  px-5 py-5 cursor-pointer",
+        "h-[96px]  rounded-2xl w-[270px] px-5 py-5 cursor-pointer",
         className,
         index !== undefined ? `z-${30 - index * 10}` : "",
         index === 0 ? "ml-0" : "-ml-8",
@@ -44,7 +44,7 @@ const StatCard = ({
           ? "bg-[#F4CB05]"
           : type === "user"
           ? "bg-[#020E23] text-white"
-          : ""
+          : "bg-[#D7E5FF]"
       )}
     >
       <p className="mb-3 text-xs font-normal">{title}</p>
