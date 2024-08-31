@@ -1,14 +1,22 @@
 "use client";
+import React, { useState } from "react";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
+import CustomControlledSelect from "@/components/controlInputs/CustomControlledSelect";
+import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { LockKeyIcon } from "@/icons/svgComp/LockKeyIcon";
 import { MessageIcon } from "@/icons/svgComp/MessageIcon";
 import { PersonIcon } from "@/icons/svgComp/PersonIcon";
 import { Field } from "@/schemas/dynamicSchema";
-import React from "react";
 
 type Props = {};
+
+const statuses = [
+  { value: "electronics", label: "Electronics" },
+  { value: "clothing", label: "Clothing" },
+  { value: "books", label: "Books" },
+];
 
 const fields: Field[] = [
   {
@@ -66,6 +74,7 @@ const fields: Field[] = [
 const Form = (props: Props) => {
   const { control, handleSubmit, formState } = useDynamicForm(fields, {});
   const { isValid } = formState;
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
 
   return (
     <div className="w-9/12 mx-auto my-16 flex flex-col ">
@@ -90,7 +99,29 @@ const Form = (props: Props) => {
         variant="primary"
       />
 
-      <CustomButton variant="primary" label="Generate Statement" className="mx-auto rounded-lg"/>
+      <CustomControlledSelect
+        name="status"
+        control={control}
+        // label="status"
+        placeholder="Select Job Status"
+        options={statuses}
+        // loading={statusFetching}
+        rules={{ required: true }}
+        variant="primary"
+      />
+
+      <CustomSelect
+        options={statuses}
+        value={selectedStatus}
+        onChange={(value) => setSelectedStatus(value)}
+        placeholder="Select a category"
+      />
+
+      <CustomButton
+        variant="primary"
+        label="Generate Statement"
+        className="mx-auto rounded-lg"
+      />
     </div>
   );
 };

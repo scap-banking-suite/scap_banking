@@ -1,3 +1,6 @@
+import * as React from "react"
+import { SVGProps } from "react"
+
 export const ArrowD = () => {
   return (
     <svg
@@ -17,3 +20,17 @@ export const ArrowD = () => {
     </svg>
   );
 };
+
+
+export const ChevDropdownIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={16}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <path fill="#33354D" d="m7.999 11.384 4.666-5.334H3.332l4.667 5.334Z" />
+  </svg>
+)
+
