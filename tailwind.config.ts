@@ -32,6 +32,7 @@ const config = {
         borderblack: "#1C1C1C1A",
         textcolor: '#64748B',
         textdark: '#02050A',
+        textbrown: '#33354D',
         bordergrey: '#E8ECF1'
       },
       backgroundImage: {

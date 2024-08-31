@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import BankX from "@/icons/svgs/logo.svg";
 import Image from "next/image";
 
-
 import Link from "next/link";
+
+import { DropdownIconUP } from "@/icons/svgComp/Dropdown";
 import {
   AccountIcon,
   AdminIcon,
@@ -14,8 +15,7 @@ import {
   DashboardIcon,
   FinanceIcon,
   OperationsIcon,
-} from "@/icons/svgComp/SidebarIcons";
-import { DropdownIconUP } from "@/icons/svgComp/Dropdown"; 
+} from "@/icons/svgComp/sidebarIcons";
 
 type Props = {};
 
@@ -39,11 +39,6 @@ const sidebarItems: SidebarItem[] = [
         icon: <DashboardIcon />,
       },
       { name: "Loans", link: "/dashboard/loans", icon: <DashboardIcon /> },
-      {
-        name: "Overview",
-        link: "/dashboard/overview",
-        icon: <DashboardIcon />,
-      },
     ],
   },
   {
@@ -169,9 +164,14 @@ export const Sidebar = ({}: Props) => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(
     null
   );
+  const [activeLink, setActiveLink] = useState<string>("Dashboard");
 
   const handleToggle = (index: number) => {
     setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleLinkClick = (link: string) => {
+    setActiveLink(link);
   };
 
   return (
@@ -188,14 +188,23 @@ export const Sidebar = ({}: Props) => {
           {sidebarItems.map((item, index) => (
             <li key={index} className="">
               <div
-                className={`flex items-center justify-between rounded-[10px] px-3 py-3 hover:bg-[#1C0477] cursor-pointer ${
-                  openDropdownIndex === index && "bg-[#1C0477]"
+                className={`flex items-center justify-between rounded-[10px] px-3 py-3 hover:bg-primary cursor-pointer ${
+                  openDropdownIndex === index || activeLink.includes(item.name)
+                    ? "bg-primary"
+                    : ""
                 }`}
-                onClick={() => item.isDrop && handleToggle(index)}
+                onClick={() => {
+                  handleToggle(index);
+                  if (item.link) handleLinkClick(item.link);
+                }}
               >
                 <div className="flex items-center">
                   <p>{item.icon}</p>
-                  <span className="ml-2 text">{item.name?.length > 15 ? `${item?.name?.substring(0,15)+ "."}` : item?.name}</span>
+                  <span className="ml-2 text">
+                    {item.name?.length > 15
+                      ? `${item?.name?.substring(0, 15) + "."}`
+                      : item?.name}
+                  </span>
                 </div>
                 {item.isDrop && (
                   <motion.div
@@ -222,7 +231,12 @@ export const Sidebar = ({}: Props) => {
                         <li key={idx} className="mb-2">
                           <Link
                             href={dropdownItem.link}
-                            className="flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-[#1C0477] w-10/12 "
+                            className={`flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-primary w-10/12 ${
+                              activeLink === dropdownItem.link
+                                ? "bg-primary"
+                                : ""
+                            }`}
+                            onClick={() => handleLinkClick(dropdownItem.link)}
                           >
                             <p>{dropdownItem.icon}</p>
                             <span className="ml-2 text-sm">
