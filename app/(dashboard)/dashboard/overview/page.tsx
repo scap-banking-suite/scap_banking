@@ -1,4 +1,6 @@
 "use client";
+import { CustomDatePicker } from "@/components/controlInputs/CustomDatePicker";
+import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import BankBarChart from "@/components/Dashboard/charts/BankBarChart";
 import BankLineChart from "@/components/Dashboard/charts/BankLineChart";
 import BankPieChart from "@/components/Dashboard/charts/BankPieChart";
@@ -42,6 +44,8 @@ const Overview = () => {
 
   const [statData, setStatData] = useState(initialData);
 
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
+
   // Function to handle click and reorder the array
   const handleCardClick = (index: number) => {
     if (index !== 0) {
@@ -52,6 +56,12 @@ const Overview = () => {
       setStatData(reorderedData);
     }
   };
+
+  const banklist = [
+    { value: "uba", label: "UBA" },
+    { value: "gtbank", label: "Gtbank" },
+    { value: "zenith", label: "Zenith" },
+  ];
 
   return (
     <div>
@@ -72,6 +82,7 @@ const Overview = () => {
               );
             })}
           </div>
+          {/* {graph} */}
           <div className="mt-4 bg-[#F7F9FB] rounded-[16px] py-7">
             <main className="flex items-center justify-between mb-3 px-4">
               <div>
@@ -97,7 +108,7 @@ const Overview = () => {
             </div>
           </div>
         </section>
-        <section className="w-[20%]">
+        <section className="w-[23%]">
           <StatCard
             className="!w-[200px]"
             type={"user"}
@@ -105,6 +116,29 @@ const Overview = () => {
             percent={"+6.08"}
             title={"Total Mobile Users"}
           />
+          <article className="mt-4 bg-[#F7F9FB] rounded-[16px] w-full py-7 px-4 h-[388px]">
+            <div>
+              <h4 className="text-sm font-semibold mb-4">
+                Balance by Banks (N)
+              </h4>
+              <CustomSelect
+                options={banklist}
+                value={selectedStatus}
+                onChange={(value) => setSelectedStatus(value)}
+                placeholder="Select Bank"
+                className="bg-transparent rounded-[10px]"
+              />
+              {[...Array(5)].map((_, index) => (
+                <section
+                  key={index}
+                  className="flex items-center justify-between mt-7"
+                >
+                  <p className="text-xs font-normal text-black">Lapo MFB</p>
+                  <h5 className="text-xs font-medium">23,005,468</h5>
+                </section>
+              ))}
+            </div>
+          </article>
         </section>
       </main>
       <article className="py-3 flex justify-between items-center">
@@ -115,15 +149,8 @@ const Overview = () => {
                 Total Accounts by Officers
               </h4>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 text-btnprimary">
-                <DotIcon />
-                <p className="text-xs  font-normal text-black">This year</p>
-              </div>
-              <div className="text-[#A8C5DA] flex items-center gap-1">
-                <DotIcon />
-                <p className="text-xs  font-normal text-black">Last year</p>
-              </div>
+            <div className="">
+              <CustomDatePicker />
             </div>
           </main>
           <div className="w-full">
@@ -133,21 +160,14 @@ const Overview = () => {
         <div className="w-[48.5%] bg-white border-2 border-[#F7F9FB] rounded-[16px] py-2">
           <main className="mb-3 py-3 border-b-2 border-[#F7F9FB]">
             <section className="px-3 flex items-center justify-between ">
-            <div>
-              <h4 className="text-sm font-semibold text-black">
-                Total Deposits by Officers
-              </h4>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 text-btnprimary">
-                <DotIcon />
-                <p className="text-xs  font-normal text-black">This year</p>
+              <div>
+                <h4 className="text-sm font-semibold text-black">
+                  Total Deposits by Officers
+                </h4>
               </div>
-              <div className="text-[#A8C5DA] flex items-center gap-1">
-                <DotIcon />
-                <p className="text-xs  font-normal text-black">Last year</p>
+              <div className="">
+                <CustomDatePicker />
               </div>
-            </div>
             </section>
           </main>
           <div className="w-full">

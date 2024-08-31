@@ -20,6 +20,7 @@ type CustomSelectProps = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  className?:string;
 };
 
 export const CustomSelect = ({
@@ -27,11 +28,15 @@ export const CustomSelect = ({
   value,
   onChange,
   placeholder,
+  className,
 }: CustomSelectProps) => {
   return (
-    <Select  value={value} onValueChange={onChange}>
-      <SelectTrigger className="w-full">
-        <SelectValue className="text-textbrown text-xs" placeholder={placeholder} />
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className={`w-full ${className}`}>
+        <SelectValue
+          className="text-textbrown text-xs"
+          placeholder={placeholder}
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

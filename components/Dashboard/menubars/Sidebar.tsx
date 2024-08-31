@@ -15,7 +15,7 @@ import {
   DashboardIcon,
   FinanceIcon,
   OperationsIcon,
-} from "@/icons/svgComp/sidebarIcons";
+} from "@/icons/svgComp/SidebarIcons";
 
 type Props = {};
 
