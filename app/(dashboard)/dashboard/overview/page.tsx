@@ -1,7 +1,10 @@
 "use client";
+import BankBarChart from "@/components/Dashboard/charts/BankBarChart";
 import BankLineChart from "@/components/Dashboard/charts/BankLineChart";
+import BankPieChart from "@/components/Dashboard/charts/BankPieChart";
 import StatCard from "@/components/Dashboard/otherComp/StatCard";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
+import { DotIcon } from "@/icons/svgComp/ChartIcon";
 import React, { useState } from "react";
 
 export type StatDataType = {
@@ -69,8 +72,29 @@ const Overview = () => {
               );
             })}
           </div>
-          <div className="mt-4">
-            <BankLineChart />
+          <div className="mt-4 bg-[#F7F9FB] rounded-[16px] py-7">
+            <main className="flex items-center justify-between mb-3 px-4">
+              <div>
+                <h4 className="text-sm font-semibold text-black">
+                  Total Deposits Per Month
+                  <span className="ml-2 opacity-40 font-normal">(Naira)</span>
+                </h4>
+              </div>
+              <div className="w-px h-[20px] bg-black bg-opacity-20" />
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 text-btnprimary">
+                  <DotIcon />
+                  <p className="text-xs  font-normal text-black">This year</p>
+                </div>
+                <div className="text-[#A8C5DA] flex items-center gap-1">
+                  <DotIcon />
+                  <p className="text-xs  font-normal text-black">Last year</p>
+                </div>
+              </div>
+            </main>
+            <div className="w-full">
+              <BankLineChart />
+            </div>
           </div>
         </section>
         <section className="w-[20%]">
@@ -83,6 +107,54 @@ const Overview = () => {
           />
         </section>
       </main>
+      <article className="py-3 flex justify-between items-center">
+        <div className="bg-[#F7F9FB] rounded-[16px] py-3 px-2 w-[48.5%]">
+          <main className="flex items-center justify-between mb-3 px-4 py-2">
+            <div>
+              <h4 className="text-sm font-semibold text-black">
+                Total Accounts by Officers
+              </h4>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 text-btnprimary">
+                <DotIcon />
+                <p className="text-xs  font-normal text-black">This year</p>
+              </div>
+              <div className="text-[#A8C5DA] flex items-center gap-1">
+                <DotIcon />
+                <p className="text-xs  font-normal text-black">Last year</p>
+              </div>
+            </div>
+          </main>
+          <div className="w-full">
+            <BankBarChart />
+          </div>
+        </div>
+        <div className="w-[48.5%] bg-white border-2 border-[#F7F9FB] rounded-[16px] py-2">
+          <main className="mb-3 py-3 border-b-2 border-[#F7F9FB]">
+            <section className="px-3 flex items-center justify-between ">
+            <div>
+              <h4 className="text-sm font-semibold text-black">
+                Total Deposits by Officers
+              </h4>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 text-btnprimary">
+                <DotIcon />
+                <p className="text-xs  font-normal text-black">This year</p>
+              </div>
+              <div className="text-[#A8C5DA] flex items-center gap-1">
+                <DotIcon />
+                <p className="text-xs  font-normal text-black">Last year</p>
+              </div>
+            </div>
+            </section>
+          </main>
+          <div className="w-full">
+            <BankPieChart />
+          </div>
+        </div>
+      </article>
     </div>
   );
 };
