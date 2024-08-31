@@ -37,7 +37,7 @@ const StatCard = ({
         "h-[96px]  rounded-2xl w-[270px] px-5 py-5 cursor-pointer",
         className,
         index !== undefined ? `z-${30 - index * 10}` : "",
-        index === 0 ? "ml-0" : "-ml-8",
+        index !== undefined && index !== 0 ? "-ml-8" : "ml-0",
         type === "open"
           ? "bg-[#FFFAE5]"
           : type === "deposit"
