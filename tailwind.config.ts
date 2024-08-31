@@ -30,7 +30,9 @@ const config = {
         accent: "#F0C422",
         black: "#1C1C1C",
         borderblack: "#1C1C1C1A",
-        textcolor: '#64748B'
+        textcolor: '#64748B',
+        textdark: '#02050A',
+        bordergrey: '#E8ECF1'
       },
       backgroundImage: {
         upvector: "url('/new.png')",

@@ -1,3 +1,4 @@
+import { CustomDatePicker } from "@/components/controlInputs/CustomDatePicker";
 import React from "react";
 
 const TopBar = () => {
@@ -10,7 +11,7 @@ const TopBar = () => {
         <p className="text-sm font-semibold text-black">Overview</p>
       </div>
       <div>
-        <p>dateeee</p>
+        <CustomDatePicker />
       </div>
     </div>
   );
