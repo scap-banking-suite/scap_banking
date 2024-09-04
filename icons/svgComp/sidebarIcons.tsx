@@ -44,7 +44,6 @@ export const AccountIcon = () => {
   );
 };
 
-
 export const AdminIcon = () => {
   return (
     <svg
@@ -66,7 +65,6 @@ export const AdminIcon = () => {
   );
 };
 
-
 export const ChannelIcon = () => {
   return (
     <svg
@@ -83,7 +81,6 @@ export const ChannelIcon = () => {
     </svg>
   );
 };
-
 
 export const CollectionsIcon = () => {
   return (
@@ -102,7 +99,6 @@ export const CollectionsIcon = () => {
   );
 };
 
-
 export const FinanceIcon = () => {
   return (
     <svg
@@ -119,7 +115,6 @@ export const FinanceIcon = () => {
     </svg>
   );
 };
-
 
 export const OperationsIcon = () => {
   return (

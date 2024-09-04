@@ -5,7 +5,7 @@ import Image from "next/image";
 import NotificationBoard from "../otherComp/NotificationBoard";
 import ActivityBoard from "../otherComp/ActivityBoard";
 import ActiveUsers from "../otherComp/ActiveUsers";
-import { DropdownIcon } from "@/icons/svgComp/Dropdown";
+import { DropdownIcon } from "@/icons/svgComp/DropdownIcon";
 
 type Props = {};
 
