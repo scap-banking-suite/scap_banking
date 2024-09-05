@@ -41,7 +41,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/accounts/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -54,7 +54,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/admin/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -67,7 +67,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/channels/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -80,7 +80,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/collections/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -93,7 +93,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/finance/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -106,7 +106,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/operations/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -119,7 +119,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/reports/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -132,7 +132,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/risk-approval/overview",
         icon: <DashboardIcon />,
       },
     ],
@@ -145,7 +145,7 @@ const sidebarItems: SidebarItem[] = [
     dropdownItems: [
       {
         name: "Overview",
-        link: "/dashboard/overview",
+        link: "/teller/overview",
         icon: <DashboardIcon />,
       },
     ],
