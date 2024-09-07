@@ -13,9 +13,9 @@ export const ArrowD = () => {
       <path
         d="M4.26294 5.66895L7.97544 9.38145L11.6879 5.66895"
         stroke="#02050A"
-        stroke-width="1.2375"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.2375"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
