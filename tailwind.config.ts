@@ -34,7 +34,8 @@ const config = {
         textcolor: '#64748B',
         textdark: '#02050A',
         textbrown: '#33354D',
-        bordergrey: '#E8ECF1'
+        bordergrey: '#E8ECF1',
+        tableText: "#464F60"
       },
       backgroundImage: {
         upvector: "url('/new.png')",

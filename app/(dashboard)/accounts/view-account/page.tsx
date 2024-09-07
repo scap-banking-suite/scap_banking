@@ -1,13 +1,19 @@
 "use client";
+import ByCustomerID from "@/components/Account/ViewAccount/ByCustomerID";
+import ViewAccInput from "@/components/Account/ViewAccInput";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
+import ByCustomerEmail from "@/components/Account/ViewAccount/ByCustomerEmail";
+import ByCustomerBVN from "@/components/Account/ViewAccount/ByCustomerBVN";
+import ByCustomerNIN from "@/components/Account/ViewAccount/ByCustomerNIN";
+import ByCustomerMobile from "@/components/Account/ViewAccount/ByCustomerMobile";
 
 const Accounts = () => {
   return (
     <div>
       <TopBar title={"View Account"} />
-      <section className="w-full mt-2 bg-accountBg rounded-t-[20px]">
+      <section className="w-full mt-2 bg-accountBg rounded-[20px] pb-10">
         <Tabs defaultValue="ID">
           <TabsList className="w-full flex justify-around rounded-b-none rounded-t-[20px] bg-primary pb-0 px-5">
             <TabsTrigger
@@ -42,9 +48,23 @@ const Accounts = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="ID">
-            Make changes to your account here.
+            <ByCustomerID />
           </TabsContent>
-          <TabsContent value="Mobile">Change your password here.</TabsContent>
+          <TabsContent value="Email">
+            <ByCustomerEmail />
+          </TabsContent>
+          <TabsContent value="Email">
+            <ByCustomerEmail />
+          </TabsContent>
+          <TabsContent value="BVN">
+            <ByCustomerBVN />
+          </TabsContent>
+          <TabsContent value="NIN">
+            <ByCustomerNIN />
+          </TabsContent>
+          <TabsContent value="Mobile">
+            <ByCustomerMobile />
+          </TabsContent>
         </Tabs>
       </section>
     </div>

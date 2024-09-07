@@ -56,3 +56,28 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
 }
+
+
+.scrollableCSS::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.scrollableCSS::-webkit-scrollbar-thumb {
+  background: darkgrey;
+}
+
+.scrollableCSS::-webkit-scrollbar-thumb:hover {
+  background: #1C0477;
+}
+
+
+.tabling {
+  border-collapse: separate;
+  border-spacing: 0px 10px;
+}
+
+
+/* .tabling tr {
+  box-shadow: 0px 2px 2px 0px rgba(34, 34, 34, 0.1);
+} */
