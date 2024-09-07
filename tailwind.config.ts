@@ -27,13 +27,15 @@ const config = {
         btnprimary: "#0357EE",
         darkBlue: "#020E23",
         secondary: "#00A8CC",
+        accountBg: "#E7EEFA",
         accent: "#F0C422",
         black: "#1C1C1C",
         borderblack: "#1C1C1C1A",
         textcolor: '#64748B',
         textdark: '#02050A',
         textbrown: '#33354D',
-        bordergrey: '#E8ECF1'
+        bordergrey: '#E8ECF1',
+        tableText: "#464F60"
       },
       backgroundImage: {
         upvector: "url('/new.png')",
