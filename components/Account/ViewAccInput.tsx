@@ -17,13 +17,15 @@ const ViewAccInput = ({ type, placeholder, className, buttonLabel }: Props) => {
         className="outline-none bg-transparent placeholder:text-[#B3B7BD] text-sm w-[80%]"
         placeholder={placeholder}
       />
-      <div className="w-[152px]">
-        <CustomButton
-          variant="primary"
-          label={buttonLabel}
-          className="rounded-[20px] w-full text-sm h-[40px] font-[300]"
-        />
-      </div>
+      {buttonLabel && (
+        <div className="w-[152px]">
+          <CustomButton
+            variant="primary"
+            label={buttonLabel}
+            className="rounded-[20px] w-full text-sm h-[40px] font-[300]"
+          />
+        </div>
+      )}
     </div>
   );
 };

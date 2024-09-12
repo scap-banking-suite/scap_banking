@@ -1,4 +1,5 @@
 "use client";
+import ExportPDF from "@/components/Account/AccountEnquiry/ExportPDF";
 import SpoolEntries from "@/components/Account/AccountEnquiry/SpoolEntries";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -28,7 +29,7 @@ const AccountsEnquiry = () => {
             <SpoolEntries/>
           </TabsContent>
           <TabsContent value="Export" className="w-[95%] mx-auto">
-            <p>export</p>
+            <ExportPDF/>
           </TabsContent>
         </Tabs>
       </section>

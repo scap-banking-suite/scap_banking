@@ -1,16 +1,5 @@
 {
   "pages": {
-    "/(auth)/auth/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/auth/login/page.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
     "/(dashboard)/dashboard/overview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -21,10 +10,21 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(dashboard)/layout.js"
     ],
-    "/(dashboard)/accounts/view-account/page": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/accounts/view-account/page.js"
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/(dashboard)/accounts/add-alerts-subscribers/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(dashboard)/accounts/add-alerts-subscribers/page.js"
+    ],
+    "/(dashboard)/accounts/alerts-management/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(dashboard)/accounts/alerts-management/page.js"
     ],
     "/(dashboard)/accounts/account-enquiry/page": [
       "static/chunks/webpack.js",
