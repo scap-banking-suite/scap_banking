@@ -7,7 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DropdownIconUP } from "@/icons/svgComp/DropdownIcon";
-import { AccountIcon, AdminIcon, ChannelIcon, CollectionsIcon, DashboardIcon, FinanceIcon, OperationsIcon } from "@/icons/svgComp/SidebarIcons";
+import {
+  AccountIcon,
+  AdminIcon,
+  ChannelIcon,
+  CollectionsIcon,
+  DashboardIcon,
+  FinanceIcon,
+  OperationsIcon,
+} from "@/icons/svgComp/SidebarIcons";
 
 type Props = {};
 
@@ -46,12 +54,12 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Account Enquiry",
-        link: "",
+        link: "/accounts/account-enquiry",
         icon: <DashboardIcon />,
       },
       {
         name: "Add Alert Subscribers",
-        link: "",
+        link: "/accounts/add-alerts-subscribers",
         icon: <DashboardIcon />,
       },
       {
@@ -61,7 +69,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Alert Management",
-        link: "",
+        link:"/accounts/alerts-management",
         icon: <DashboardIcon />,
       },
       {
