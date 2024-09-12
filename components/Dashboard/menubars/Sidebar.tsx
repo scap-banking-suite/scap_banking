@@ -46,7 +46,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Account Enquiry",
-        link: "",
+        link: "/accounts/account-enquiry",
         icon: <DashboardIcon />,
       },
       {

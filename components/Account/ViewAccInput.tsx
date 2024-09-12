@@ -5,8 +5,9 @@ type Props = {
   type: string;
   placeholder: string;
   className?: string;
+  buttonLabel?: string;
 };
-const ViewAccInput = ({ type, placeholder, className }: Props) => {
+const ViewAccInput = ({ type, placeholder, className, buttonLabel }: Props) => {
   return (
     <div
       className={`bg-white flex justify-between items-center h-[60px] rounded-[40px] py-3 px-4 ${className}`}
@@ -19,7 +20,7 @@ const ViewAccInput = ({ type, placeholder, className }: Props) => {
       <div className="w-[152px]">
         <CustomButton
           variant="primary"
-          label=" View Account"
+          label={buttonLabel}
           className="rounded-[20px] w-full text-sm h-[40px] font-[300]"
         />
       </div>

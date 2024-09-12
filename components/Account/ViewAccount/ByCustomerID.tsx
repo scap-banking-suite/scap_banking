@@ -12,7 +12,7 @@ const ByCustomerID = () => {
   return (
     <main className="w-[95%] mx-auto">
       <div className="my-10">
-        <ViewAccInput type="text" placeholder="Enter Customer ID Number" />
+        <ViewAccInput type="text" placeholder="Enter Customer ID Number" buttonLabel="View Account" />
       </div>
       <section className="bg-white rounded-[30px] px-5 py-5">
         <GenerateProfile />
