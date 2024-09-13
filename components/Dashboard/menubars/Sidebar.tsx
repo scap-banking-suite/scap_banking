@@ -40,8 +40,48 @@ const sidebarItems: SidebarItem[] = [
     isDrop: true,
     dropdownItems: [
       {
-        name: "Overview",
-        link: "/accounts/overview",
+        name: "View Account",
+        link: "/accounts/view-account",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Account Enquiry",
+        link: "/accounts/account-enquiry",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Add Alert Subscribers",
+        link: "/accounts/add-alerts-subscribers",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Add Corporate Director",
+        link: "",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Alert Management",
+        link:"/accounts/alerts-management",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Alert Management Report",
+        link: "",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Approve Alert Subscribers",
+        link: "",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Customer Update Request",
+        link: "",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "BVN Information",
+        link: "",
         icon: <DashboardIcon />,
       },
     ],
@@ -213,7 +253,7 @@ export const Sidebar = ({}: Props) => {
                 <AnimatePresence>
                   {openDropdownIndex === index && (
                     <motion.ul
-                      className="ml-7 mt-2"
+                      className="ml-3 mt-2"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -223,7 +263,7 @@ export const Sidebar = ({}: Props) => {
                         <li key={idx} className="mb-2">
                           <Link
                             href={dropdownItem.link}
-                            className={`flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-primary w-10/12 ${
+                            className={`flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-primary w-full ${
                               activeLink === dropdownItem.link
                                 ? "bg-primary"
                                 : ""
@@ -231,7 +271,7 @@ export const Sidebar = ({}: Props) => {
                             onClick={() => handleLinkClick(dropdownItem.link)}
                           >
                             <p>{dropdownItem.icon}</p>
-                            <span className="ml-2 text-sm">
+                            <span className="ml-2 text-xs">
                               {dropdownItem.name}
                             </span>
                           </Link>

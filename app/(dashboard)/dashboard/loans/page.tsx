@@ -17,7 +17,7 @@ export type StatDataType = {
   type: string;
 }[];
 
-const Overview = () => {
+const Loans = () => {
   const initialData: StatDataType = [
     {
       id: 1,
@@ -65,7 +65,7 @@ const Overview = () => {
 
   return (
     <div>
-      <TopBar  title={"Overview"}/>
+      <TopBar title={"Loans"}/>
       <main className="flex justify-between py-3">
         <section className="w-[74%]">
           <div className="flex items-center ">
@@ -87,7 +87,7 @@ const Overview = () => {
             <main className="flex items-center justify-between mb-3 px-4">
               <div>
                 <h4 className="text-sm font-semibold text-black">
-                  Total Deposits Per Month
+                  Total Loans Per Month
                   <span className="ml-2 opacity-40 font-normal">(Naira)</span>
                 </h4>
               </div>
@@ -119,13 +119,13 @@ const Overview = () => {
           <article className="mt-4 bg-[#F7F9FB] rounded-[16px] w-full py-7 px-4 h-[388px]">
             <div>
               <h4 className="text-sm font-semibold mb-4">
-                Balance by Banks (N)
+              Total Loans by Products 
               </h4>
               <CustomSelect
                 options={banklist}
                 value={selectedStatus}
                 onChange={(value) => setSelectedStatus(value)}
-                placeholder="Select Bank"
+                placeholder="Product"
                 className="bg-transparent rounded-[10px]"
               />
               {[...Array(5)].map((_, index) => (
@@ -146,7 +146,7 @@ const Overview = () => {
           <main className="flex items-center justify-between mb-3 px-4 py-2">
             <div>
               <h4 className="text-sm font-semibold text-black">
-                Total Accounts by Officers
+                Total Loans by Officers
               </h4>
             </div>
             <div className="">
@@ -162,7 +162,7 @@ const Overview = () => {
             <section className="px-3 flex items-center justify-between ">
               <div>
                 <h4 className="text-sm font-semibold text-black">
-                  Total Deposits by Officers
+                Total Loans by Classification
                 </h4>
               </div>
               <div className="">
@@ -179,4 +179,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default Loans;

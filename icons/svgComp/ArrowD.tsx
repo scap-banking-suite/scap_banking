@@ -21,7 +21,6 @@ export const ArrowD = () => {
   );
 };
 
-
 export const ChevDropdownIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -6,6 +6,7 @@ import NotificationBoard from "../otherComp/NotificationBoard";
 import ActivityBoard from "../otherComp/ActivityBoard";
 import ActiveUsers from "../otherComp/ActiveUsers";
 import { DropdownIcon } from "@/icons/svgComp/DropdownIcon";
+import { useAuthStore } from "@/store/authStore";
 
 type Props = {};
 
@@ -95,16 +96,18 @@ export const Rightbar = (props: Props) => {
     },
   ];
 
+  const { currentUser } = useAuthStore();
+
   return (
-    <section className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-transparent  overflow-y-scroll scrollbar-hidden">
+    <div className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-transparent  overflow-y-scroll scrollbar-hidden">
       <div className="flex items-center justify-between gap-3 bg-accent border border-[#8F96A1] rounded-[34px] px-3 py-2 w-[220px] h-[47px] cursor-pointer">
         <h3
-          className="text-xs "
+          className="text-xs capitalize "
           style={{
             fontFamily: "PoppinsBold",
           }}
         >
-          Abiodun Adebayo M.
+          {currentUser?.email?.split("@")[0] || "User"}
         </h3>
         <Avatar className="w-[29px] h-[29px]">
           <AvatarImage src="" />
@@ -119,6 +122,6 @@ export const Rightbar = (props: Props) => {
       <NotificationBoard notificationsData={notificationsData} />
       <ActivityBoard activitiesData={activitiesData} />
       <ActiveUsers activeUsers={activeUsers} />
-    </section>
+    </div>
   );
 };

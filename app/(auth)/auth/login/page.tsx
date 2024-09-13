@@ -11,6 +11,11 @@ import React from "react";
 import logo from "@/icons/svgs/logo.svg";
 import details from "@/icons/svgs/bank.svg";
 import downV from "@/public/newv.png";
+import { useAuthStore } from "@/store/authStore";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
+import { AuthUser } from "@/components/api/type";
 
 const fields: Field[] = [
   {
@@ -30,8 +35,42 @@ const fields: Field[] = [
 type Props = {};
 
 const Login = (props: Props) => {
-  const { control, handleSubmit, formState } = useDynamicForm(fields, {});
+  const { control, handleSubmit, formState, getValues } =
+    useDynamicForm<AuthUser>(fields, {});
   const { isValid } = formState;
+  const { setAccessToken, setCurrentUser } = useAuthStore();
+
+  const router = useRouter();
+
+  const generateRandomToken = () => {
+    return Math.random().toString(36).substr(2);
+  };
+
+  const onSubmit = () => {
+    const formData = getValues();
+    const { email, password } = formData;
+
+    const token = generateRandomToken();
+    const user = { email, password };
+
+    try {
+      // Set token and user in Zustand and localStorage
+      setAccessToken(token);
+      setCurrentUser(user);
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      localStorage.setItem("accessToken", token);
+      Cookies.set("accessToken", token, { expires: 1 });
+
+      toast.success("Login successful! Redirecting...", {});
+
+      setTimeout(() => {
+        router.push("/dashboard/overview");
+      }, 1000);
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <main className="flex h-screen">
@@ -59,7 +98,7 @@ const Login = (props: Props) => {
               Sign In to SCAP
             </h1>
             {/* Login Form */}
-            <form action="" className="mt-12">
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
               <ControlledInput
                 name="email"
                 control={control}
@@ -85,7 +124,8 @@ const Login = (props: Props) => {
                 variant="primary"
                 label="Sign In"
                 className="mt-5 rounded-lg w-full h-14"
-                // disabled={!isValid}
+                disabled={!isValid}
+                type="submit"
               />
             </form>
           </div>
