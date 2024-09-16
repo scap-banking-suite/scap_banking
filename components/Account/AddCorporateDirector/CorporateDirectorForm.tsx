@@ -1,5 +1,6 @@
 "use client";
 import { AuthUser } from "@/components/api/type";
+import { CustomButton } from "@/components/clickable/CustomButton";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import { CustomFileUpload } from "@/components/controlInputs/CustomFileUpload";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
@@ -155,12 +156,17 @@ export const CorporateDirectorForm = (props: Props) => {
           <CustomFileUpload
             name="file"
             label="File Upload"
-            control={control} 
+            control={control}
             rules={{ required: true }}
             placeholder=""
             variant="primary"
           />
         </div>
+        <CustomButton
+          variant="primary"
+          label="Add Corporate Director"
+          className="w-[378px] rounded-lg mt-2.5 py-3"
+        />
       </form>
     </section>
   );
