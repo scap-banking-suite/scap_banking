@@ -21,7 +21,7 @@ const SelectAccInput = ({
 }: Props) => {
   return (
     <CustomSelect
-    name="status"
+      name="status"
       dropdownChoice={true}
       options={options}
       value={selectedStatus}
