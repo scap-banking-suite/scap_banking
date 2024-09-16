@@ -65,7 +65,7 @@ const Overview = () => {
 
   return (
     <div>
-      <TopBar  title={"Overview"}/>
+      <TopBar title={"Overview"} />
       <main className="flex justify-between py-3">
         <section className="w-[74%]">
           <div className="flex items-center ">
@@ -122,6 +122,7 @@ const Overview = () => {
                 Balance by Banks (N)
               </h4>
               <CustomSelect
+                name="bank"
                 options={banklist}
                 value={selectedStatus}
                 onChange={(value) => setSelectedStatus(value)}

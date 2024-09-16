@@ -115,6 +115,7 @@ const Form = (props: Props) => {
         value={selectedStatus}
         onChange={(value) => setSelectedStatus(value)}
         placeholder="Select a category"
+        name="status"
       />
 
       <CustomButton
