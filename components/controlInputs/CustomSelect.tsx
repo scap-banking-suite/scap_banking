@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "../ui/label";
 
 type Option = {
   value: string;
@@ -22,6 +23,8 @@ type CustomSelectProps = {
   placeholder?: string;
   className?: string;
   dropdownChoice?: boolean;
+  name: string;
+  label?: string;
 };
 
 export const CustomSelect = ({
@@ -31,27 +34,38 @@ export const CustomSelect = ({
   placeholder,
   dropdownChoice,
   className,
+  label,
+  name,
 }: CustomSelectProps) => {
   return (
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger
-        dropdownChoice={dropdownChoice}
-        className={`w-full ${className}`}
+    <div className="mb-4 space-y-2">
+      <Label
+        htmlFor={name}
+        className="text-base capitalize text-[#1C2434]"
+        style={{ fontFamily: "SatoshiBold" }}
       >
-        <SelectValue
-          className="text-textbrown text-xs"
-          placeholder={placeholder}
-        />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+        {label}
+      </Label>
+      <Select value={value} onValueChange={onChange}>
+        <SelectTrigger
+          dropdownChoice={dropdownChoice}
+          className={`w-full ${className}`}
+        >
+          <SelectValue
+            className="text-textbrown text-xs"
+            placeholder={placeholder}
+          />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };

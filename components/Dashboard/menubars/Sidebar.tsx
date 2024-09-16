@@ -56,7 +56,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Add Corporate Director",
-        link: "",
+        link: "/accounts/add-corporate-director",
         icon: <DashboardIcon />,
       },
       {
@@ -66,7 +66,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Alert Management Report",
-        link: "",
+        link: "/accounts/alerts-management-report",
         icon: <DashboardIcon />,
       },
       {

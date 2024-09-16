@@ -65,7 +65,7 @@ const Loans = () => {
 
   return (
     <div>
-      <TopBar title={"Loans"}/>
+      <TopBar title={"Loans"} />
       <main className="flex justify-between py-3">
         <section className="w-[74%]">
           <div className="flex items-center ">
@@ -119,9 +119,10 @@ const Loans = () => {
           <article className="mt-4 bg-[#F7F9FB] rounded-[16px] w-full py-7 px-4 h-[388px]">
             <div>
               <h4 className="text-sm font-semibold mb-4">
-              Total Loans by Products 
+                Total Loans by Products
               </h4>
               <CustomSelect
+                name="bank"
                 options={banklist}
                 value={selectedStatus}
                 onChange={(value) => setSelectedStatus(value)}
@@ -162,7 +163,7 @@ const Loans = () => {
             <section className="px-3 flex items-center justify-between ">
               <div>
                 <h4 className="text-sm font-semibold text-black">
-                Total Loans by Classification
+                  Total Loans by Classification
                 </h4>
               </div>
               <div className="">
