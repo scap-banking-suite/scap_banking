@@ -1,8 +1,4 @@
 "use client";
-import ExportPDF from "@/components/Account/AccountEnquiry/ExportPDF";
-import SpoolEntries from "@/components/Account/AccountEnquiry/SpoolEntries";
-import EmailAlert from "@/components/Account/AddAlertSubscribers/EmailAlert";
-import SMSAlert from "@/components/Account/AddAlertSubscribers/SMSAlert";
 import ManageCustomerNotification from "@/components/Account/AlertMgts/ManageCustomerNotification";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

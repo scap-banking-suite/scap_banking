@@ -1,26 +1,26 @@
 "use client";
 
-import NotificationManagementReport from "@/components/Account/AlertMgts/NotificationManagementReport";
+import CustomerUpdateReport from "@/components/Account/CustomerUpdate/CustomerUpdateReport";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 
-const AlertMgtsReport = () => {
+const CustomerUpdate = () => {
   return (
     <div>
-      <TopBar title={"Alerts Management Report"} />
+      <TopBar title={"Customer Update Request"} />
       <section className="w-full mt-2 bg-accountBg rounded-[20px] pb-10">
-        <Tabs defaultValue="Notification">
+        <Tabs defaultValue="Approve">
           <TabsList className="w-full flex justify-start gap-x-10 rounded-b-none rounded-t-[20px] bg-primary pb-0 px-10">
             <TabsTrigger
               className="data-[state=active]:bg-accent rounded-b-none rounded-t-[20px] mt-1 text-white"
-              value="Notification"
+              value="Approve"
             >
-              Notification Management Report
+              Approve Customer Update
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="Notification" className="w-[95%] mx-auto">
-            <NotificationManagementReport />
+          <TabsContent value="Approve" className="w-[95%] mx-auto">
+            <CustomerUpdateReport />
           </TabsContent>
         </Tabs>
       </section>
@@ -28,4 +28,4 @@ const AlertMgtsReport = () => {
   );
 };
 
-export default AlertMgtsReport;
+export default CustomerUpdate;

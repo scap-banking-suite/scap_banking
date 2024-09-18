@@ -1,6 +1,4 @@
 "use client";
-import ExportPDF from "@/components/Account/AccountEnquiry/ExportPDF";
-import SpoolEntries from "@/components/Account/AccountEnquiry/SpoolEntries";
 import EmailAlert from "@/components/Account/AddAlertSubscribers/EmailAlert";
 import SMSAlert from "@/components/Account/AddAlertSubscribers/SMSAlert";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";

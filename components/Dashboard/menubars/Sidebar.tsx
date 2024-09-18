@@ -76,12 +76,17 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Customer Update Request",
-        link: "",
+        link: "/accounts/customer-update-request",
         icon: <DashboardIcon />,
       },
       {
         name: "BVN Information",
-        link: "",
+        link: "/accounts/BVN-information",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Confirm Bank Statements",
+        link: "/accounts/confirm-bank-statements",
         icon: <DashboardIcon />,
       },
     ],
