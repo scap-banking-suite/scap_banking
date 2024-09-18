@@ -71,7 +71,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Approve Alert Subscribers",
-        link: "",
+        link: "/accounts/approve-alert-subscribers",
         icon: <DashboardIcon />,
       },
       {
@@ -87,6 +87,11 @@ const sidebarItems: SidebarItem[] = [
       {
         name: "Confirm Bank Statements",
         link: "/accounts/confirm-bank-statements",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Create Corporate Customer",
+        link: "/accounts/create-corporate-customer",
         icon: <DashboardIcon />,
       },
     ],
