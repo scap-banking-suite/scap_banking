@@ -15,7 +15,7 @@ const TopBar = ({title}: props) => {
         <p className="text-sm font-semibold text-black">{title}</p>
       </div>
       <div>
-        <CustomDatePicker />
+        <CustomDatePicker name="" />
       </div>
     </div>
   );

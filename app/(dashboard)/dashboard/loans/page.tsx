@@ -151,7 +151,7 @@ const Loans = () => {
               </h4>
             </div>
             <div className="">
-              <CustomDatePicker />
+              <CustomDatePicker name="loan" />
             </div>
           </main>
           <div className="w-full">
@@ -167,7 +167,7 @@ const Loans = () => {
                 </h4>
               </div>
               <div className="">
-                <CustomDatePicker />
+                <CustomDatePicker name="loan" />
               </div>
             </section>
           </main>
