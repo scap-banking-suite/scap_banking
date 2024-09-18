@@ -34,7 +34,7 @@ export const SquareDotIcon = () => {
       width="7"
       height="7"
       viewBox="0 0 7 7"
-      fill="none"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect
@@ -43,7 +43,7 @@ export const SquareDotIcon = () => {
         width="6.37106"
         height="6.37106"
         rx="2.12369"
-        fill="#38A06C"
+        fill="currentColor"
       />
     </svg>
   );

@@ -4,6 +4,7 @@ import SpoolEntries from "@/components/Account/AccountEnquiry/SpoolEntries";
 import EmailAlert from "@/components/Account/AddAlertSubscribers/EmailAlert";
 import SMSAlert from "@/components/Account/AddAlertSubscribers/SMSAlert";
 import ManageCustomerNotification from "@/components/Account/AlertMgts/ManageCustomerNotification";
+import NotificationManagementReport from "@/components/Account/AlertMgts/NotificationManagementReport";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
@@ -19,11 +20,11 @@ const AlertMgts = () => {
               className="data-[state=active]:bg-accent rounded-b-none rounded-t-[20px] mt-1 text-white"
               value="Customer"
             >
-              Manage Customer Notification
+              Notification Management Report
             </TabsTrigger>
           </TabsList>
           <TabsContent value="Customer" className="w-[95%] mx-auto">
-            <ManageCustomerNotification />
+            <NotificationManagementReport />
           </TabsContent>
         </Tabs>
       </section>
