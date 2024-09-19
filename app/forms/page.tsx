@@ -112,8 +112,8 @@ const Form = (props: Props) => {
 
       <CustomSelect
         options={statuses}
-        value={selectedStatus}
-        onChange={(value) => setSelectedStatus(value)}
+        control={control}
+        rules={{ required: true }}
         placeholder="Select a category"
         name="status"
       />

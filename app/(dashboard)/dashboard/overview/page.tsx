@@ -1,4 +1,5 @@
 "use client";
+import { AuthUser } from "@/components/api/type";
 import { CustomDatePicker } from "@/components/controlInputs/CustomDatePicker";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import BankBarChart from "@/components/Dashboard/charts/BankBarChart";
@@ -6,7 +7,9 @@ import BankLineChart from "@/components/Dashboard/charts/BankLineChart";
 import BankPieChart from "@/components/Dashboard/charts/BankPieChart";
 import StatCard from "@/components/Dashboard/otherComp/StatCard";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
+import useDynamicForm from "@/hooks/useDynamicForm";
 import { DotIcon } from "@/icons/svgComp/ChartIcon";
+import { Field } from "@/schemas/dynamicSchema";
 import React, { useState } from "react";
 
 export type StatDataType = {
@@ -17,7 +20,37 @@ export type StatDataType = {
   type: string;
 }[];
 
+const fields: Field[] = [
+  {
+    name: "email",
+    type: "email",
+    errorMessage: "Email is required",
+    isRequired: true,
+  },
+  {
+    name: "referal",
+    type: "text",
+    errorMessage: "Select a reference",
+    isRequired: true,
+  },
+  {
+    name: "account_type",
+    type: "text",
+    errorMessage: "Enter Type",
+    isRequired: true,
+  },
+  {
+    name: "account_status",
+    type: "text",
+    errorMessage: "Enter Status",
+    isRequired: true,
+  },
+];
+
 const Overview = () => {
+  const { control, handleSubmit, formState, getValues } =
+  useDynamicForm<AuthUser>(fields, {});
+
   const initialData: StatDataType = [
     {
       id: 1,
@@ -124,9 +157,9 @@ const Overview = () => {
               <CustomSelect
                 name="bank"
                 options={banklist}
-                value={selectedStatus}
-                onChange={(value) => setSelectedStatus(value)}
-                placeholder="Select Bank"
+                control={control}
+                rules={{ required: true }}
+                placeholder="Product"
                 className="bg-transparent rounded-[10px]"
               />
               {[...Array(5)].map((_, index) => (
