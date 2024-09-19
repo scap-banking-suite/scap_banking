@@ -71,12 +71,12 @@ export const CorporateCustomerForm = (props: Props) => {
           />
           <CustomSelect
             options={country}
-            value={selectedCountry}
-            onChange={(value) => setSelectedCountry(value)}
             placeholder="Select Country"
             label="Country of Residence"
-            name="verification"
+            name="country"
             dropdownChoice
+            control={control}
+            rules={{ required: true }}
           />
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
@@ -91,11 +91,11 @@ export const CorporateCustomerForm = (props: Props) => {
           />
           <CustomSelect
             options={lga}
-            value={selectedLGA}
-            onChange={(value) => setSelectedLGA(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select LGA"
             label="Local Government Area"
-            name="verification"
+            name="lga"
             dropdownChoice
           />
         </div>
@@ -160,8 +160,8 @@ export const CorporateCustomerForm = (props: Props) => {
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
           <CustomSelect
             options={verification}
-            value={selectedStatus}
-            onChange={(value) => setSelectedStatus(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select Identification"
             label="Customer Means of Identification"
             name="verification"
@@ -189,8 +189,8 @@ export const CorporateCustomerForm = (props: Props) => {
           />
           <CustomSelect
             options={gender}
-            value={selectedGender}
-            onChange={(value) => setSelectedGender(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select Gender"
             label="Customer Gender"
             name="gender"

@@ -39,8 +39,6 @@ type Props = {};
 export const CorporateDirectorForm = (props: Props) => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const [selectedGender, setSelectedGender] = useState<string>("");
 
   return (
     <section className="bg-white rounded-[30px] p-10">
@@ -108,8 +106,8 @@ export const CorporateDirectorForm = (props: Props) => {
         <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-3">
           <CustomSelect
             options={verification}
-            value={selectedStatus}
-            onChange={(value) => setSelectedStatus(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select Identification"
             label="Director Means of Identification"
             name="verification"
@@ -137,8 +135,8 @@ export const CorporateDirectorForm = (props: Props) => {
         <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-3">
           <CustomSelect
             options={verification}
-            value={selectedStatus}
-            onChange={(value) => setSelectedStatus(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select LGA"
             label="Director Local Government Area"
             name="lga"
@@ -146,8 +144,8 @@ export const CorporateDirectorForm = (props: Props) => {
           />
           <CustomSelect
             options={gender}
-            value={selectedGender}
-            onChange={(value) => setSelectedGender(value)}
+            control={control}
+            rules={{ required: true }}
             placeholder="Select Gender"
             label="Director Gender"
             name="gender"
