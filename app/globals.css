@@ -60,7 +60,7 @@
 
 .scrollableCSS::-webkit-scrollbar {
   width: 2px;
-  height: 2px;
+  height: 3px;
 }
 
 .scrollableCSS::-webkit-scrollbar-thumb {
@@ -75,6 +75,10 @@
 .tabling {
   border-collapse: separate;
   border-spacing: 0px 10px;
+}
+.tablingOperation {
+  border-collapse: separate;
+  border-spacing: 0px 3px;
 }
 
 
