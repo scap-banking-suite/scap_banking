@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
   label?: string;
-  icon?: FC<React.ComponentProps<"svg">>;
+  icon?: any;
 }
 
 export const CustomButton: FC<ButtonProps> = ({
@@ -62,8 +62,8 @@ export const CustomButton: FC<ButtonProps> = ({
         <Spinner />
       ) : (
         <>
-          {Icon && <Icon className="mr-2" />}
           {children}
+          {Icon && <Icon className="ml-2" />}
         </>
       )}
       {label}
