@@ -151,12 +151,37 @@ const sidebarItems: SidebarItem[] = [
   {
     name: "Operations",
     icon: <OperationsIcon />,
-    link: "/accounts",
+    link: "/operations",
     isDrop: true,
     dropdownItems: [
       {
-        name: "Overview",
-        link: "/operations/overview",
+        name: "Account Enquiry",
+        link: "/operations/account-enquiry",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Acoount Linking Form",
+        link: "/operations/account-link-form",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Approve Deposits Liquidation",
+        link: "/operations/approve-deposits-liquidation",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Authorize Fixed Deposit",
+        link: "/operations/authorize-fixed-deposits",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Fixed Deposit",
+        link: "/operations/fixed-deposits",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Fees & Charges",
+        link: "/operations/fees-&-charges",
         icon: <DashboardIcon />,
       },
     ],
