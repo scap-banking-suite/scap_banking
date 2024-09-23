@@ -73,7 +73,7 @@ export const CustomDatePicker = ({
         <PopoverTrigger asChild>
           <button
             className={cn(
-              "w-full px-1.5 flex items-center gap-1.5 font-normal border border-[#E8ECF1] rounded-[6.6px]",
+              "w-full px-1.5 flex items-center gap-1.5 font-normal bg-white border border-[#E8ECF1] rounded-[6.6px]",
               !date && "text-muted-foreground"
             )}
             onClick={() => setPopoverOpen(true)}

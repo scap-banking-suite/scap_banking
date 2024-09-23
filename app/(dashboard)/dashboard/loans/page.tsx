@@ -97,7 +97,7 @@ const Loans = () => {
   return (
     <div>
       <TopBar title={"Loans"} />
-      <main className="flex justify-between py-3">
+      <div className="flex justify-between py-3">
         <section className="w-[74%]">
           <div className="flex items-center ">
             {statData?.map((item, index) => {
@@ -172,7 +172,7 @@ const Loans = () => {
             </div>
           </article>
         </section>
-      </main>
+      </div>
       <article className="py-3 flex justify-between items-center">
         <div className="bg-[#F7F9FB] rounded-[16px] py-3 px-2 w-[48.5%]">
           <main className="flex items-center justify-between mb-3 px-4 py-2">

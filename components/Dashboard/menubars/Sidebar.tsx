@@ -7,7 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DropdownIconUP } from "@/icons/svgComp/DropdownIcon";
-import { AccountIcon, AdminIcon, ChannelIcon, CollectionsIcon, DashboardIcon, FinanceIcon, OperationsIcon } from "@/icons/svgComp/BarIcons";
+import {
+  AccountIcon,
+  AdminIcon,
+  ChannelIcon,
+  CollectionsIcon,
+  DashboardIcon,
+  FinanceIcon,
+  OperationsIcon,
+} from "@/icons/svgComp/BarIcons";
 
 type Props = {};
 
@@ -61,7 +69,7 @@ const sidebarItems: SidebarItem[] = [
       },
       {
         name: "Alert Management",
-        link:"/accounts/alerts-management",
+        link: "/accounts/alerts-management",
         icon: <DashboardIcon />,
       },
       {
@@ -142,8 +150,53 @@ const sidebarItems: SidebarItem[] = [
     isDrop: true,
     dropdownItems: [
       {
-        name: "Overview",
-        link: "/finance/overview",
+        name: "Approve Pending Prepayment",
+        link: "/finance/approve-pending-prepayments",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Asset Depreciation Report",
+        link: "/finance/asset-depreciation-report",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Asset Depreciation Report by Asset",
+        link: "/finance/asset-depreciation-report-by-asset",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Statement of Financial Position",
+        link: "/finance/statement-financial-position",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Total Cost of Funds",
+        link: "/finance/total-cost-funds",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Fixed Assets Register Section",
+        link: "/finance/fixed-assets-register",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Statement of Comprehensive Income",
+        link: "/finance/statement-comprehensive-income",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Loan Listing Report",
+        link: "/finance/loan-listing-report",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Prepayment & Accruals",
+        link: "/finance/prepayment-accruals",
+        icon: <DashboardIcon />,
+      },
+      {
+        name: "Spool GL by Date",
+        link: "/finance/spool-gl",
         icon: <DashboardIcon />,
       },
     ],
