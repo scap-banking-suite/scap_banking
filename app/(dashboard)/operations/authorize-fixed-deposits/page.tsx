@@ -1,7 +1,6 @@
 "use client";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { AuthorizeFixedDepositForm } from "@/components/Operations/FixedDeposits/AuthorizeFixedDepositForm";
-import ApproveDepositTable from "@/components/Operations/Tables/ApproveDepositTable";
 import AuthorizeFixedDepositTable from "@/components/Operations/Tables/AuthorizeFixedDepositTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";

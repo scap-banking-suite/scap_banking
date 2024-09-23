@@ -100,8 +100,8 @@ const renderRow = (item: DataItem, index: number) => (
     <td className="py-1 px-4">{item.CustomerName}</td>
 
     <td className="py-1 px-4">{item?.DepositAmount?.toFixed(2)}</td>
-    <td className="py-1 px-4">{item.InterestAmountPayable}</td>
     <td className="py-1 px-4">{item.LiqDateRequested}</td>
+    <td className="py-1 px-4">{item.InterestAmountPayable}</td>
   </tr>
 );
 
