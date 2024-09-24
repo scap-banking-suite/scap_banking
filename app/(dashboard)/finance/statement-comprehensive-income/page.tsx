@@ -20,7 +20,7 @@ const StatementComprehensiveIncome = (props: Props) => {
               Statement of Comprehensive Income
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="income" className="w-full px-10 py-6">
+          <TabsContent value="income" className="w-full px-10">
             <GenerateIncomeForm />
           </TabsContent>
         </Tabs>

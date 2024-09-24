@@ -1,13 +1,12 @@
-"use client";
+'use client'
+
+import { AuthUser } from "@/components/api/type";
+import { CustomButton } from "@/components/clickable/CustomButton";
+import { CustomDatePicker } from "@/components/controlInputs/CustomDatePicker";
+import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import React from "react";
-import { AuthUser } from "../api/type";
 import { Field } from "@/schemas/dynamicSchema";
-import { CustomSelect } from "../controlInputs/CustomSelect";
-import ControlledInput from "../controlInputs/ControlledInput";
-import { CustomDatePicker } from "../controlInputs/CustomDatePicker";
-import { CustomButton } from "../clickable/CustomButton";
-import { CustomTextArea } from "../controlInputs/CustomTextArea";
+import React from "react";
 
 type Props = {};
 
@@ -43,32 +42,23 @@ const referal = [
   { value: "ibrahim", label: "Abiodun Ibrahim" },
 ];
 
-export const GenerateIncomeForm = (props: Props) => {
+export const SpoolByDateForm = (props: Props) => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
-
   return (
     <section className=" rounded-[30px] ">
       <form className="w-full flex flex-col">
-        <div className="grid w-full grid-cols-1 lg:grid-cols-4 gap-5">
+        <div className="grid w-full grid-cols-1 lg:grid-cols-3 gap-5">
           <CustomSelect
             options={referal}
             placeholder="Select Entity"
-            label="Entity"
+            label="Asset Type"
             name="referal"
             dropdownChoice
             control={control}
             rules={{ required: true }}
           />
-          <CustomSelect
-            options={referal}
-            placeholder="Select type"
-            label=" Type"
-            name="referal"
-            dropdownChoice
-            control={control}
-            rules={{ required: true }}
-          />
+
           <CustomDatePicker
             name="purchased"
             control={control}
