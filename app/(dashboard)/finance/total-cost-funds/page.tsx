@@ -1,27 +1,25 @@
 "use client";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
-import React from "react";
+import TotalCostTable from "@/components/Finance/Tables/TotalCostTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TotalCostFundForm } from "@/components/Finance/TotalCostFundForm";
+import React from "react";
 
-type Props = {};
-
-const TotalCostFund = (props: Props) => {
+const TotalCostFund = () => {
   return (
     <div>
       <TopBar title={"Total Cost of Funds"} />
-      <section className="w-full mt-2 bg-accountBg rounded-[20px] pb-10">
-        <Tabs defaultValue="fixed-assets">
+      <section className="w-full mt-2 pb-10">
+        <Tabs defaultValue="Funds">
           <TabsList className="w-full flex justify-start gap-x-10 rounded-b-none rounded-t-[20px] bg-primary pb-0 px-10">
             <TabsTrigger
               className="data-[state=active]:bg-accent rounded-b-none rounded-t-[20px] mt-1 text-white"
-              value="fixed-assets"
+              value="Funds"
             >
-              Fixed Assets Register Section
+              Total Cost of Funds
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="fixed-assets" className="w-full px-10 py-6">
-            <TotalCostFundForm />
+          <TabsContent value="Funds" className="w-full mx-auto -mt-0">
+            <TotalCostTable />
           </TabsContent>
         </Tabs>
       </section>
