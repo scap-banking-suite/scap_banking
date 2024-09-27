@@ -16,10 +16,11 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
 import { AuthUser } from "@/components/api/type";
+import { signIn } from "@/components/api/crud/auth";
 
 const fields: Field[] = [
   {
-    name: "email",
+    name: "username",
     type: "email",
     errorMessage: "Email is required",
     isRequired: true,
@@ -38,37 +39,43 @@ const Login = (props: Props) => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
   const { isValid } = formState;
-  const { setAccessToken, setCurrentUser } = useAuthStore();
+  const { setAccessToken, accessToken, setCurrentUser } = useAuthStore();
 
   const router = useRouter();
 
-  const generateRandomToken = () => {
-    return Math.random().toString(36).substr(2);
-  };
+  const { loginUser } = signIn();
 
-  const onSubmit = () => {
-    const formData = getValues();
-    const { email, password } = formData;
+  const { isPending, mutateAsync } = loginUser;
 
-    const token = generateRandomToken();
-    const user = { email, password };
-
+  const onSubmit = async (data: any) => {
     try {
-      // Set token and user in Zustand and localStorage
-      setAccessToken(token);
-      setCurrentUser(user);
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (data[key] !== undefined && data[key] !== null) {
+          formData.append(key, data[key].toString());
+        }
+      });
 
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      localStorage.setItem("accessToken", token);
-      Cookies.set("accessToken", token, { expires: 1 });
-
-      toast.success("Login successful! Redirecting...", {});
-
-      setTimeout(() => {
-        router.push("/dashboard/overview");
-      }, 1000);
+      await mutateAsync(formData, {
+        onSuccess: (response: any) => {
+          console.log(response, "log__res");
+          const token = response?.data?.token;
+          const user = response?.data;
+          if (token && user) {
+            setAccessToken(token);
+            setCurrentUser(user);
+            Cookies.set("accessToken", token);
+            router.push("/dashboard/overview");
+          }
+          toast.success(response?.message);
+        },
+        onError: (error: any) => {
+          console.log(error, "jjjj");
+          toast.error(error?.message);
+        },
+      });
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      console.log("An error occurred: ", error);
     }
   };
 
@@ -100,7 +107,7 @@ const Login = (props: Props) => {
             {/* Login Form */}
             <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
               <ControlledInput
-                name="email"
+                name="username"
                 control={control}
                 placeholder="Enter your email"
                 type="email"
@@ -126,6 +133,7 @@ const Login = (props: Props) => {
                 className="mt-5 rounded-lg w-full h-14"
                 disabled={!isValid}
                 type="submit"
+                isLoading={isPending}
               />
             </form>
           </div>
