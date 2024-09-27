@@ -24,6 +24,8 @@ export type ActivityDataType = {
 }[];
 
 export const Rightbar = (props: Props) => {
+  const { currentUser } = useAuthStore();
+
   const notificationsData: NotificationDataType = [
     {
       time: "Just now",
@@ -97,8 +99,6 @@ export const Rightbar = (props: Props) => {
     },
   ];
 
-  // const { currentUser } = useAuthStore();
-
   return (
     <div className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-transparent  overflow-y-scroll scrollbar-hidden">
       <div className="flex items-center justify-between gap-3 bg-accent border border-[#8F96A1] rounded-[34px] px-3 py-2 w-[220px] h-[47px] cursor-pointer">
@@ -108,7 +108,7 @@ export const Rightbar = (props: Props) => {
             fontFamily: "PoppinsBold",
           }}
         >
-          {/* {currentUser?.fullname} */}
+          {currentUser?.fullname}
         </h3>
         <Avatar className="w-[29px] h-[29px]">
           <AvatarImage src="" />
