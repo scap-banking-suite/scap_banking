@@ -38,7 +38,7 @@ type Props = {};
 const Login = (props: Props) => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
-  const { isValid } = formState;
+  // const { isValid } = formState;
   const { setAccessToken, accessToken, setCurrentUser } = useAuthStore();
 
   const router = useRouter();
@@ -131,7 +131,7 @@ const Login = (props: Props) => {
                 variant="primary"
                 label="Sign In"
                 className="mt-5 rounded-lg w-full h-14"
-                disabled={!isValid}
+                // disabled={!isValid}
                 type="submit"
                 isLoading={isPending}
               />
