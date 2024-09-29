@@ -8,6 +8,15 @@ import ActivityBoard from "../otherComp/ActivityBoard";
 import ActiveUsers from "../otherComp/ActiveUsers";
 import { DropdownIcon } from "@/icons/svgComp/DropdownIcon";
 import { useAuthStore } from "@/store/authStore";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { IoIosLogOut } from "react-icons/io";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 type Props = {};
 
@@ -24,7 +33,16 @@ export type ActivityDataType = {
 }[];
 
 export const Rightbar = (props: Props) => {
-  const { currentUser } = useAuthStore();
+  const router = useRouter()
+  const { currentUser, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout()
+    Cookies.remove("accessToken");
+    toast.success("Logged out successfully");
+    router.push("/auth/login");
+  };
+
 
   const notificationsData: NotificationDataType = [
     {
@@ -101,25 +119,46 @@ export const Rightbar = (props: Props) => {
 
   return (
     <div className=" w-[18%] h-screen p-4 border-l  border-l-black border-opacity-10 bg-transparent  overflow-y-scroll scrollbar-hidden">
-      <div className="flex items-center justify-between gap-3 bg-accent border border-[#8F96A1] rounded-[34px] px-3 py-2 w-[220px] h-[47px] cursor-pointer">
-        <h3
-          className="text-xs capitalize "
-          style={{
-            fontFamily: "PoppinsBold",
-          }}
-        >
-          {currentUser?.fullname}
-        </h3>
-        <Avatar className="w-[29px] h-[29px]">
-          <AvatarImage src="" />
-          <AvatarFallback>
-            <Image src={profileAvatar} width={29} height={29} alt="profile" />
-          </AvatarFallback>
-        </Avatar>
-        <div className="text-[#637381]">
-          <DropdownIcon />
-        </div>
-      </div>
+      <Popover>
+        <PopoverTrigger asChild>
+          <div className="flex items-center justify-between gap-3 bg-accent border border-[#8F96A1] rounded-[34px] px-3 py-2 w-full h-[47px] cursor-pointer">
+            <h3
+              className="text-xs capitalize "
+              style={{
+                fontFamily: "PoppinsBold",
+              }}
+            >
+              {currentUser?.fullname}
+            </h3>
+            <div className="flex items-center gap-3">
+              <Avatar className="w-[29px] h-[29px]">
+                <AvatarImage src="" />
+                <AvatarFallback>
+                  <Image
+                    src={profileAvatar}
+                    width={29}
+                    height={29}
+                    alt="profile"
+                  />
+                </AvatarFallback>
+              </Avatar>
+              <div className="text-[#637381]">
+                <DropdownIcon />
+              </div>
+            </div>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="bg-[#fffae5]">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center p-2 space-x-1 rounded-lg text-primary hover:bg-primary/10 transition-colors duration-200"
+          >
+            <IoIosLogOut className="mr-2 text-primary size-6" />
+            Logout
+          </button>
+        </PopoverContent>
+      </Popover>
+
       <NotificationBoard notificationsData={notificationsData} />
       <ActivityBoard activitiesData={activitiesData} />
       <ActiveUsers activeUsers={activeUsers} />
