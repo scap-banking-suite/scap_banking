@@ -7,7 +7,7 @@ export const middleware = async (request: NextRequest) => {
     const pathname = request.nextUrl.pathname;
 
     if (
-      !authenticated &&
+      authenticated &&
       pathname !== "/auth/login" &&
       pathname !== "/auth/resetpassword"
     ) {
