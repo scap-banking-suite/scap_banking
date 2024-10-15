@@ -111,8 +111,8 @@ const sidebarItems: SidebarItem[] = [
     isDrop: true,
     dropdownItems: [
       {
-        name: "Overview",
-        link: "/admin/overview",
+        name: "Regions and Branches",
+        link: "/admin/regions-and-branches",
         icon: <DashboardIcon />,
       },
     ],

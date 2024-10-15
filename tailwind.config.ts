@@ -37,6 +37,8 @@ const config = {
         bordergrey: '#E8ECF1',
         tableText: '#464F60',
         operationBg: "#F1F6FF",
+        placeholderText: "#84888D",
+        regionGrayText: "#5F5F5F",
       },
       backgroundImage: {
         upvector: "url('/new.png')",
