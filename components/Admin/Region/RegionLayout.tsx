@@ -41,8 +41,8 @@ const RegionLayout = () => {
               <p className="text-darkBlue">Add Region</p>
               <AddIcon />
             </div>
-            <RegionFormModal />
           </SheetTrigger>
+          <RegionFormModal />
         </Sheet>
       </div>
       <main className="my-4">

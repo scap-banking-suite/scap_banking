@@ -4,6 +4,8 @@ import RegionSearchComp from "../Region/RegionSearchComp";
 import { useState } from "react";
 import BranchCard from "./BranchCard";
 import BranchList from "./BranchList";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { BranchFormModal } from "../Region/BranchFormModal";
 
 const BranchLayout = () => {
   const [view, setView] = useState("grid");
@@ -31,10 +33,15 @@ const BranchLayout = () => {
           </aside>
         </div>
         <RegionSearchComp className="w-[424px]" />
-        <div className="flex items-center gap-2 text-black cursor-pointer">
-          <p className="text-darkBlue">Add Branch</p>
-          <AddIcon />
-        </div>
+        <Sheet>
+          <SheetTrigger>
+            <div className="flex items-center gap-2 text-black cursor-pointer">
+              <p className="text-darkBlue">Add Branch</p>
+              <AddIcon />
+            </div>
+          </SheetTrigger>
+          <BranchFormModal />
+        </Sheet>
       </div>
       <main className="my-4">
         {view === "grid" ? (
