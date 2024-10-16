@@ -134,7 +134,7 @@ export const RegionFormModal = (props: Props) => {
             variant="primary"
             label="Add Region"
             type="submit"
-            className="w-[378px] rounded-lg mt-48 py-3"
+            className="w-[378px] rounded-lg mt-36 py-3"
           />
         </form>
       </SheetContent>
