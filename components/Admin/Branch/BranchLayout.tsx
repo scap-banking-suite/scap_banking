@@ -31,7 +31,7 @@ const BranchLayout = () => {
           </aside>
         </div>
         <RegionSearchComp className="w-[424px]" />
-        <div className="flex items-center gap-2 text-black">
+        <div className="flex items-center gap-2 text-black cursor-pointer">
           <p className="text-darkBlue">Add Branch</p>
           <AddIcon />
         </div>

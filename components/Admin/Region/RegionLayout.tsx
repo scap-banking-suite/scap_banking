@@ -1,9 +1,12 @@
+"use client";
 import { AddIcon, ListView, SortIcon } from "@/icons/svgComp/RegionIcons";
 import RegionSearchComp from "./RegionSearchComp";
 import RegionCard from "./RegionCard";
 import { useState } from "react";
 import RegionList from "./RegionList";
 import EmptyRegionState from "./EmptyRegionState";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { RegionFormModal } from "./RegionFormModal";
 
 const RegionLayout = () => {
   const [view, setView] = useState("grid");
@@ -32,10 +35,15 @@ const RegionLayout = () => {
           </aside>
         </div>
         <RegionSearchComp className="w-[424px]" />
-        <div className="flex items-center gap-2 text-black">
-          <p className="text-darkBlue">Add Region</p>
-          <AddIcon />
-        </div>
+        <Sheet>
+          <SheetTrigger>
+            <div className="flex items-center gap-2 text-black cursor-pointer">
+              <p className="text-darkBlue">Add Region</p>
+              <AddIcon />
+            </div>
+            <RegionFormModal />
+          </SheetTrigger>
+        </Sheet>
       </div>
       <main className="my-4">
         {/* <div className="flex h-[50vh] items-center mx-auto w-1/2">

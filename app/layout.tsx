@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProviders from "@/contexts/query-provider";
+import { ModalCloseProvider } from "@/contexts/SheetCloseModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,22 +22,13 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
-        <meta
-          name="description"
-          content="BANKING SUITE"
-        />
+        <meta name="description" content="BANKING SUITE" />
         <meta property="og:title" content="SCAP" />
-        <meta
-          property="og:description"
-          content="BANKING SUITE"
-        />
+        <meta property="og:description" content="BANKING SUITE" />
         <meta property="og:image" content="/images/og-image.png" />
         <meta property="og:url" content="https://www.scap.com" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="keywords"
-          content="banking suites bank microfinance"
-        />
+        <meta name="keywords" content="banking suites bank microfinance" />
         <link rel="icon" href="/images/darklogo.svg" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="canonical" href="https://www.scap.com" />
@@ -54,10 +46,12 @@ export default function RootLayout({
         />
       </head>
       <QueryProviders>
-        <body className={inter.className}>
-          <div className="">{children}</div>
-          <Toaster position="top-center" />
-        </body>
+        <ModalCloseProvider>
+          <body className={inter.className}>
+            <div className="">{children}</div>
+            <Toaster position="top-center" />
+          </body>
+        </ModalCloseProvider>
       </QueryProviders>
     </html>
   );
