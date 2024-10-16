@@ -1,21 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
-  Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { AuthUser } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { BranchFormModal } from "./BranchFormModal";
 
 const verification = [
   { value: "passport", label: "International Passport" },
@@ -45,29 +43,21 @@ const fields: Field[] = [
 
 type Props = {};
 
-export const RegionFormModal = (props: Props) => {
+export const BranchFormModal = (props: Props) => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
-
-  const [showBranchModal, setShowBranchModal] = useState(false);
-
-  const openBranchModal = () => {
-    setShowBranchModal(true);
-  };
-
-  const closeBranchModal = () => {
-    setShowBranchModal(false);
-  };
 
   return (
     <>
       <SheetContent side="adjusted" className="">
-        <h1 className="text-2xl font-medium text-darkBlue mb-4">Add Region</h1>
+        <h1 className="text-2xl font-medium text-darkBlue mb-4">
+          Add Branches
+        </h1>
         <div className="flex justify-end mb-7">
           <SheetPrimitive.Close className="  ">
-            <div className="text-[#0B0F19] flex items-center gap-2.5">
-              <span className=" font-semibold text-base">Close</span>
-              <X className="h-5 w-5 font-semibold " />
+            <div className="text-[#001F56] flex items-center gap-2.5">
+              <span className=" font-semibold text-base">Back to Region</span>
+              <ChevronLeft className="h-5 w-5 font-semibold " />
             </div>
           </SheetPrimitive.Close>
         </div>
@@ -76,9 +66,56 @@ export const RegionFormModal = (props: Props) => {
             <ControlledInput
               name="customerID"
               control={control}
-              placeholder="Enter region name"
+              placeholder="Enter branch name"
               type="text"
-              label="Region Name"
+              label="Branch Name"
+              rules={{ required: true }}
+              variant="primary"
+            />
+
+            <ControlledInput
+              name="code"
+              control={control}
+              placeholder="Enter Branch code"
+              type="text"
+              label="Branch Code"
+              rules={{ required: true }}
+              variant="primary"
+            />
+
+            <ControlledInput
+              name="address"
+              control={control}
+              placeholder="Enter Branch Address"
+              type="text"
+              label="Branch Address"
+              rules={{ required: true }}
+              variant="primary"
+            />
+            <ControlledInput
+              name="region"
+              control={control}
+              placeholder="Enter Branch name"
+              type="text"
+              label="Branch Region"
+              rules={{ required: true }}
+              variant="primary"
+            />
+            <ControlledInput
+              name="state"
+              control={control}
+              placeholder="Enter Branch State"
+              type="text"
+              label="Branch State"
+              rules={{ required: true }}
+              variant="primary"
+            />
+            <ControlledInput
+              name="manager"
+              control={control}
+              placeholder="Enter Branch Manager"
+              type="text"
+              label="Branch Manager"
               rules={{ required: true }}
               variant="primary"
             />
@@ -86,37 +123,18 @@ export const RegionFormModal = (props: Props) => {
               options={verification}
               control={control}
               rules={{ required: true }}
-              placeholder="Select Identification"
-              label="Country of Region"
-              name="country"
+              placeholder="Select Status"
+              label="Branch Status"
+              name="status"
               dropdownChoice
             />
-          </div>
-          <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            <CustomSelect
-              options={verification}
-              control={control}
-              rules={{ required: true }}
-              placeholder="Select Identification"
-              label="Regional Manager"
-              name="verification"
-              dropdownChoice
-            />
+
             <ControlledInput
-              name="email"
+              name="gl"
               control={control}
-              placeholder="Enter Regional Manager email"
-              type="email"
-              label="Regional Manager Email"
-              rules={{ required: true }}
-              variant="primary"
-            />
-            <ControlledInput
-              name="phone"
-              control={control}
-              placeholder="Enter Regional Manager Phon"
-              type="number"
-              label="Regional Manager Phone"
+              placeholder="Branch GL Number"
+              type="text"
+              label="Enter Branch GL Number"
               rules={{ required: true }}
               variant="primary"
             />
@@ -125,25 +143,11 @@ export const RegionFormModal = (props: Props) => {
           <CustomButton
             variant="primary"
             label="Add Branch"
-            type="button"
-            onClick={openBranchModal}
-            className="w-[129px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
-          />
-
-          <CustomButton
-            variant="primary"
-            label="Add Region"
             type="submit"
-            className="w-[378px] rounded-lg mt-48 py-3"
+            className="w-[265px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
           />
         </form>
       </SheetContent>
-
-      {showBranchModal && (
-        <Sheet open={showBranchModal} onOpenChange={closeBranchModal}>
-          <BranchFormModal />
-        </Sheet>
-      )}
     </>
   );
 };
