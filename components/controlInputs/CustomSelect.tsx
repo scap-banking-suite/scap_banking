@@ -82,12 +82,20 @@ export const CustomSelect = ({
           <SelectGroup>
             {options?.map((option: any) => (
               <SelectItem key={option?.value} value={option?.value}>
-                {option.label}
+                {option?.label}
               </SelectItem>
             ))}
           </SelectGroup>
         </SelectContent>
       </Select>
+      {error && (
+        <div className="text-red-400 text-xs flex items-center gap-1 mt-1">
+          <div className="w-3 h-3 rounded-full text-white bg-red-500 flex items-center justify-center">
+            !
+          </div>
+          <p>{typeof error === "string" ? error : error.message}</p>
+        </div>
+      )}
     </div>
   );
 };

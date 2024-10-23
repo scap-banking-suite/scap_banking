@@ -1,3 +1,4 @@
+"use client"
 import { AddIcon, ListView, SortIcon } from "@/icons/svgComp/RegionIcons";
 
 import RegionSearchComp from "../Region/RegionSearchComp";
@@ -6,9 +7,19 @@ import BranchCard from "./BranchCard";
 import BranchList from "./BranchList";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { BranchFormModal } from "../Region/BranchFormModal";
+import { useBranches } from "@/components/api/crud/branch";
 
 const BranchLayout = () => {
   const [view, setView] = useState("grid");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { getBranchLists } = useBranches();
+  const { data:branchList, isPending } = getBranchLists();
+
+  const branchListData = branchList?.data || [];
+
+  console.log(branchListData, 'b_list');
+  
 
   const toggleView = () => {
     setView((prevView) => (prevView === "grid" ? "list" : "grid"));
@@ -33,14 +44,14 @@ const BranchLayout = () => {
           </aside>
         </div>
         <RegionSearchComp className="w-[424px]" />
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger>
             <div className="flex items-center gap-2 text-black cursor-pointer">
               <p className="text-darkBlue">Add Branch</p>
               <AddIcon />
             </div>
           </SheetTrigger>
-          <BranchFormModal />
+          <BranchFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </div>
       <main className="my-4">
