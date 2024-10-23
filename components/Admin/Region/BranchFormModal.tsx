@@ -11,14 +11,17 @@ import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { AuthUser } from "@/components/api/type";
+import { AuthUser, Region } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
+import { useRegions } from "@/components/api/crud/region";
+import { useBranches } from "@/components/api/crud/branch";
+import { toast } from "sonner";
+import { useUsers } from "@/components/api/crud/allUsers";
 
-const verification = [
-  { value: "passport", label: "International Passport" },
-  { value: "license", label: "Driver's License" },
-  { value: "nin", label: "NIN" },
+const status = [
+  { value: "true", label: "True" },
+  { value: "false", label: "False" },
 ];
 
 const gender = [
@@ -28,24 +31,114 @@ const gender = [
 
 const fields: Field[] = [
   {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
+    name: "regionID",
+    type: "number",
+    errorMessage: "Region is required",
     isRequired: true,
   },
   {
-    name: "password",
-    type: "password",
-    errorMessage: "Enter password",
+    name: "branchName",
+    type: "text",
+    errorMessage: "Branch Name is required",
+    isRequired: true,
+  },
+  {
+    name: "branchAddress",
+    type: "text",
+    errorMessage: "Branch Address is required",
+    isRequired: true,
+  },
+  {
+    name: "branchMobile",
+    type: "text",
+    errorMessage: "Branch Mobile is required",
+    isRequired: true,
+  },
+  {
+    name: "branchState",
+    type: "text",
+    errorMessage: "Branch State is required",
+    isRequired: true,
+  },
+  {
+    name: "branchManager",
+    type: "text",
+    errorMessage: "Branch Manager Name is required",
+    isRequired: true,
+  },
+  {
+    name: "branchStatus",
+    type: "text",
+    errorMessage: "Branch Status is required",
+    isRequired: true,
+  },
+  {
+    name: "branchGLNumber",
+    type: "text",
+    errorMessage: "Branch Gl number is required",
     isRequired: true,
   },
 ];
 
-type Props = {};
+type Props = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const BranchFormModal = (props: Props) => {
-  const { control, handleSubmit, formState, getValues } =
-    useDynamicForm<AuthUser>(fields, {});
+export const BranchFormModal = ({ setIsOpen }: Props) => {
+  const { control, handleSubmit, formState, reset } = useDynamicForm<AuthUser>(
+    fields,
+    {}
+  );
+
+  const { isValid } = formState;
+
+  const { getRegionLists } = useRegions();
+  const { getAllUsers } = useUsers();
+  const { addBranch, getBranchLists } = useBranches();
+
+  const { data: regionList, isPending: regionPending } = getRegionLists();
+  const { refetch } = getBranchLists();
+  const { data: allUsers } = getAllUsers();
+
+  const regionListData = regionList?.data || [];
+  const userListData = allUsers?.data || [];
+
+  const RegionOptions = Array.isArray(regionListData)
+    ? regionListData?.map((reg: Region) => ({
+        value: reg?.id?.toString(),
+        label: reg?.name,
+      }))
+    : [];
+
+  const UsersOptions = Array.isArray(userListData)
+    ? userListData?.map((reg: Region) => ({
+        value: reg?.name,
+        label: reg?.name,
+      }))
+    : [];
+
+  console.log(allUsers?.data, "user___");
+
+  const { mutate, isPending } = addBranch;
+
+  const onSubmit = (data: any) => {
+    const transformedData = {
+      ...data,
+      branchStatus: data.branchStatus === "true",
+    };
+
+    mutate(transformedData, {
+      onSuccess: (response: any) => {
+        toast.success(response?.message);
+        refetch();
+        reset();
+        setIsOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message || "Error creating Region");
+      },
+    });
+  };
 
   return (
     <>
@@ -61,10 +154,13 @@ export const BranchFormModal = (props: Props) => {
             </div>
           </SheetPrimitive.Close>
         </div>
-        <form className="w-full flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-col gap-5"
+        >
           <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
             <ControlledInput
-              name="customerID"
+              name="branchName"
               control={control}
               placeholder="Enter branch name"
               type="text"
@@ -74,17 +170,17 @@ export const BranchFormModal = (props: Props) => {
             />
 
             <ControlledInput
-              name="code"
+              name="branchMobile"
               control={control}
-              placeholder="Enter Branch code"
-              type="text"
-              label="Branch Code"
+              placeholder="Enter Branch Phone Number"
+              type="number"
+              label="Branch Phone Number"
               rules={{ required: true }}
               variant="primary"
             />
 
             <ControlledInput
-              name="address"
+              name="branchAddress"
               control={control}
               placeholder="Enter Branch Address"
               type="text"
@@ -92,17 +188,18 @@ export const BranchFormModal = (props: Props) => {
               rules={{ required: true }}
               variant="primary"
             />
-            <ControlledInput
-              name="region"
+            <CustomSelect
+              name="regionID"
+              options={RegionOptions}
               control={control}
-              placeholder="Enter Branch name"
-              type="text"
-              label="Branch Region"
               rules={{ required: true }}
-              variant="primary"
+              placeholder="Select Region"
+              label="Branch Region"
+              dropdownChoice
             />
+
             <ControlledInput
-              name="state"
+              name="branchState"
               control={control}
               placeholder="Enter Branch State"
               type="text"
@@ -110,27 +207,28 @@ export const BranchFormModal = (props: Props) => {
               rules={{ required: true }}
               variant="primary"
             />
-            <ControlledInput
-              name="manager"
-              control={control}
-              placeholder="Enter Branch Manager"
-              type="text"
-              label="Branch Manager"
-              rules={{ required: true }}
-              variant="primary"
-            />
             <CustomSelect
-              options={verification}
+              name="branchManager"
+              options={UsersOptions}
+              control={control}
+              rules={{ required: true }}
+              placeholder="Select Branch Manager"
+              label="Branch Manager"
+              dropdownChoice
+            />
+
+            <CustomSelect
+              options={status}
               control={control}
               rules={{ required: true }}
               placeholder="Select Status"
               label="Branch Status"
-              name="status"
+              name="branchStatus"
               dropdownChoice
             />
 
             <ControlledInput
-              name="gl"
+              name="branchGLNumber"
               control={control}
               placeholder="Branch GL Number"
               type="text"
@@ -145,6 +243,8 @@ export const BranchFormModal = (props: Props) => {
             label="Add Branch"
             type="submit"
             className="w-[265px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
+            isLoading={isPending}
+            disabled={!isValid}
           />
         </form>
       </SheetContent>

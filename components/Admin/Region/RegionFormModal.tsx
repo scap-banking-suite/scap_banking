@@ -16,11 +16,17 @@ import { AuthUser } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { BranchFormModal } from "./BranchFormModal";
+import { useRegions } from "@/components/api/crud/region";
+import { toast } from "sonner";
 
-const verification = [
-  { value: "passport", label: "International Passport" },
-  { value: "license", label: "Driver's License" },
-  { value: "nin", label: "NIN" },
+const country = [
+  { value: "ng", label: "Nigeria" },
+  { value: "gh", label: "Ghana" },
+];
+
+const manager = [
+  { value: "ng", label: "Nigeria" },
+  { value: "gh", label: "Ghana" },
 ];
 
 const gender = [
@@ -30,33 +36,48 @@ const gender = [
 
 const fields: Field[] = [
   {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
+    name: "name",
+    type: "text",
+    errorMessage: "Region Name is required",
     isRequired: true,
   },
   {
     name: "password",
     type: "password",
     errorMessage: "Enter password",
-    isRequired: true,
+    // isRequired: true,
   },
 ];
 
-type Props = {};
+type Props = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const RegionFormModal = (props: Props) => {
-  const { control, handleSubmit, formState, getValues } =
-    useDynamicForm<AuthUser>(fields, {});
+export const RegionFormModal = ({ setIsOpen }: Props) => {
+  const { control, handleSubmit, formState, reset } = useDynamicForm<AuthUser>(
+    fields,
+    {}
+  );
 
-  const [showBranchModal, setShowBranchModal] = useState(false);
+  const { isValid } = formState;
 
-  const openBranchModal = () => {
-    setShowBranchModal(true);
-  };
+  const { addRegion, getRegionLists } = useRegions();
+  const { refetch } = getRegionLists();
 
-  const closeBranchModal = () => {
-    setShowBranchModal(false);
+  const { mutate, isPending } = addRegion;
+
+  const onSubmit = (data: any) => {
+    mutate(data, {
+      onSuccess: (response: any) => {
+        toast.success(response?.message);
+        refetch();
+        reset();
+        setIsOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message || "Error creating Region");
+      },
+    });
   };
 
   return (
@@ -71,10 +92,13 @@ export const RegionFormModal = (props: Props) => {
             </div>
           </SheetPrimitive.Close>
         </div>
-        <form className="w-full flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-col gap-5"
+        >
           <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
             <ControlledInput
-              name="customerID"
+              name="name"
               control={control}
               placeholder="Enter region name"
               type="text"
@@ -83,10 +107,10 @@ export const RegionFormModal = (props: Props) => {
               variant="primary"
             />
             <CustomSelect
-              options={verification}
+              options={country}
               control={control}
-              rules={{ required: true }}
-              placeholder="Select Identification"
+              // rules={{ required: true }}
+              placeholder="Select Region Ciuntry"
               label="Country of Region"
               name="country"
               dropdownChoice
@@ -94,9 +118,9 @@ export const RegionFormModal = (props: Props) => {
           </div>
           <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             <CustomSelect
-              options={verification}
+              options={gender}
               control={control}
-              rules={{ required: true }}
+              // rules={{ required: true }}
               placeholder="Select Identification"
               label="Regional Manager"
               name="verification"
@@ -108,7 +132,7 @@ export const RegionFormModal = (props: Props) => {
               placeholder="Enter Regional Manager email"
               type="email"
               label="Regional Manager Email"
-              rules={{ required: true }}
+              // rules={{ required: true }}
               variant="primary"
             />
             <ControlledInput
@@ -117,33 +141,29 @@ export const RegionFormModal = (props: Props) => {
               placeholder="Enter Regional Manager Phon"
               type="number"
               label="Regional Manager Phone"
-              rules={{ required: true }}
+              // rules={{ required: true }}
               variant="primary"
             />
           </div>
 
-          <CustomButton
+          {/* <CustomButton
             variant="primary"
             label="Add Branch"
             type="button"
             onClick={openBranchModal}
             className="w-[129px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
-          />
+          /> */}
 
           <CustomButton
             variant="primary"
             label="Add Region"
             type="submit"
             className="w-[378px] rounded-lg mt-36 py-3"
+            isLoading={isPending}
+            disabled={!isValid}
           />
         </form>
       </SheetContent>
-
-      {showBranchModal && (
-        <Sheet open={showBranchModal} onOpenChange={closeBranchModal}>
-          <BranchFormModal />
-        </Sheet>
-      )}
     </>
   );
 };

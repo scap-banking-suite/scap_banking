@@ -7,9 +7,19 @@ import RegionList from "./RegionList";
 import EmptyRegionState from "./EmptyRegionState";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { RegionFormModal } from "./RegionFormModal";
+import { useRegions } from "@/components/api/crud/region";
 
 const RegionLayout = () => {
   const [view, setView] = useState("grid");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { getRegionLists } = useRegions();
+
+  const { data:regionList, isPending } = getRegionLists();
+  const regionListData = regionList?.data || [];
+
+  console.log(regionListData, 'region');
+  
 
   const toggleView = () => {
     setView((prevView) => (prevView === "grid" ? "list" : "grid"));
@@ -35,14 +45,14 @@ const RegionLayout = () => {
           </aside>
         </div>
         <RegionSearchComp className="w-[424px]" />
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger>
             <div className="flex items-center gap-2 text-black cursor-pointer">
               <p className="text-darkBlue">Add Region</p>
               <AddIcon />
             </div>
           </SheetTrigger>
-          <RegionFormModal />
+          <RegionFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </div>
       <main className="my-4">

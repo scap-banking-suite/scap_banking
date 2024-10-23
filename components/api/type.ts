@@ -15,7 +15,6 @@ export interface AuthResponse {
   user: AuthUser;
 }
 
-
 export interface ApiOptions extends Omit<AxiosRequestConfig, "url" | "method"> {
   url: string;
   method: HttpMethod;
@@ -26,3 +25,41 @@ export interface AuthUser {
   password: string;
 }
 
+export interface Region {
+  id: ID;
+  name: string;
+  data: {
+    name: string;
+    id: ID;
+  };
+}
+
+export interface User {
+  id: ID;
+  name: string;
+  data: {
+    name: string;
+    id: ID;
+  };
+}
+
+export interface Branch {
+  regionID: ID;
+  branchName: string;
+  branchAddress: string;
+  branchMobile: string;
+  branchState: string;
+  branchManager: string;
+  branchStatus: boolean;
+  branchGLNumber: string;
+  data: {
+    regionID: ID;
+    branchName: string;
+    branchAddress: string;
+    branchMobile: string;
+    branchState: string;
+    branchManager: string;
+    branchStatus: boolean;
+    branchGLNumber: string;
+  };
+}
