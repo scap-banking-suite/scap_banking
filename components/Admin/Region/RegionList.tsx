@@ -4,7 +4,7 @@ import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
-import { DataItem, Region } from "@/components/api/type";
+import { RegionDataItem, Region } from "@/components/api/type";
 
 type listType = {
   regionListData: Region["data"];
@@ -18,7 +18,7 @@ const headers = [
 ];
 
 // Custom row render function
-const renderRow = (item: DataItem, index: number) => (
+const renderRow = (item: RegionDataItem, index: number) => (
   <tr
     key={index}
     className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"

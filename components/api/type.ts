@@ -25,14 +25,14 @@ export interface AuthUser {
   password: string;
 }
 
-export type DataItem = {
+export type RegionDataItem = {
   name: string;
   id: ID;
 };
 export interface Region {
   id: ID;
   name: string;
-  data: DataItem[];
+  data: RegionDataItem[];
 }
 
 export interface User {
@@ -44,6 +44,17 @@ export interface User {
   };
 }
 
+export type BranchDataItem = {
+  regionID: ID;
+  branchName: string;
+  branchAddress: string;
+  branchMobile: string;
+  branchState: string;
+  branchManager: string;
+  branchStatus: boolean;
+  branchGLNumber: string;
+  branchId: string;
+};
 export interface Branch {
   regionID: ID;
   branchName: string;
@@ -53,14 +64,5 @@ export interface Branch {
   branchManager: string;
   branchStatus: boolean;
   branchGLNumber: string;
-  data: {
-    regionID: ID;
-    branchName: string;
-    branchAddress: string;
-    branchMobile: string;
-    branchState: string;
-    branchManager: string;
-    branchStatus: boolean;
-    branchGLNumber: string;
-  };
+  data: BranchDataItem[];
 }

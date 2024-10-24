@@ -64,7 +64,7 @@ const RegionLayout = () => {
             </section>
           ) : (
             <div className="flex h-[50vh] items-center mx-auto w-1/2">
-              <EmptyRegionState />
+              <EmptyRegionState title="Region" />
             </div>
           )
         ) : (
@@ -73,7 +73,7 @@ const RegionLayout = () => {
               <RegionList regionListData={regionListData} />
             ) : (
               <div className="flex h-[50vh] items-center mx-auto w-1/2">
-                <EmptyRegionState />
+                <EmptyRegionState title={"Region"} />
               </div>
             )}
           </div>

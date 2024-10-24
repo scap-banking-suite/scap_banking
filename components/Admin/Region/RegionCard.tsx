@@ -2,10 +2,10 @@ import { CallIcon, MailIcon, ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
-import { DataItem } from "@/components/api/type";
+import { RegionDataItem } from "@/components/api/type";
 
 type dataType = {
-  value: DataItem;
+  value: RegionDataItem;
 };
 
 const RegionCard = ({ value }: dataType) => {

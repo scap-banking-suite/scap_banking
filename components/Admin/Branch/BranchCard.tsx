@@ -2,19 +2,24 @@ import { CallIcon, MailIcon, ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
+import { BranchDataItem } from "@/components/api/type";
 
-const BranchCard = () => {
+type dataType = {
+  value: BranchDataItem;
+};
+
+const BranchCard = ({ value }: dataType) => {
   return (
     <div className="flex flex-col border border-accountBg rounded-[15px] h-[210px]">
       <section className="bg-[#fff] h-[111px] px-4 py-2 rounded-t-[15px]">
         <aside className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">Lekki branch</h3>
+          <h3 className="text-lg font-medium">{value?.branchName}</h3>
           <div className="cursor-pointer">
             <ThreeDotIcon />
           </div>
         </aside>
         <p className="text-sm text-regionGrayText">
-          South West | Lagos Nigeria
+          {value?.branchAddress} | {value?.branchState}
         </p>
       </section>
       <section className="bg-accountBg h-[111px] px-4 py-2 rounded-b-[15px]">
@@ -28,7 +33,7 @@ const BranchCard = () => {
             </AvatarFallback>
           </Avatar>
           <aside className="flex flex-col gap-[2px] text-black">
-            <h4 className="text-sm font-medium ">Mr. Francis Emeka</h4>
+            <h4 className="text-sm font-medium ">{value?.branchManager}</h4>
             <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
               <MailIcon />
               s.emeka@bank.com
@@ -36,7 +41,7 @@ const BranchCard = () => {
 
             <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
               <CallIcon />
-              08166558877
+              {value?.branchMobile}
             </p>
           </aside>
         </div>
