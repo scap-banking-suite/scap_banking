@@ -110,7 +110,7 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
               options={country}
               control={control}
               // rules={{ required: true }}
-              placeholder="Select Region Ciuntry"
+              placeholder="Select Region Country"
               label="Country of Region"
               name="country"
               dropdownChoice
