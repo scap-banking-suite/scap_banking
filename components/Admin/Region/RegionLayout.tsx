@@ -15,11 +15,8 @@ const RegionLayout = () => {
 
   const { getRegionLists } = useRegions();
 
-  const { data:regionList, isPending } = getRegionLists();
+  const { data: regionList, isPending } = getRegionLists();
   const regionListData = regionList?.data || [];
-
-  console.log(regionListData, 'region');
-  
 
   const toggleView = () => {
     setView((prevView) => (prevView === "grid" ? "list" : "grid"));
@@ -56,20 +53,29 @@ const RegionLayout = () => {
         </Sheet>
       </div>
       <main className="my-4">
-        {/* <div className="flex h-[50vh] items-center mx-auto w-1/2">
-          <EmptyRegionState />
-        </div> */}
         {view === "grid" ? (
-          <section className="grid grid-cols-3 gap-7">
-            {[...Array(9)].map((_, index) => (
-              <div key={index}>
-                <RegionCard />
-              </div>
-            ))}
-          </section>
+          regionListData?.length > 0 ? (
+            <section className="grid grid-cols-3 gap-7">
+              {regionListData?.map((item, index) => (
+                <div key={index}>
+                  <RegionCard value={item} />
+                </div>
+              ))}
+            </section>
+          ) : (
+            <div className="flex h-[50vh] items-center mx-auto w-1/2">
+              <EmptyRegionState />
+            </div>
+          )
         ) : (
           <div>
-            <RegionList />
+            {regionListData?.length > 0 ? (
+              <RegionList regionListData={regionListData} />
+            ) : (
+              <div className="flex h-[50vh] items-center mx-auto w-1/2">
+                <EmptyRegionState />
+              </div>
+            )}
           </div>
         )}
       </main>

@@ -25,13 +25,14 @@ export interface AuthUser {
   password: string;
 }
 
+export type DataItem = {
+  name: string;
+  id: ID;
+};
 export interface Region {
   id: ID;
   name: string;
-  data: {
-    name: string;
-    id: ID;
-  };
+  data: DataItem[];
 }
 
 export interface User {
