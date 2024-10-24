@@ -2,13 +2,18 @@ import { CallIcon, MailIcon, ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
+import { RegionDataItem } from "@/components/api/type";
 
-const RegionCard = () => {
+type dataType = {
+  value: RegionDataItem;
+};
+
+const RegionCard = ({ value }: dataType) => {
   return (
     <div className="flex flex-col border border-accountBg rounded-[15px] h-[210px]">
       <section className="bg-[#fff] h-[111px] px-4 py-2 rounded-t-[15px]">
         <aside className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">SouthWest Region</h3>
+          <h3 className="text-lg font-medium">{value?.name}</h3>
           <div className="cursor-pointer">
             <ThreeDotIcon />
           </div>

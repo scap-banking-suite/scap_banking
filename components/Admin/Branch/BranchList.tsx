@@ -4,23 +4,11 @@ import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
+import { Branch, BranchDataItem } from "@/components/api/type";
 
-// Sample data type
-type DataItem = {
-  id: number;
-  customerId: string;
-  Region: string;
-  CustomerName: string;
+type BranchlistType = {
+  branchListData: Branch["data"];
 };
-
-const sampleData: DataItem[] = [
-  {
-    id: 1,
-    customerId: "01",
-    Region: "Lekki branch",
-    CustomerName: "Mr. Francis Emeka",
-  },
-];
 
 const headers = [
   { content: <>SN</> },
@@ -30,16 +18,16 @@ const headers = [
 ];
 
 // Custom row render function
-const renderRow = (item: DataItem, index: number) => (
+const renderRow = (item: BranchDataItem, index: number) => (
   <tr
     key={index}
     className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
   >
-    <td className="py-1 px-4">{item.customerId}</td>
+    <td className="py-1 px-4">{index + 1}</td>
     <td className="py-1 px-4 flex flex-col text-lg font-medium text-black">
-      {item.Region}
+      {item?.branchName}
       <p className="text-sm text-regionGrayText mt-1">
-        SouthWest | Lagos, Nigeria
+        {item?.branchAddress} | {item?.branchState}
       </p>
     </td>
 
@@ -52,9 +40,9 @@ const renderRow = (item: DataItem, index: number) => (
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col font-medium text-black text-sm">
-          {item.CustomerName}{" "}
+          {item?.branchManager}
           <p className="text-[12px] font-medium text-regionGrayText">
-            s.emeka@bank.com | 08166559955
+            s.emeka@bank.com | {item?.branchMobile}
           </p>
         </div>
       </span>
@@ -65,12 +53,12 @@ const renderRow = (item: DataItem, index: number) => (
   </tr>
 );
 
-const BranchList = () => {
+const BranchList = ({ branchListData }: BranchlistType) => {
   return (
     <div className="bg-[#E7EEFA]">
       <OperationsTableComp
         headers={headers}
-        data={sampleData}
+        data={branchListData}
         renderRow={renderRow}
       />
     </div>

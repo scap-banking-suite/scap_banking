@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { AddIcon, ListView, SortIcon } from "@/icons/svgComp/RegionIcons";
 
 import RegionSearchComp from "../Region/RegionSearchComp";
@@ -8,18 +8,17 @@ import BranchList from "./BranchList";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { BranchFormModal } from "../Region/BranchFormModal";
 import { useBranches } from "@/components/api/crud/branch";
+import EmptyRegionState from "../Region/EmptyRegionState";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
 
 const BranchLayout = () => {
   const [view, setView] = useState("grid");
   const [isOpen, setIsOpen] = useState(false);
 
   const { getBranchLists } = useBranches();
-  const { data:branchList, isPending } = getBranchLists();
+  const { data: branchList, isPending } = getBranchLists();
 
   const branchListData = branchList?.data || [];
-
-  console.log(branchListData, 'b_list');
-  
 
   const toggleView = () => {
     setView((prevView) => (prevView === "grid" ? "list" : "grid"));
@@ -55,17 +54,31 @@ const BranchLayout = () => {
         </Sheet>
       </div>
       <main className="my-4">
-        {view === "grid" ? (
-          <section className="grid grid-cols-3 gap-7">
-            {[...Array(9)].map((_, index) => (
-              <div key={index}>
-                <BranchCard />
-              </div>
-            ))}
-          </section>
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : view === "grid" ? (
+          branchListData?.length > 0 ? (
+            <section className="grid grid-cols-3 gap-7">
+              {branchListData?.map((item, index) => (
+                <div key={index}>
+                  <BranchCard value={item} />
+                </div>
+              ))}
+            </section>
+          ) : (
+            <div className="flex h-[50vh] items-center mx-auto w-1/2">
+              <EmptyRegionState title="Branch" />
+            </div>
+          )
         ) : (
           <div>
-            <BranchList />
+            {branchListData?.length > 0 ? (
+              <BranchList branchListData={branchListData} />
+            ) : (
+              <div className="flex h-[50vh] items-center mx-auto w-1/2">
+                <EmptyRegionState title="Branch" />
+              </div>
+            )}
           </div>
         )}
       </main>
