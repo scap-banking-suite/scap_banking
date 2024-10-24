@@ -9,6 +9,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { BranchFormModal } from "../Region/BranchFormModal";
 import { useBranches } from "@/components/api/crud/branch";
 import EmptyRegionState from "../Region/EmptyRegionState";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
 
 const BranchLayout = () => {
   const [view, setView] = useState("grid");
@@ -53,7 +54,9 @@ const BranchLayout = () => {
         </Sheet>
       </div>
       <main className="my-4">
-        {view === "grid" ? (
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : view === "grid" ? (
           branchListData?.length > 0 ? (
             <section className="grid grid-cols-3 gap-7">
               {branchListData?.map((item, index) => (

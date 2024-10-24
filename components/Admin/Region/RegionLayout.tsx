@@ -8,6 +8,7 @@ import EmptyRegionState from "./EmptyRegionState";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { RegionFormModal } from "./RegionFormModal";
 import { useRegions } from "@/components/api/crud/region";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
 
 const RegionLayout = () => {
   const [view, setView] = useState("grid");
@@ -53,7 +54,9 @@ const RegionLayout = () => {
         </Sheet>
       </div>
       <main className="my-4">
-        {view === "grid" ? (
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : view === "grid" ? (
           regionListData?.length > 0 ? (
             <section className="grid grid-cols-3 gap-7">
               {regionListData?.map((item, index) => (
