@@ -5,6 +5,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import RegionSearchComp from "../Region/RegionSearchComp";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import SectorTable from "./SectorTable";
+import { SectorFormModal } from "./SectorFormModal";
 
 const SectorLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,7 @@ const SectorLayout = () => {
               Add Sector
             </CustomButton>
           </SheetTrigger>
+          <SectorFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </div>
       <main className="my-4">

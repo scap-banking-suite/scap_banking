@@ -6,6 +6,7 @@ import RegionSearchComp from "../Region/RegionSearchComp";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import SectorTable from "./SectorTable";
 import ConfigurationTable from "./ConfigurationTable";
+import { NewApprovalFormModal } from "./NewApprovalFormModal";
 
 const Configuration = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +30,7 @@ const Configuration = () => {
               Add Configuration
             </CustomButton>
           </SheetTrigger>
+          <NewApprovalFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </div>
       <main className="my-4">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Select,
@@ -45,6 +45,12 @@ export const CustomSelect = ({
     rules,
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredOptions = options?.filter((option: any) =>
+    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const baseStyles =
     "w-full py-2 px-4 h-14 rounded-[8px] border outline-none text-[#64748B] text-base";
   const styles = {
@@ -79,12 +85,26 @@ export const CustomSelect = ({
           />
         </SelectTrigger>
         <SelectContent>
+          <div className="p-2">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm mb-2 outline-none"
+            />
+          </div>
+
           <SelectGroup>
-            {options?.map((option: any) => (
-              <SelectItem key={option?.value} value={option?.value}>
-                {option?.label}
-              </SelectItem>
-            ))}
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option: any) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))
+            ) : (
+              <div className="p-2 text-gray-500">No options found</div>
+            )}
           </SelectGroup>
         </SelectContent>
       </Select>

@@ -51,13 +51,11 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const RegionFormModal = ({ setIsOpen }: Props) => {
+export const NewApprovalFormModal = ({ setIsOpen }: Props) => {
   const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
 
-  const { control, handleSubmit, formState, reset, watch, setValue } = useDynamicForm<Region>(
-    fields,
-    {}
-  );
+  const { control, handleSubmit, formState, reset, watch, setValue } =
+    useDynamicForm<Region>(fields, {});
 
   const { isValid } = formState;
 
@@ -73,7 +71,6 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
   console.log(managerOptions, "drop__");
 
   useEffect(() => {
-
     if (userListData) {
       const UsersOptions = Array.isArray(userListData)
         ? userListData?.map((user: Userdata) => ({
@@ -116,65 +113,46 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
   return (
     <>
       <SheetContent side="adjusted" className="">
-        <ModalHeader title="Add region" icon={X} description="Close" />
+        <ModalHeader title="New Approval Configuration" icon={X} description="Close" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody className="w-full flex flex-col gap-5">
             <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
               <ControlledInput
-                name="name"
+                name="code"
                 control={control}
-                placeholder="Enter region name"
+                placeholder="Code"
                 type="text"
-                label="Region Name"
+                label="Module Name"
                 rules={{ required: true }}
                 variant="primary"
               />
-              <CustomSelect
-                options={country}
+              <ControlledInput
+                name="path"
                 control={control}
-                // rules={{ required: true }}
-                placeholder="Select Region Country"
-                label="Country of Region"
-                name="country"
-                dropdownChoice
+                placeholder="Enter Module Path"
+                type="text"
+                label="Module Path"
+                rules={{ required: true }}
+                variant="primary"
               />
             </div>
-            <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
               <CustomSelect
                 options={managerOptions}
                 control={control}
                 // rules={{ required: true }}
-                placeholder="Select Manager"
-                label="Regional Manager"
-                name="manager"
+                placeholder="Select Category"
+                label="isConfigured"
+                name="category"
                 dropdownChoice
               />
-              <ControlledInput
-                name="email"
-                control={control}
-                placeholder="Enter Regional Manager email"
-                type="email"
-                label="Regional Manager Email"
-                // rules={{ required: true }}
-                variant="primary"
-                disabled
-              />
-              <ControlledInput
-                name="phone"
-                control={control}
-                placeholder="Enter Regional Manager Phon"
-                type="number"
-                label="Regional Manager Phone"
-                // rules={{ required: true }}
-                variant="primary"
-                disabled
-              />
+              
             </div>
           </ModalBody>
           <ModalFooter>
             <CustomButton
               variant="primary"
-              label="Add Region"
+              label="Add Approval Configuration"
               type="submit"
               className="w-[378px] rounded-lg mt-36 py-3"
               isLoading={isPending}
