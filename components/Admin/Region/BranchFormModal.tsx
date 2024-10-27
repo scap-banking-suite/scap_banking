@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
-import {
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { SheetContent } from "@/components/ui/sheet";
+
 import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
@@ -18,6 +13,9 @@ import { useRegions } from "@/components/api/crud/region";
 import { useBranches } from "@/components/api/crud/branch";
 import { toast } from "sonner";
 import { useUsers } from "@/components/api/crud/allUsers";
+import { ModalHeader } from "@/components/modal/ModalHeader";
+import { ModalBody } from "@/components/modal/ModalBody";
+import { ModalFooter } from "@/components/modal/ModalFooter";
 
 const status = [
   { value: "true", label: "True" },
@@ -108,7 +106,6 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
     label: reg?.name,
   }));
 
-  
   const UsersOptions = Array.isArray(userListData)
     ? userListData?.map((reg: Region) => ({
         value: reg?.name,
@@ -142,109 +139,103 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
   return (
     <>
       <SheetContent side="adjusted" className="">
-        <h1 className="text-2xl font-medium text-darkBlue mb-4">
-          Add Branches
-        </h1>
-        <div className="flex justify-end mb-7">
-          <SheetPrimitive.Close className="  ">
-            <div className="text-[#001F56] flex items-center gap-2.5">
-              <span className=" font-semibold text-base">Back to Region</span>
-              <ChevronLeft className="h-5 w-5 font-semibold " />
+        <ModalHeader
+          title="Add Branches"
+          icon={ChevronLeft}
+          description="Back to Region"
+        />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <ModalBody className="w-full ">
+            <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
+              <ControlledInput
+                name="branchName"
+                control={control}
+                placeholder="Enter branch name"
+                type="text"
+                label="Branch Name"
+                rules={{ required: true }}
+                variant="primary"
+              />
+
+              <ControlledInput
+                name="branchMobile"
+                control={control}
+                placeholder="Enter Branch Phone Number"
+                type="number"
+                label="Branch Phone Number"
+                rules={{ required: true }}
+                variant="primary"
+              />
+
+              <ControlledInput
+                name="branchAddress"
+                control={control}
+                placeholder="Enter Branch Address"
+                type="text"
+                label="Branch Address"
+                rules={{ required: true }}
+                variant="primary"
+              />
+              <CustomSelect
+                name="regionID"
+                options={RegionOptions}
+                control={control}
+                rules={{ required: true }}
+                placeholder="Select Region"
+                label="Branch Region"
+                dropdownChoice
+              />
+
+              <ControlledInput
+                name="branchState"
+                control={control}
+                placeholder="Enter Branch State"
+                type="text"
+                label="Branch State"
+                rules={{ required: true }}
+                variant="primary"
+              />
+              <CustomSelect
+                name="branchManager"
+                options={UsersOptions}
+                control={control}
+                rules={{ required: true }}
+                placeholder="Select Branch Manager"
+                label="Branch Manager"
+                dropdownChoice
+              />
+
+              <CustomSelect
+                options={status}
+                control={control}
+                rules={{ required: true }}
+                placeholder="Select Status"
+                label="Branch Status"
+                name="branchStatus"
+                dropdownChoice
+              />
+
+              <ControlledInput
+                name="branchGLNumber"
+                control={control}
+                placeholder="Branch GL Number"
+                type="text"
+                label="Enter Branch GL Number"
+                rules={{ required: true }}
+                variant="primary"
+              />
             </div>
-          </SheetPrimitive.Close>
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col gap-5"
-        >
-          <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
-            <ControlledInput
-              name="branchName"
-              control={control}
-              placeholder="Enter branch name"
-              type="text"
-              label="Branch Name"
-              rules={{ required: true }}
+          </ModalBody>
+          <ModalFooter>
+            <CustomButton
               variant="primary"
+              label="Add Branch"
+              type="submit"
+              className="w-[265px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
+              isLoading={isPending}
+              disabled={!isValid}
             />
-
-            <ControlledInput
-              name="branchMobile"
-              control={control}
-              placeholder="Enter Branch Phone Number"
-              type="number"
-              label="Branch Phone Number"
-              rules={{ required: true }}
-              variant="primary"
-            />
-
-            <ControlledInput
-              name="branchAddress"
-              control={control}
-              placeholder="Enter Branch Address"
-              type="text"
-              label="Branch Address"
-              rules={{ required: true }}
-              variant="primary"
-            />
-            <CustomSelect
-              name="regionID"
-              options={RegionOptions}
-              control={control}
-              rules={{ required: true }}
-              placeholder="Select Region"
-              label="Branch Region"
-              dropdownChoice
-            />
-
-            <ControlledInput
-              name="branchState"
-              control={control}
-              placeholder="Enter Branch State"
-              type="text"
-              label="Branch State"
-              rules={{ required: true }}
-              variant="primary"
-            />
-            <CustomSelect
-              name="branchManager"
-              options={UsersOptions}
-              control={control}
-              rules={{ required: true }}
-              placeholder="Select Branch Manager"
-              label="Branch Manager"
-              dropdownChoice
-            />
-
-            <CustomSelect
-              options={status}
-              control={control}
-              rules={{ required: true }}
-              placeholder="Select Status"
-              label="Branch Status"
-              name="branchStatus"
-              dropdownChoice
-            />
-
-            <ControlledInput
-              name="branchGLNumber"
-              control={control}
-              placeholder="Branch GL Number"
-              type="text"
-              label="Enter Branch GL Number"
-              rules={{ required: true }}
-              variant="primary"
-            />
-          </div>
-
-          <CustomButton
-            variant="primary"
-            label="Add Branch"
-            type="submit"
-            className="w-[265px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
-            isLoading={isPending}
-            disabled={!isValid}
-          />
+          </ModalFooter>
         </form>
       </SheetContent>
     </>
