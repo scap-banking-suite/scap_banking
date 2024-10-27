@@ -6,6 +6,7 @@ import { useRegions } from "@/components/api/crud/region";
 import RegionSearchComp from "../Region/RegionSearchComp";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import GeoTable from "./GeoTable";
+import { GeoAreaFormModal } from "./GeoAreaFormModal";
 
 const GeoLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +30,7 @@ const GeoLayout = () => {
               Add New Geo Area
             </CustomButton>
           </SheetTrigger>
+            <GeoAreaFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </div>
       <main className="my-4">
