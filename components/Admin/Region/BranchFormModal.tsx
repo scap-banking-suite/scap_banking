@@ -6,7 +6,7 @@ import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { AuthUser, Region, RegionDataItem } from "@/components/api/type";
+import { AuthUser, Region, RegionDataItem, Userdata } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { useRegions } from "@/components/api/crud/region";
@@ -107,13 +107,12 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
   }));
 
   const UsersOptions = Array.isArray(userListData)
-    ? userListData?.map((reg: Region) => ({
-        value: reg?.name,
-        label: reg?.name,
+    ? userListData?.map((user: Userdata) => ({
+        value: user?.name,
+        label: user?.name,
       }))
     : [];
 
-  console.log(allUsers?.data, "user___");
 
   const { mutate, isPending } = addBranch;
 

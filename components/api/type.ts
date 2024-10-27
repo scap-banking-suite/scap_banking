@@ -27,21 +27,41 @@ export interface AuthUser {
 
 export type RegionDataItem = {
   name: string;
+  manager: string;
   id: ID;
 };
 export interface Region {
   id: ID;
   name: string;
+  email: string;
+  mobile: string;
+  manager: string;
   data: RegionDataItem[];
 }
+
+export type ManagerOption = {
+  value: string;
+  label: string;
+  email: string;
+  phone: string;
+};
+
+
+export type Userdata = {
+  id: ID;
+  name: string;
+  email: string;
+  mobile: string;
+  manager: string;
+};
 
 export interface User {
   id: ID;
   name: string;
-  data: {
-    name: string;
-    id: ID;
-  };
+  email: string;
+  mobile: string;
+  manager: string;
+  data: Userdata[];
 }
 
 export type BranchDataItem = {
