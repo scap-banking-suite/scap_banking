@@ -21,9 +21,9 @@ const NotificationBoard = ({ notificationsData }: props) => {
   return (
     <div>
       <h4 className="text-sm font-normal text-black my-5">Notifications</h4>
-      {notificationsData?.map((item) => {
+      {notificationsData?.map((item, index) => {
         return (
-          <main className="flex gap-2 mt-4">
+          <main key={index} className="flex gap-2 mt-4">
             <div>{notificationImages[item?.type as NotificationType]}</div>
             <div className="">
               <p className="text-sm font-normal text-black">
