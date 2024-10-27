@@ -115,6 +115,11 @@ const sidebarItems: SidebarItem[] = [
         link: "/admin/regions-and-branches",
         icon: <DashboardIcon />,
       },
+      {
+        name: "LookUp / Enums",
+        link: "/admin/lookup-enums",
+        icon: <DashboardIcon />,
+      },
     ],
   },
   {
