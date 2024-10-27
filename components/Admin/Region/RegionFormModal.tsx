@@ -1,39 +1,23 @@
 "use client";
-import React, { useState } from "react";
-import {
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
+import React, { useEffect, useState } from "react";
+import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { AuthUser } from "@/components/api/type";
+import { ManagerOption, Region, Userdata } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { BranchFormModal } from "./BranchFormModal";
 import { useRegions } from "@/components/api/crud/region";
 import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
+import { useUsers } from "@/components/api/crud/allUsers";
 
 const country = [
   { value: "ng", label: "Nigeria" },
   { value: "gh", label: "Ghana" },
-];
-
-const manager = [
-  { value: "ng", label: "Nigeria" },
-  { value: "gh", label: "Ghana" },
-];
-
-const gender = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
 ];
 
 const fields: Field[] = [
@@ -44,9 +28,21 @@ const fields: Field[] = [
     isRequired: true,
   },
   {
-    name: "password",
-    type: "password",
-    errorMessage: "Enter password",
+    name: "manager",
+    type: "text",
+    errorMessage: "Region Manager is required",
+    // isRequired: true,
+  },
+  {
+    name: "phone",
+    type: "text",
+    errorMessage: "Region Manager Mobile is required",
+    // isRequired: true,
+  },
+  {
+    name: "email",
+    type: "email",
+    errorMessage: "Region Manager Email is required",
     // isRequired: true,
   },
 ];
@@ -56,15 +52,50 @@ type Props = {
 };
 
 export const RegionFormModal = ({ setIsOpen }: Props) => {
-  const { control, handleSubmit, formState, reset } = useDynamicForm<AuthUser>(
+  const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
+
+  const { control, handleSubmit, formState, reset, watch, setValue } = useDynamicForm<Region>(
     fields,
     {}
   );
 
   const { isValid } = formState;
 
+  const { getAllUsers } = useUsers();
   const { addRegion, getRegionLists } = useRegions();
+
   const { refetch } = getRegionLists();
+  const { data: allUsers } = getAllUsers();
+
+  const userListData = allUsers?.data || [];
+  const selectedManager = watch("manager");
+
+  console.log(managerOptions, "drop__");
+
+  useEffect(() => {
+    // Map all users to dropdown options for Regional Manager
+    if (userListData) {
+      const UsersOptions = Array.isArray(userListData)
+        ? userListData?.map((user: Userdata) => ({
+            value: user?.name,
+            label: user?.name,
+            email: user?.email,
+            phone: user?.mobile,
+          }))
+        : [];
+      setManagerOptions(UsersOptions);
+    }
+  }, [allUsers]);
+
+  useEffect(() => {
+    const selectedUser = managerOptions?.find(
+      (manager) => manager?.value === selectedManager
+    );
+    if (selectedUser) {
+      setValue("email", selectedUser?.email);
+      setValue("mobile", selectedUser.phone);
+    }
+  }, [selectedManager, managerOptions, setValue]);
 
   const { mutate, isPending } = addRegion;
 
@@ -110,12 +141,12 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               <CustomSelect
-                options={gender}
+                options={managerOptions}
                 control={control}
                 // rules={{ required: true }}
-                placeholder="Select Identification"
+                placeholder="Select Manager"
                 label="Regional Manager"
-                name="verification"
+                name="manager"
                 dropdownChoice
               />
               <ControlledInput
@@ -126,6 +157,7 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
                 label="Regional Manager Email"
                 // rules={{ required: true }}
                 variant="primary"
+                disabled
               />
               <ControlledInput
                 name="phone"
@@ -135,18 +167,11 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
                 label="Regional Manager Phone"
                 // rules={{ required: true }}
                 variant="primary"
+                disabled
               />
             </div>
           </ModalBody>
           <ModalFooter>
-            {/* <CustomButton
-            variant="primary"
-            label="Add Branch"
-            type="button"
-            onClick={openBranchModal}
-            className="w-[129px] bg-[#E7EEFA] text-darkBlue hover:text-darkBlue hover:bg-[#E7EEFA]/50 rounded-lg mt-2.5 py-3"
-          /> */}
-
             <CustomButton
               variant="primary"
               label="Add Region"
