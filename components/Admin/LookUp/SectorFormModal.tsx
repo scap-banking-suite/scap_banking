@@ -7,43 +7,42 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { ManagerOption, Region, Userdata } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { useRegions } from "@/components/api/crud/region";
 import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
-import { useUsers } from "@/components/api/crud/allUsers";
+import { useSectors } from "@/components/api/crud/sector";
 
-const country = [
-  { value: "ng", label: "Nigeria" },
-  { value: "gh", label: "Ghana" },
+const categoryOption = [
+  { value: "assigned", label: "Assigned" },
+  { value: "unassigned", label: "Unassigned" },
 ];
 
 const fields: Field[] = [
   {
-    name: "name",
+    name: "sectorName",
     type: "text",
-    errorMessage: "Region Name is required",
+    errorMessage: "Sector Name is required",
     isRequired: true,
   },
   {
-    name: "manager",
+    name: "code",
     type: "text",
-    errorMessage: "Region Manager is required",
+    errorMessage: "Sector Code is required",
+    isRequired: true,
+  },
+  {
+    name: "category",
+    type: "text",
+    errorMessage: "Sector Category is required",
     // isRequired: true,
   },
   {
-    name: "phone",
+    name: "sectorDescription",
     type: "text",
-    errorMessage: "Region Manager Mobile is required",
-    // isRequired: true,
-  },
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Region Manager Email is required",
-    // isRequired: true,
+    errorMessage: "Sector Description is required",
+    isRequired: true,
   },
 ];
 
@@ -52,49 +51,20 @@ type Props = {
 };
 
 export const SectorFormModal = ({ setIsOpen }: Props) => {
-  const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
 
-  const { control, handleSubmit, formState, reset, watch, setValue } =
+
+  const { control, handleSubmit, formState, reset } =
     useDynamicForm<Region>(fields, {});
 
   const { isValid } = formState;
 
-  const { getAllUsers } = useUsers();
-  const { addRegion, getRegionLists } = useRegions();
+  const { addSector, getSectorLists } = useSectors();
 
-  const { refetch } = getRegionLists();
-  const { data: allUsers } = getAllUsers();
+  const { refetch } = getSectorLists();
 
-  const userListData = allUsers?.data || [];
-  const selectedManager = watch("manager");
 
-  console.log(managerOptions, "drop__");
 
-  useEffect(() => {
-    if (userListData) {
-      const UsersOptions = Array.isArray(userListData)
-        ? userListData?.map((user: Userdata) => ({
-            value: user?.name,
-            label: user?.name,
-            email: user?.email,
-            phone: user?.mobile,
-          }))
-        : [];
-      setManagerOptions(UsersOptions);
-    }
-  }, [allUsers]);
-
-  useEffect(() => {
-    const selectedUser = managerOptions?.find(
-      (manager) => manager?.value === selectedManager
-    );
-    if (selectedUser) {
-      setValue("email", selectedUser?.email);
-      setValue("mobile", selectedUser.phone);
-    }
-  }, [selectedManager, managerOptions, setValue]);
-
-  const { mutate, isPending } = addRegion;
+  const { mutate, isPending } = addSector;
 
   const onSubmit = (data: any) => {
     mutate(data, {
@@ -127,7 +97,7 @@ export const SectorFormModal = ({ setIsOpen }: Props) => {
                 variant="primary"
               />
               <ControlledInput
-                name="name"
+                name="sectorName"
                 control={control}
                 placeholder="Enter Sector name"
                 type="text"
@@ -138,7 +108,7 @@ export const SectorFormModal = ({ setIsOpen }: Props) => {
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
               <CustomSelect
-                options={managerOptions}
+                options={categoryOption}
                 control={control}
                 // rules={{ required: true }}
                 placeholder="Select Category"
@@ -147,12 +117,12 @@ export const SectorFormModal = ({ setIsOpen }: Props) => {
                 dropdownChoice
               />
               <ControlledInput
-                name="Description"
+                name="sectorDescription"
                 control={control}
                 placeholder="Enter Sector Description"
                 type="text"
-                label="Parent"
-                // rules={{ required: true }}
+                label="Sector Description"
+                rules={{ required: true }}
                 variant="primary"
               />
             </div>

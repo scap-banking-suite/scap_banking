@@ -31,7 +31,7 @@ const OperationsTableComp = <T,>({ headers, data, renderRow }: TableProps<T>) =>
           </tr>
         </thead>
         <tbody className="">
-          {data.map((item, index) => renderRow(item, index))}
+          {data?.map((item, index) => renderRow(item, index))}
         </tbody>
       </table>
     </div>

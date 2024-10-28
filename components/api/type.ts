@@ -39,6 +39,22 @@ export interface Region {
   data: RegionDataItem[];
 }
 
+export type SectorDataItem = {
+  sectorName: string;
+  category: string;
+  sectorDescription:string
+  code:string
+  id: ID;
+};
+export interface Sector {
+  id: ID;
+  sectorName: string;
+  sectorDescription: string;
+  code: string;
+  category: string;
+  data: SectorDataItem[];
+}
+
 export type ManagerOption = {
   value: string;
   label: string;

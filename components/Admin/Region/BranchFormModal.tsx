@@ -6,7 +6,11 @@ import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { AuthUser, Region, RegionDataItem, Userdata } from "@/components/api/type";
+import {
+  AuthUser,
+  RegionDataItem,
+  Userdata,
+} from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { useRegions } from "@/components/api/crud/region";
@@ -20,11 +24,6 @@ import { ModalFooter } from "@/components/modal/ModalFooter";
 const status = [
   { value: "true", label: "True" },
   { value: "false", label: "False" },
-];
-
-const gender = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
 ];
 
 const fields: Field[] = [
@@ -112,7 +111,6 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
         label: user?.name,
       }))
     : [];
-
 
   const { mutate, isPending } = addBranch;
 

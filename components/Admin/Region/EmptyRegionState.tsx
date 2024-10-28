@@ -6,6 +6,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { RegionFormModal } from "./RegionFormModal";
 import { BranchFormModal } from "./BranchFormModal";
+import { SectorFormModal } from "../LookUp/SectorFormModal";
 
 const EmptyRegionState = ({ title }: { title: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,8 @@ const EmptyRegionState = ({ title }: { title: string }) => {
         </SheetTrigger>
         {title === "Branch" ? (
           <BranchFormModal setIsOpen={setIsOpen} />
+        ) : title === "Sector" ? (
+          <SectorFormModal setIsOpen={setIsOpen}/>
         ) : (
           <RegionFormModal setIsOpen={setIsOpen} />
         )}

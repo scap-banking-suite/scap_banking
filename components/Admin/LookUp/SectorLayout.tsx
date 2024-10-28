@@ -6,9 +6,20 @@ import RegionSearchComp from "../Region/RegionSearchComp";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import SectorTable from "./SectorTable";
 import { SectorFormModal } from "./SectorFormModal";
+import { useSectors } from "@/components/api/crud/sector";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
+import EmptyRegionState from "../Region/EmptyRegionState";
 
 const SectorLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { getSectorLists } = useSectors();
+
+  const { data: sectorList, isPending } = getSectorLists();
+  const sectorListData = sectorList?.data || []
+
+  console.log(sectorListData, 'sec__');
+  
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -33,7 +44,15 @@ const SectorLayout = () => {
         </Sheet>
       </div>
       <main className="my-4">
-        <SectorTable />
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : sectorListData?.length > 0 ? (
+          <SectorTable sectorListData={sectorListData} />
+        ) : (
+          <div className="flex h-[50vh] items-center mx-auto w-1/2">
+            <EmptyRegionState title="Sector" />
+          </div>
+        )}
       </main>
     </section>
   );

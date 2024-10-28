@@ -23,9 +23,9 @@ const renderRow = (item: RegionDataItem, index: number) => (
     key={index}
     className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
   >
-    <td className="py-1 px-4">{item.id}</td>
+    <td className="py-1 px-4">{item?.id}</td>
     <td className="py-1 px-4 flex flex-col text-lg font-medium text-black">
-      {item.name}
+      {item?.name}
       <p className="text-sm text-regionGrayText mt-1">32 branches | Nigeria</p>
     </td>
 
