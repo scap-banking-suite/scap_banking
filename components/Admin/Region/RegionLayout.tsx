@@ -19,7 +19,6 @@ const RegionLayout = () => {
   const { data: regionList, isPending } = getRegionLists();
   const regionListData = regionList?.data || [];
 
-  console.log(regionList, 'region')
 
   const toggleView = () => {
     setView((prevView) => (prevView === "grid" ? "list" : "grid"));
