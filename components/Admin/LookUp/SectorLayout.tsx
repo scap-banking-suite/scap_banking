@@ -16,10 +16,7 @@ const SectorLayout = () => {
   const { getSectorLists } = useSectors();
 
   const { data: sectorList, isPending } = getSectorLists();
-  const sectorListData = sectorList?.data || []
-
-  console.log(sectorListData, 'sec__');
-  
+  const sectorListData = sectorList?.data || [];
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">

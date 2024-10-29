@@ -1,5 +1,5 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
-import { AuthResponse, ConfigDataItem } from "../type";
+import { AuthResponse, Config } from "../type";
 import { useApiQuery } from "@/hooks/useApiQuery";
 
 
@@ -15,7 +15,7 @@ export const useApprovalConfig = () => {
   });
 
   const getApprovalConfigLists = () =>
-    useApiQuery<ConfigDataItem>(["config"], {
+    useApiQuery<Config>(["config"], {
       url: `/MsgConfig/allmsgconfigs`,
       method: "GET",
     });

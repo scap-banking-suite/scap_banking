@@ -11,11 +11,9 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import notificationStore from "@/store/notificationStore";
 
-type Props = {};
-
-export const Navbar = (props: Props) => {
+export const Navbar = () => {
   const path = usePathname();
-  const { notificationVisible, toggleNotification } = notificationStore();
+  const { toggleNotification } = notificationStore();
 
   const value1 = path?.split("/")[1];
   const value2 = path?.split("/")[2];
@@ -49,7 +47,7 @@ export const Navbar = (props: Props) => {
         <div className="cursor-pointer" onClick={toggleNotification}>
           <NotificationIcon />
         </div>
-        <CollapseActiveIcon />
+        {/* <CollapseActiveIcon /> */}
       </div>
     </nav>
   );

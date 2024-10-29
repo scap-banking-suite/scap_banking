@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProviders from "@/contexts/query-provider";
 import { ModalCloseProvider } from "@/contexts/SheetCloseModal";
+import { AutoLogout } from "@/contexts/AutoLogout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,14 +46,16 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </head>
-      <QueryProviders>
-        <ModalCloseProvider>
-          <body className={inter.className}>
-            <div className="">{children}</div>
-            <Toaster position="top-center" />
-          </body>
-        </ModalCloseProvider>
-      </QueryProviders>
+      <AutoLogout>
+        <QueryProviders>
+          <ModalCloseProvider>
+            <body className={inter.className}>
+              <div className="">{children}</div>
+              <Toaster position="top-center" />
+            </body>
+          </ModalCloseProvider>
+        </QueryProviders>
+      </AutoLogout>
     </html>
   );
 }

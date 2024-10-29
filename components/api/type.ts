@@ -42,10 +42,10 @@ export type ConfigDataItem = {
   modulePath: string;
   moduleName: string;
   isConfigured: boolean;
-  id: ID;
+  configId: ID;
 };
 export interface Config {
-  id: ID;
+  configId: ID;
   modulePath: string;
   moduleName: string;
   isConfigured: boolean;

@@ -1,24 +1,10 @@
+import { Config, ConfigDataItem } from "@/components/api/type";
 import OperationsTableComp from "@/components/Operations/OperationsTableComp";
 import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 
-// Sample data type
-type DataItem = {
-  id: number;
-  code: string;
-  category: string;
-  name: string;
-  description: string;
+type listType = {
+  approvalListData: Config["data"];
 };
-
-const sampleData: DataItem[] = [
-  {
-    id: 1,
-    code: "01",
-    name: "Agriculture",
-    category: "Null",
-    description: "Agriculture des..",
-  },
-];
 
 const headers = [
   { content: <>Code</> },
@@ -29,27 +15,28 @@ const headers = [
 ];
 
 // Custom row render function
-const renderRow = (item: DataItem, index: number) => (
+const renderRow = (item: ConfigDataItem, index: number) => (
   <tr
     key={index}
     className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
   >
-    <td className="py-1 px-4">{item.code}</td>
-    <td className="py-1 px-4">{item.name}</td>
-    <td className="py-1 px-4">{item.category}</td>
-    <td className="py-1 px-4">{item.description}</td>
+    <td className="py-1 px-4">{item?.configId}</td>
+    <td className="py-1 px-4">{item?.moduleName}</td>
+    <td className="py-1 px-4">{item?.modulePath}</td>
+    <td className="py-1 px-4">{item?.isConfigured ? "True" : "False"}</td>
+
     <td className="py-1 px-4 cursor-pointer">
       <ThreeDotIcon />
     </td>
   </tr>
 );
 
-const ConfigurationTable = () => {
+const ConfigurationTable = ({ approvalListData }: listType) => {
   return (
     <div className="bg-[#E7EEFA]">
       <OperationsTableComp
         headers={headers}
-        data={sampleData}
+        data={approvalListData}
         renderRow={renderRow}
       />
     </div>
