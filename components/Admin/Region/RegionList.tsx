@@ -38,9 +38,9 @@ const renderRow = (item: RegionDataItem, index: number) => (
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col font-medium text-black text-sm">
-          regina adams{" "}
+          {item?.regionalManagerName}
           <p className="text-[12px] font-medium text-regionGrayText">
-            s.emeka@bank.com | 08166559955
+            {item?.regionalManagerEmail} | {item?.regionalManagerPhone}
           </p>
         </div>
       </span>

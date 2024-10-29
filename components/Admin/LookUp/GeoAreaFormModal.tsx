@@ -66,7 +66,7 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
   const { data: allUsers } = getAllUsers();
 
   const userListData = allUsers?.data || [];
-  const selectedManager = watch("manager");
+
 
   console.log(managerOptions, "drop__");
 
@@ -84,15 +84,7 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
     }
   }, [allUsers]);
 
-  useEffect(() => {
-    const selectedUser = managerOptions?.find(
-      (manager) => manager?.value === selectedManager
-    );
-    if (selectedUser) {
-      setValue("email", selectedUser?.email);
-      setValue("mobile", selectedUser.phone);
-    }
-  }, [selectedManager, managerOptions, setValue]);
+  
 
   const { mutate, isPending } = addRegion;
 

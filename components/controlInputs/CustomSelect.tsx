@@ -85,7 +85,7 @@ export const CustomSelect = ({
           />
         </SelectTrigger>
         <SelectContent>
-          <div className="p-2">
+          <div className="p-2 sticky top-0 z-50 bg-white">
             <input
               type="text"
               value={searchTerm}

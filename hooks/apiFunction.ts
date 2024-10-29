@@ -16,3 +16,5 @@ export const api = async <T>({
     throw globalErrorHandler(error);
   }
 };
+
+
