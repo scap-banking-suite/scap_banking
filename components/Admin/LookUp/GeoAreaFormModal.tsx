@@ -4,46 +4,46 @@ import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { ManagerOption, Region, Userdata } from "@/components/api/type";
+import {  Region } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { useRegions } from "@/components/api/crud/region";
 import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
-import { useUsers } from "@/components/api/crud/allUsers";
+import { useGeoArea } from "@/components/api/crud/geoArea";
 
-const country = [
-  { value: "ng", label: "Nigeria" },
-  { value: "gh", label: "Ghana" },
+const areaType = [
+  { value: "LGA", label: "LGA" },
+  { value: "State", label: "State" },
+  { value: "Country", label: "Country" },
 ];
 
 const fields: Field[] = [
   {
-    name: "name",
+    name: "code",
     type: "text",
-    errorMessage: "Region Name is required",
+    errorMessage: "Geo Area code is required",
     isRequired: true,
   },
   {
-    name: "manager",
+    name: "stateOrLgaOrCountry",
     type: "text",
-    errorMessage: "Region Manager is required",
-    // isRequired: true,
+    errorMessage: "Area is required",
+    isRequired: true,
   },
   {
-    name: "phone",
+    name: "name",
     type: "text",
-    errorMessage: "Region Manager Mobile is required",
-    // isRequired: true,
+    errorMessage: "Geo Area Name is required",
+    isRequired: true,
   },
   {
-    name: "email",
-    type: "email",
-    errorMessage: "Region Manager Email is required",
-    // isRequired: true,
+    name: "parentId",
+    type: "text",
+    errorMessage: "Parent is required",
+    isRequired: true,
   },
 ];
 
@@ -52,41 +52,18 @@ type Props = {
 };
 
 export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
-  const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
 
-  const { control, handleSubmit, formState, reset, watch, setValue } =
+
+  const { control, handleSubmit, formState, reset } =
     useDynamicForm<Region>(fields, {});
 
   const { isValid } = formState;
 
-  const { getAllUsers } = useUsers();
-  const { addRegion, getRegionLists } = useRegions();
+  const { addGeoArea, getGeoLists } = useGeoArea();
 
-  const { refetch } = getRegionLists();
-  const { data: allUsers } = getAllUsers();
+  const { refetch } = getGeoLists();
 
-  const userListData = allUsers?.data || [];
-
-
-  console.log(managerOptions, "drop__");
-
-  useEffect(() => {
-    if (userListData) {
-      const UsersOptions = Array.isArray(userListData)
-        ? userListData?.map((user: Userdata) => ({
-            value: user?.name,
-            label: user?.name,
-            email: user?.email,
-            phone: user?.mobile,
-          }))
-        : [];
-      setManagerOptions(UsersOptions);
-    }
-  }, [allUsers]);
-
-  
-
-  const { mutate, isPending } = addRegion;
+  const { mutate, isPending } = addGeoArea;
 
   const onSubmit = (data: any) => {
     mutate(data, {
@@ -130,16 +107,16 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
               <CustomSelect
-                options={managerOptions}
+                options={areaType}
                 control={control}
                 // rules={{ required: true }}
                 placeholder="Select Area"
                 label="Area"
-                name="manager"
+                name="stateOrLgaOrCountry"
                 dropdownChoice
               />
               <ControlledInput
-                name="parent"
+                name="parentId"
                 control={control}
                 placeholder="Enter Parent name"
                 type="text"
