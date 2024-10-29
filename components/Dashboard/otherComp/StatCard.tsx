@@ -34,7 +34,8 @@ const StatCard = ({
       //       : "bg-[#D7E5FF]"
       //   }`}
       className={clsx(
-        "h-[96px]  rounded-2xl w-[270px] px-5 py-5 cursor-pointer",
+        // w-[270%]
+        "h-[96px]  rounded-2xl w-[50%] px-5 py-5 cursor-pointer",
         className,
         index !== undefined ? `z-${30 - index * 10}` : "",
         index !== undefined && index !== 0 ? "-ml-8" : "ml-0",

@@ -9,11 +9,13 @@ import {
 import React from "react";
 
 import { usePathname } from "next/navigation";
+import notificationStore from "@/store/notificationStore";
 
 type Props = {};
 
 export const Navbar = (props: Props) => {
   const path = usePathname();
+  const { notificationVisible, toggleNotification } = notificationStore();
 
   const value1 = path?.split("/")[1];
   const value2 = path?.split("/")[2];
@@ -44,7 +46,9 @@ export const Navbar = (props: Props) => {
       <div className="flex gap-5 items-center">
         <SearchInputComp placeholder="Search" className="" />
         <LightModeIcon />
-        <NotificationIcon />
+        <div className="cursor-pointer" onClick={toggleNotification}>
+          <NotificationIcon />
+        </div>
         <CollapseActiveIcon />
       </div>
     </nav>
