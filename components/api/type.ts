@@ -27,23 +27,26 @@ export interface AuthUser {
 
 export type RegionDataItem = {
   name: string;
-  manager: string;
+  regionalManagerEmail: string;
+  regionalManagerPhone: string;
+  regionalManagerName: string;
+  country: string;
   id: ID;
 };
 export interface Region {
   id: ID;
   name: string;
-  email: string;
-  mobile: string;
-  manager: string;
+  regionalManagerEmail: string;
+  regionalManagerPhone: string;
+  regionalManagerName: string;
   data: RegionDataItem[];
 }
 
 export type SectorDataItem = {
   sectorName: string;
   category: string;
-  sectorDescription:string
-  code:string
+  sectorDescription: string;
+  code: string;
   id: ID;
 };
 export interface Sector {
@@ -61,7 +64,6 @@ export type ManagerOption = {
   email: string;
   phone: string;
 };
-
 
 export type Userdata = {
   id: ID;
@@ -90,6 +92,9 @@ export type BranchDataItem = {
   branchStatus: boolean;
   branchGLNumber: string;
   branchId: string;
+  region: {
+    regionalManagerEmail: string;
+  };
 };
 export interface Branch {
   regionID: ID;
@@ -101,4 +106,8 @@ export interface Branch {
   branchStatus: boolean;
   branchGLNumber: string;
   data: BranchDataItem[];
+}
+
+export interface Country {
+  id: ID;
 }

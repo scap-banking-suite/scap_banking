@@ -42,7 +42,7 @@ const renderRow = (item: BranchDataItem, index: number) => (
         <div className="flex flex-col font-medium text-black text-sm">
           {item?.branchManager}
           <p className="text-[12px] font-medium text-regionGrayText">
-            s.emeka@bank.com | {item?.branchMobile}
+          {item?.region?.regionalManagerEmail} | {item?.branchMobile}
           </p>
         </div>
       </span>

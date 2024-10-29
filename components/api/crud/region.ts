@@ -1,6 +1,8 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
-import { AuthResponse, Region } from "../type";
+import { AuthResponse, Country, Region } from "../type";
 import { useApiQuery } from "@/hooks/useApiQuery";
+import { useQuery } from "@tanstack/react-query";
+import { getAllCountries } from "./getAllContries";
 
 export const useRegions = () => {
   const addRegion = useApiMutation<AuthResponse, FormData>({
@@ -14,8 +16,17 @@ export const useRegions = () => {
       method: "GET",
     });
 
+    const getCountries = () => {
+      return useQuery<Country>({
+        queryFn: () => getAllCountries(),
+        queryKey: ["allCountries"],
+        staleTime: 0,
+      });
+    };
+
   return {
     addRegion,
-    getRegionLists
+    getRegionLists,
+    getCountries
   };
 };

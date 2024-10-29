@@ -34,10 +34,12 @@ const BranchCard = ({ value }: dataType) => {
           </Avatar>
           <aside className="flex flex-col gap-[2px] text-black">
             <h4 className="text-sm font-medium ">{value?.branchManager}</h4>
-            <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
-              <MailIcon />
-              s.emeka@bank.com
-            </p>
+            {value?.region?.regionalManagerEmail && (
+              <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
+                <MailIcon />
+                {value?.region?.regionalManagerEmail}
+              </p>
+            )}
 
             <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
               <CallIcon />

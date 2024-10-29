@@ -18,7 +18,9 @@ const RegionCard = ({ value }: dataType) => {
             <ThreeDotIcon />
           </div>
         </aside>
-        <p className="text-sm text-regionGrayText">32 branches | Nigeria</p>
+        <p className="text-sm text-regionGrayText">
+          32 branches | {value?.country || "Nigeria"}
+        </p>
       </section>
       <section className="bg-accountBg h-[111px] px-4 py-2 rounded-b-[15px]">
         <h3 className="text-lg font-medium">Regional Manager</h3>
@@ -31,16 +33,21 @@ const RegionCard = ({ value }: dataType) => {
             </AvatarFallback>
           </Avatar>
           <aside className="flex flex-col gap-[2px] text-black">
-            <h4 className="text-sm font-medium ">Mr. Francis Emeka</h4>
-            <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
-              <MailIcon />
-              s.emeka@bank.com
-            </p>
-
-            <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
-              <CallIcon />
-              08166558877
-            </p>
+            <h4 className="text-sm font-medium ">
+              {value?.regionalManagerName}
+            </h4>
+            {value?.regionalManagerEmail && (
+              <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
+                <MailIcon />
+                {value?.regionalManagerEmail}
+              </p>
+            )}
+            {value?.regionalManagerPhone && (
+              <p className="text-[12px] font-medium text-regionGrayText flex items-center gap-2">
+                <CallIcon />
+                {value?.regionalManagerPhone}
+              </p>
+            )}
           </aside>
         </div>
       </section>

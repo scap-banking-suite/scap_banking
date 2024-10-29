@@ -15,10 +15,6 @@ import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
 import { useUsers } from "@/components/api/crud/allUsers";
 
-const country = [
-  { value: "ng", label: "Nigeria" },
-  { value: "gh", label: "Ghana" },
-];
 
 const fields: Field[] = [
   {
@@ -28,19 +24,25 @@ const fields: Field[] = [
     isRequired: true,
   },
   {
-    name: "manager",
+    name: "country",
     type: "text",
-    errorMessage: "Region Manager is required",
+    errorMessage: "Region Country is required",
     // isRequired: true,
   },
   {
-    name: "phone",
+    name: "regionalManagerName",
+    type: "text",
+    errorMessage: "Region Manager is required",
+    isRequired: true,
+  },
+  {
+    name: "regionalManagerPhone",
     type: "text",
     errorMessage: "Region Manager Mobile is required",
     // isRequired: true,
   },
   {
-    name: "email",
+    name: "regionalManagerEmail",
     type: "email",
     errorMessage: "Region Manager Email is required",
     // isRequired: true,
@@ -54,26 +56,30 @@ type Props = {
 export const RegionFormModal = ({ setIsOpen }: Props) => {
   const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
 
-  const { control, handleSubmit, formState, reset, watch, setValue } = useDynamicForm<Region>(
-    fields,
-    {}
-  );
+  const { control, handleSubmit, formState, reset, watch, setValue } =
+    useDynamicForm<Region>(fields, {});
 
   const { isValid } = formState;
 
   const { getAllUsers } = useUsers();
-  const { addRegion, getRegionLists } = useRegions();
+  const { addRegion, getRegionLists, getCountries } = useRegions();
 
   const { refetch } = getRegionLists();
   const { data: allUsers } = getAllUsers();
+  const { data: countryLists } = getCountries();
+
 
   const userListData = allUsers?.data || [];
-  const selectedManager = watch("manager");
+  const selectedManager = watch("regionalManagerName");
 
-  console.log(managerOptions, "drop__");
+  const countryOptions = Array.isArray(countryLists)
+    ? countryLists?.map((country: any) => ({
+        value: country?.name?.common,
+        label: country?.name?.common,
+      }))
+    : [];
 
   useEffect(() => {
-
     if (userListData) {
       const UsersOptions = Array.isArray(userListData)
         ? userListData?.map((user: Userdata) => ({
@@ -92,8 +98,8 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
       (manager) => manager?.value === selectedManager
     );
     if (selectedUser) {
-      setValue("email", selectedUser?.email);
-      setValue("mobile", selectedUser.phone);
+      setValue("regionalManagerEmail", selectedUser?.email);
+      setValue("regionalManagerPhone", selectedUser.phone);
     }
   }, [selectedManager, managerOptions, setValue]);
 
@@ -130,9 +136,8 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
                 variant="primary"
               />
               <CustomSelect
-                options={country}
+                options={countryOptions}
                 control={control}
-                // rules={{ required: true }}
                 placeholder="Select Region Country"
                 label="Country of Region"
                 name="country"
@@ -146,11 +151,11 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
                 // rules={{ required: true }}
                 placeholder="Select Manager"
                 label="Regional Manager"
-                name="manager"
+                name="regionalManagerName"
                 dropdownChoice
               />
               <ControlledInput
-                name="email"
+                name="regionalManagerEmail"
                 control={control}
                 placeholder="Enter Regional Manager email"
                 type="email"
@@ -160,7 +165,7 @@ export const RegionFormModal = ({ setIsOpen }: Props) => {
                 disabled
               />
               <ControlledInput
-                name="phone"
+                name="regionalManagerPhone"
                 control={control}
                 placeholder="Enter Regional Manager Phon"
                 type="number"
