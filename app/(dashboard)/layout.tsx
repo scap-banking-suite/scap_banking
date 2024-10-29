@@ -1,6 +1,8 @@
+"use client";
 import { Navbar } from "@/components/Dashboard/menubars/Navbar";
 import { Rightbar } from "@/components/Dashboard/menubars/Rightbar";
 import { Sidebar } from "@/components/Dashboard/menubars/Sidebar";
+import notificationStore from "@/store/notificationStore";
 import React, { ReactNode } from "react";
 
 type Props = {
@@ -8,14 +10,19 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  const { notificationVisible } = notificationStore();
+
   return (
     <div className="flex bg-[url('/backgrounddash.png')] bg-no-repeat bg-contain bg-bottom ">
       <Sidebar />
-      <div className="w-[66%]">
+      <div className={` ${notificationVisible ? "w-[66%]" : "w-[84%]"}`}>
         <Navbar />
-        <div className="pl-[34px] pr-[30px] overflow-y-scroll scrollbar-hidden h-[90vh]">{children}</div>
+        <div className="pl-[34px] pr-[30px] overflow-y-scroll scrollbar-hidden h-[90vh]">
+          {children}
+        </div>
       </div>
-      <Rightbar />
+
+      {notificationVisible && <Rightbar />}
     </div>
   );
 };
