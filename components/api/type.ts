@@ -25,6 +25,33 @@ export interface AuthUser {
   password: string;
 }
 
+export type GeoDataItem = {
+  code: string;
+  name: string;
+  country: string;
+  parentId: ID;
+};
+export interface GeoArea {
+  parentId: ID;
+  code: string;
+  name: string;
+  data: GeoDataItem[];
+}
+
+export type ConfigDataItem = {
+  modulePath: string;
+  moduleName: string;
+  isConfigured: boolean;
+  id: ID;
+};
+export interface Config {
+  id: ID;
+  modulePath: string;
+  moduleName: string;
+  isConfigured: boolean;
+  data: ConfigDataItem[];
+}
+
 export type RegionDataItem = {
   name: string;
   regionalManagerEmail: string;

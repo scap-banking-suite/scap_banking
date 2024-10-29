@@ -1,48 +1,42 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { ManagerOption, Region, Userdata } from "@/components/api/type";
+import { Region } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { useRegions } from "@/components/api/crud/region";
 import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
-import { useUsers } from "@/components/api/crud/allUsers";
+import { useApprovalConfig } from "@/components/api/crud/approvalConfig";
 
-const country = [
-  { value: "ng", label: "Nigeria" },
-  { value: "gh", label: "Ghana" },
+const configuration = [
+  { value: "true", label: "True" },
+  { value: "false", label: "False" },
 ];
 
 const fields: Field[] = [
   {
-    name: "name",
+    name: "moduleName",
     type: "text",
-    errorMessage: "Region Name is required",
+    errorMessage: "Approval Config Name is required",
     isRequired: true,
   },
   {
-    name: "manager",
+    name: "modulePath",
     type: "text",
     errorMessage: "Region Manager is required",
     // isRequired: true,
   },
+
   {
-    name: "phone",
+    name: "isConfigured",
     type: "text",
-    errorMessage: "Region Manager Mobile is required",
-    // isRequired: true,
-  },
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Region Manager Email is required",
+    errorMessage: " is required",
     // isRequired: true,
   },
 ];
@@ -52,42 +46,26 @@ type Props = {
 };
 
 export const NewApprovalFormModal = ({ setIsOpen }: Props) => {
-  const [managerOptions, setManagerOptions] = useState<ManagerOption[]>([]);
-
-  const { control, handleSubmit, formState, reset, watch, setValue } =
-    useDynamicForm<Region>(fields, {});
+  const { control, handleSubmit, formState, reset } = useDynamicForm<Region>(
+    fields,
+    {}
+  );
 
   const { isValid } = formState;
 
-  const { getAllUsers } = useUsers();
-  const { addRegion, getRegionLists } = useRegions();
+  const { addApprovalConfig, getApprovalConfigLists } = useApprovalConfig();
 
-  const { refetch } = getRegionLists();
-  const { data: allUsers } = getAllUsers();
+  const { refetch } = getApprovalConfigLists();
 
-  const userListData = allUsers?.data || [];
-
-
-  useEffect(() => {
-    if (userListData) {
-      const UsersOptions = Array.isArray(userListData)
-        ? userListData?.map((user: Userdata) => ({
-            value: user?.name,
-            label: user?.name,
-            email: user?.email,
-            phone: user?.mobile,
-          }))
-        : [];
-      setManagerOptions(UsersOptions);
-    }
-  }, [allUsers]);
-
-
-
-  const { mutate, isPending } = addRegion;
+  const { mutate, isPending } = addApprovalConfig;
 
   const onSubmit = (data: any) => {
-    mutate(data, {
+    const transformedData = {
+      ...data,
+      isConfigured: data.isConfigured === "true",
+    };
+
+    mutate(transformedData, {
       onSuccess: (response: any) => {
         toast.success(response?.message);
         refetch();
@@ -95,7 +73,7 @@ export const NewApprovalFormModal = ({ setIsOpen }: Props) => {
         setIsOpen(false);
       },
       onError: (error: any) => {
-        toast.error(error?.message || "Error creating Region");
+        toast.error(error?.message || "Error creating Geo Area");
       },
     });
   };
@@ -103,21 +81,25 @@ export const NewApprovalFormModal = ({ setIsOpen }: Props) => {
   return (
     <>
       <SheetContent side="adjusted" className="">
-        <ModalHeader title="New Approval Configuration" icon={X} description="Close" />
+        <ModalHeader
+          title="New Approval Configuration"
+          icon={X}
+          description="Close"
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody className="w-full flex flex-col gap-5">
             <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
               <ControlledInput
-                name="code"
+                name="moduleName"
                 control={control}
-                placeholder="Code"
+                placeholder="Enter Module Name"
                 type="text"
                 label="Module Name"
                 rules={{ required: true }}
                 variant="primary"
               />
               <ControlledInput
-                name="path"
+                name="modulePath"
                 control={control}
                 placeholder="Enter Module Path"
                 type="text"
@@ -128,15 +110,14 @@ export const NewApprovalFormModal = ({ setIsOpen }: Props) => {
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
               <CustomSelect
-                options={managerOptions}
+                options={configuration}
                 control={control}
                 // rules={{ required: true }}
-                placeholder="Select Category"
+                placeholder="Select Configuration"
                 label="isConfigured"
-                name="category"
+                name="isConfigured"
                 dropdownChoice
               />
-              
             </div>
           </ModalBody>
           <ModalFooter>
