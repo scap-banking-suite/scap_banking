@@ -102,6 +102,11 @@ const sidebarItems: SidebarItem[] = [
         link: "/accounts/create-corporate-customer",
         icon: <DashboardIcon />,
       },
+      {
+        name: "General Ledger",
+        link: "/accounts/general-ledger",
+        icon: <DashboardIcon />,
+      },
     ],
   },
   {
