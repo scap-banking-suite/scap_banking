@@ -107,6 +107,11 @@ const sidebarItems: SidebarItem[] = [
         link: "/accounts/general-ledger",
         icon: <DashboardIcon />,
       },
+      {
+        name: "Product Management",
+        link: "/accounts/product-management",
+        icon: <DashboardIcon />,
+      },
     ],
   },
   {
