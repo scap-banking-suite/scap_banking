@@ -44,7 +44,6 @@ const ListLayout = () => {
     useDynamicForm<AuthUser>(fields, {});
 
   const [isOpen, setIsOpen] = useState(false);
-
   const showList = [
     { value: "20", label: "10" },
     { value: "10", label: "20" },
