@@ -138,3 +138,12 @@ export interface Branch {
 export interface Country {
   id: ID;
 }
+
+
+export interface ListForm {
+  id: ID;
+  name: string;
+  ledgerName: string;
+  ledgerClass: string;
+  ledgerParent: string;
+}

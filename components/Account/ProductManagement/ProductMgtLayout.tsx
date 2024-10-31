@@ -7,11 +7,12 @@ import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
-import LedgerListTable from "./LedgerListTable";
+
+import { useState } from "react";
 
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import { LedgerFormModal } from "./LedgerFormModal";
-import { useState } from "react";
+import ProductTable from "./ProductTable";
+import { ProductFormModal } from "./ProductFormModal";
 
 const fields: Field[] = [
   {
@@ -40,16 +41,17 @@ const fields: Field[] = [
   },
 ];
 
-const LedgerListLayout = () => {
+const ProductMgtLayout = () => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
 
+  const [isOpen, setIsOpen] = useState(false);
   const showList = [
     { value: "20", label: "10" },
     { value: "10", label: "20" },
     { value: "4", label: "4" },
   ];
-  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
       <div className="flex items-center justify-between w-full">
@@ -75,7 +77,7 @@ const LedgerListLayout = () => {
                 Add
               </CustomButton>
             </SheetTrigger>
-            <LedgerFormModal setIsOpen={setIsOpen} />
+            <ProductFormModal setIsOpen={setIsOpen} />
           </Sheet>
 
           <RegionSearchComp className="w-[401px]" />
@@ -97,10 +99,10 @@ const LedgerListLayout = () => {
         </div>
       </div>
       <main className="my-4">
-        <LedgerListTable />
+        <ProductTable />
       </main>
     </section>
   );
 };
 
-export default LedgerListLayout;
+export default ProductMgtLayout;

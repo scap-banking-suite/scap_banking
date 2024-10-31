@@ -8,6 +8,9 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
 import ApprovalListTable from "./ApprovalListTable";
+import { useState } from "react";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { ApprovalFormModal } from "./ApprovalFormModal";
 
 const fields: Field[] = [
   {
@@ -46,6 +49,8 @@ const ApprovalListLayout = () => {
     { value: "4", label: "4" },
   ];
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
       <div className="flex items-center justify-between w-full">
@@ -61,13 +66,19 @@ const ApprovalListLayout = () => {
               className="bg-transparent h-[40px] w-[69px] rounded-[10px]"
             />
           </aside>
-          <CustomButton
-            variant="primary"
-            className="rounded-[10px] w-[60px] bg-lightButton font-normal h-[40px] text-darkBlue text-xs px-1"
-            icon={AddIcon}
-          >
-            Add
-          </CustomButton>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger>
+              <CustomButton
+                variant="primary"
+                className="rounded-[10px] w-[60px] bg-lightButton font-normal h-[40px] text-darkBlue text-xs px-1"
+                icon={AddIcon}
+              >
+                Add
+              </CustomButton>
+            </SheetTrigger>
+            <ApprovalFormModal setIsOpen={setIsOpen} />
+          </Sheet>
+
           <RegionSearchComp className="w-[401px]" />
         </div>
         <div className="flex items-center gap-3">
