@@ -8,6 +8,9 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
 import ListTable from "./ListTable";
+import { useState } from "react";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { ListFormModal } from "./ListFormModal";
 
 const fields: Field[] = [
   {
@@ -40,6 +43,8 @@ const ListLayout = () => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const showList = [
     { value: "20", label: "10" },
     { value: "10", label: "20" },
@@ -61,13 +66,19 @@ const ListLayout = () => {
               className="bg-transparent h-[40px] w-[69px] rounded-[10px]"
             />
           </aside>
-          <CustomButton
-            variant="primary"
-            className="rounded-[10px] w-[60px] bg-lightButton font-normal h-[40px] text-darkBlue text-xs px-1"
-            icon={AddIcon}
-          >
-            Add
-          </CustomButton>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger>
+              <CustomButton
+                variant="primary"
+                className="rounded-[10px] w-[60px] bg-lightButton font-normal h-[40px] text-darkBlue text-xs px-1"
+                icon={AddIcon}
+              >
+                Add
+              </CustomButton>
+            </SheetTrigger>
+            <ListFormModal setIsOpen={setIsOpen} />
+          </Sheet>
+
           <RegionSearchComp className="w-[401px]" />
         </div>
         <div className="flex items-center gap-3">
