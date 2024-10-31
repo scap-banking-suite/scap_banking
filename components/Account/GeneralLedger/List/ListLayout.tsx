@@ -1,7 +1,7 @@
 "use client";
 import { AddIcon, ResetIcon, SortIcon } from "@/icons/svgComp/RegionIcons";
 
-import { AuthUser } from "@/components/api/type";
+import { AuthUser, ID } from "@/components/api/type";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import useDynamicForm from "@/hooks/useDynamicForm";
@@ -11,6 +11,9 @@ import ListTable from "./ListTable";
 import { useState } from "react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { ListFormModal } from "./ListFormModal";
+import { useLedgerList } from "@/components/api/crud/ledgerList";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
+import EmptyRegionState from "@/components/Admin/Region/EmptyRegionState";
 
 const fields: Field[] = [
   {
@@ -49,6 +52,13 @@ const ListLayout = () => {
     { value: "10", label: "20" },
     { value: "4", label: "4" },
   ];
+
+  const { getLists } = useLedgerList();
+  const { data: lists, isPending } = getLists();
+
+  const listData = lists?.data || [];
+
+  console.log(listData, "list_data__");
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -96,8 +106,17 @@ const ListLayout = () => {
           />
         </div>
       </div>
+
       <main className="my-4">
-        <ListTable />
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : listData?.length > 0 ? (
+          <ListTable listData={listData} />
+        ) : (
+          <div className="flex h-[50vh] items-center mx-auto w-1/2">
+            <EmptyRegionState title="List" />
+          </div>
+        )}
       </main>
     </section>
   );

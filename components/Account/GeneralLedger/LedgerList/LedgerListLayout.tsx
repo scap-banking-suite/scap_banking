@@ -12,6 +12,7 @@ import LedgerListTable from "./LedgerListTable";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { LedgerFormModal } from "./LedgerFormModal";
 import { useState } from "react";
+import { useLedgerList } from "@/components/api/crud/ledgerList";
 
 const fields: Field[] = [
   {
@@ -50,6 +51,14 @@ const LedgerListLayout = () => {
     { value: "4", label: "4" },
   ];
   const [isOpen, setIsOpen] = useState(false);
+
+  // const {  getLists } = useLedgerList();
+
+  // const { data:lists } = getLists();
+
+  // console.log(lists, "list_data__");
+  
+
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
       <div className="flex items-center justify-between w-full">

@@ -4,7 +4,6 @@ import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { Region } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { toast } from "sonner";
@@ -12,19 +11,7 @@ import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
-import { useLedgerList } from "@/components/api/crud/ledgerList";
-
-const ledgerClass = [
-  { id: 1, value: "1", label: "Class A" },
-  { id: 2, value: "2", label: "Class B" },
-  { id: 3, value: "3", label: "Class C" },
-];
-
-const parentOptions = [
-  { id: 1, value: "1", label: "Parent A" },
-  { id: 2, value: "2", label: "Parent B" },
-  { id: 3, value: "3", label: "Parent C" },
-];
+import { LedgerList, useLedgerList } from "@/components/api/crud/ledgerList";
 
 const fields: Field[] = [
   {
@@ -51,27 +38,50 @@ type Props = {
 };
 
 export const ListFormModal = ({ setIsOpen }: Props) => {
-  const { control, handleSubmit, formState, reset } = useDynamicForm<Region>(
-    fields,
-    {}
-  );
+  const { control, handleSubmit, formState, reset, watch } =
+    useDynamicForm<LedgerList>(fields, {});
 
   const { isValid } = formState;
+  const [showParentField, setShowParentField] = useState(false);
 
-  const { addList, getLists } = useLedgerList();
+  const ledgerClassID = watch("ledgerClassID");
 
-  const { refetch } = getLists();
+  const { addList, getLists, getLedgerClass } = useLedgerList();
+
+  const { data: classList } = getLedgerClass();
+  const { data: lists, refetch } = getLists(undefined, ledgerClassID);
+
+  useEffect(() => {
+    if (ledgerClassID) {
+      setShowParentField(true);
+      refetch();
+    } else {
+      setShowParentField(false);
+    }
+  }, [ledgerClassID, refetch]);
+
+
+  const classListData = classList?.data || [];
+  const ListData = lists?.data || [];
+
+  const classListOption = Array.isArray(classListData)
+    ? classListData?.map((list: any) => ({
+        value: list?.id?.toString(),
+        label: list?.name,
+      }))
+    : [];
+
+  const parentListOption = Array.isArray(ListData)
+    ? ListData?.map((list: any) => ({
+        value: list?.id?.toString(),
+        label: list?.name,
+      }))
+    : [];
 
   const { mutate, isPending } = addList;
 
   const onSubmit = (data: any) => {
-    const payload = {
-      ...data,
-      parentID: Number(data.parentID),
-      ledgerClassID: Number(data.ledgerClassID),
-    };
-
-    mutate(payload, {
+    mutate(data, {
       onSuccess: (response: any) => {
         toast.success(response?.message);
         refetch();
@@ -79,7 +89,7 @@ export const ListFormModal = ({ setIsOpen }: Props) => {
         setIsOpen(false);
       },
       onError: (error: any) => {
-        toast.error(error?.message || "Error creating Region");
+        toast.error(error?.message || "Error creating List");
       },
     });
   };
@@ -101,7 +111,7 @@ export const ListFormModal = ({ setIsOpen }: Props) => {
                 variant="primary"
               />
               <CustomSelect
-                options={ledgerClass}
+                options={classListOption}
                 control={control}
                 placeholder="Select Ledger"
                 label="Ledger Class"
@@ -109,16 +119,18 @@ export const ListFormModal = ({ setIsOpen }: Props) => {
                 dropdownChoice
               />
             </div>
-            <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
-              <CustomSelect
-                options={parentOptions}
-                control={control}
-                placeholder="Select Parent"
-                label="Parent"
-                name="parentID"
-                dropdownChoice
-              />
-            </div>
+            {showParentField && (
+              <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
+                <CustomSelect
+                  options={parentListOption}
+                  control={control}
+                  placeholder="Select Parent"
+                  label="Parent"
+                  name="parentID"
+                  dropdownChoice
+                />
+              </div>
+            )}
           </ModalBody>
           <ModalFooter>
             <CustomButton

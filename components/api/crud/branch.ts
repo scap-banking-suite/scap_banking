@@ -1,6 +1,32 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
-import { AuthResponse, Branch } from "../type";
+import { AuthResponse, ID } from "../type";
 import { useApiQuery } from "@/hooks/useApiQuery";
+
+export type BranchDataItem = {
+  regionID: ID;
+  branchName: string;
+  branchAddress: string;
+  branchMobile: string;
+  branchState: string;
+  branchManager: string;
+  branchStatus: boolean;
+  branchGLNumber: string;
+  branchId: string;
+  region: {
+    regionalManagerEmail: string;
+  };
+};
+export interface Branch {
+  regionID: ID;
+  branchName: string;
+  branchAddress: string;
+  branchMobile: string;
+  branchState: string;
+  branchManager: string;
+  branchStatus: boolean;
+  branchGLNumber: string;
+  data: BranchDataItem[];
+}
 
 export const useBranches = () => {
   const addBranch = useApiMutation<AuthResponse, FormData>({
