@@ -8,12 +8,11 @@ import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import {
   AuthUser,
-  RegionDataItem,
   Userdata,
 } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
-import { useRegions } from "@/components/api/crud/region";
+import { RegionDataItem, useRegions } from "@/components/api/crud/region";
 import { useBranches } from "@/components/api/crud/branch";
 import { toast } from "sonner";
 import { useUsers } from "@/components/api/crud/allUsers";

@@ -38,7 +38,6 @@ export interface GeoArea {
   data: GeoDataItem[];
 }
 
-
 export type ConfigDataItem = {
   modulePath: string;
   moduleName: string;
@@ -51,23 +50,6 @@ export interface Config {
   moduleName: string;
   isConfigured: boolean;
   data: ConfigDataItem[];
-}
-
-export type RegionDataItem = {
-  name: string;
-  regionalManagerEmail: string;
-  regionalManagerPhone: string;
-  regionalManagerName: string;
-  country: string;
-  id: ID;
-};
-export interface Region {
-  id: ID;
-  name: string;
-  regionalManagerEmail: string;
-  regionalManagerPhone: string;
-  regionalManagerName: string;
-  data: RegionDataItem[];
 }
 
 export type SectorDataItem = {
@@ -110,36 +92,9 @@ export interface User {
   data: Userdata[];
 }
 
-export type BranchDataItem = {
-  regionID: ID;
-  branchName: string;
-  branchAddress: string;
-  branchMobile: string;
-  branchState: string;
-  branchManager: string;
-  branchStatus: boolean;
-  branchGLNumber: string;
-  branchId: string;
-  region: {
-    regionalManagerEmail: string;
-  };
-};
-export interface Branch {
-  regionID: ID;
-  branchName: string;
-  branchAddress: string;
-  branchMobile: string;
-  branchState: string;
-  branchManager: string;
-  branchStatus: boolean;
-  branchGLNumber: string;
-  data: BranchDataItem[];
-}
-
 export interface Country {
   id: ID;
 }
-
 
 export interface ListForm {
   id: ID;

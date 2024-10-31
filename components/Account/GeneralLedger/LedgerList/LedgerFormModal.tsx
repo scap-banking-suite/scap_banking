@@ -13,9 +13,9 @@ import { ModalFooter } from "@/components/modal/ModalFooter";
 
 const fields: Field[] = [
   {
-    name: "name",
+    name: "acctName",
     type: "text",
-    errorMessage: "Region Name is required",
+    errorMessage: "Account Name is required",
     isRequired: true,
   },
   {
@@ -62,7 +62,7 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
           <ModalBody className="w-full flex flex-col gap-5">
             <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
               <ControlledInput
-                name="ledgerName"
+                name="acctName"
                 control={control}
                 placeholder="enter ledger name"
                 type="text"
@@ -128,7 +128,7 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
               <ControlledInput
-                name="ledgerName"
+                name="acctName"
                 control={control}
                 placeholder="Select CurrencyCOde"
                 type="email"

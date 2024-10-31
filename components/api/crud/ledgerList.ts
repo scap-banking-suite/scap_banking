@@ -5,17 +5,31 @@ import { useApiQuery } from "@/hooks/useApiQuery";
 export type LedgerListItem = {
   code: string;
   subName: string;
+  name: string;
   ledgerClassID: ID;
-  parentId: ID;
+  parentID: ID;
+  id: ID;
 };
-export interface GeoArea {
-  parentId: ID;
+export interface LedgerList {
+  parentID: ID;
+  id: ID;
   code: string;
   subName: string;
-  ledgerClassID:ID
+  name: string;
+  ledgerClassID: ID;
   data: LedgerListItem[];
 }
 
+export type ClassListItem = {
+  id: ID;
+  name: string;
+};
+
+export interface ClassList {
+  id: ID;
+  name: string;
+  data: ClassListItem[];
+}
 
 export const useLedgerList = () => {
   const addList = useApiMutation<AuthResponse, FormData>({
@@ -28,17 +42,26 @@ export const useLedgerList = () => {
     method: "POST",
   });
 
-  const getLists = () =>
-    useApiQuery<LedgerListItem>(["ledgerlist"], {
-      url: `/LedgerSubClass/ledger-subclass-list`,
+  const getLedgerClass = () =>
+    useApiQuery<ClassList>(["ledgerlist"], {
+      url: `/LedgerClass/ledgerclasslist`,
       method: "GET",
     });
 
-   
+  const getLists = (parentId?: ID, legerClass?: ID) =>
+    useApiQuery<LedgerList>(["ledgerlist", parentId, legerClass], {
+      url: `/LedgerSubClass/ledger-subclass-list-filter`,
+      method: "GET",
+      params: {
+        ...(parentId && { parentId }),
+        ...(legerClass && { legerClass }),
+      },
+    });
 
   return {
     addList,
     getLists,
-    updateList
+    updateList,
+    getLedgerClass,
   };
 };
