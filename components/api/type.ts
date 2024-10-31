@@ -38,6 +38,7 @@ export interface GeoArea {
   data: GeoDataItem[];
 }
 
+
 export type ConfigDataItem = {
   modulePath: string;
   moduleName: string;

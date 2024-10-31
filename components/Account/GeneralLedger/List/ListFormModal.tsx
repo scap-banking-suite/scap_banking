@@ -4,31 +4,45 @@ import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { ListForm } from "@/components/api/type";
+import { Region } from "@/components/api/type";
+import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
+import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
+import { useLedgerList } from "@/components/api/crud/ledgerList";
+
+const ledgerClass = [
+  { id: 1, value: "1", label: "Class A" },
+  { id: 2, value: "2", label: "Class B" },
+  { id: 3, value: "3", label: "Class C" },
+];
+
+const parentOptions = [
+  { id: 1, value: "1", label: "Parent A" },
+  { id: 2, value: "2", label: "Parent B" },
+  { id: 3, value: "3", label: "Parent C" },
+];
 
 const fields: Field[] = [
   {
-    name: "name",
+    name: "ledgerClassID",
     type: "text",
-    errorMessage: "Region Name is required",
-    isRequired: true,
-  },
-  {
-    name: "country",
-    type: "text",
-    errorMessage: "Region Country is required",
+    errorMessage: "Area is required",
     // isRequired: true,
   },
   {
-    name: "regionalManagerName",
+    name: "subName",
     type: "text",
-    errorMessage: "Region Manager is required",
     isRequired: true,
+  },
+  {
+    name: "parentID",
+    type: "text",
+    errorMessage: "Parent is required",
+    // isRequired: true,
   },
 ];
 
@@ -37,48 +51,72 @@ type Props = {
 };
 
 export const ListFormModal = ({ setIsOpen }: Props) => {
-  const { control, handleSubmit, formState, reset, watch, setValue } =
-    useDynamicForm<ListForm>(fields, {});
+  const { control, handleSubmit, formState, reset } = useDynamicForm<Region>(
+    fields,
+    {}
+  );
 
   const { isValid } = formState;
+
+  const { addList, getLists } = useLedgerList();
+
+  const { refetch } = getLists();
+
+  const { mutate, isPending } = addList;
+
+  const onSubmit = (data: any) => {
+    const payload = {
+      ...data,
+      parentID: Number(data.parentID),
+      ledgerClassID: Number(data.ledgerClassID),
+    };
+
+    mutate(payload, {
+      onSuccess: (response: any) => {
+        toast.success(response?.message);
+        refetch();
+        reset();
+        setIsOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message || "Error creating Region");
+      },
+    });
+  };
 
   return (
     <>
       <SheetContent side="adjusted" className="">
         <ModalHeader title="Add List" icon={X} description="Close" />
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody className="w-full flex flex-col gap-5">
-            <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
-              <ControlledInput
-                name="ledgerName"
-                control={control}
-                placeholder="code"
-                type="text"
-                label="Ledger Name"
-                // rules={{ required: true }}
-                variant="primary"
-                disabled
-              />
-              <ControlledInput
-                name="geo"
-                control={control}
-                placeholder="Enter Geo area name"
-                type="text"
-                label="Ledger Class"
-                // rules={{ required: true }}
-                variant="primary"
-                disabled
-              />
-            </div>
             <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-3">
               <ControlledInput
-                name="name"
+                name="subName"
                 control={control}
-                placeholder="Enter region name"
+                placeholder="Enter Ledger Name"
                 type="text"
-                label="Parent"
+                label="Ledger name"
                 rules={{ required: true }}
                 variant="primary"
+              />
+              <CustomSelect
+                options={ledgerClass}
+                control={control}
+                placeholder="Select Ledger"
+                label="Ledger Class"
+                name="ledgerClassID"
+                dropdownChoice
+              />
+            </div>
+            <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
+              <CustomSelect
+                options={parentOptions}
+                control={control}
+                placeholder="Select Parent"
+                label="Parent"
+                name="parentID"
+                dropdownChoice
               />
             </div>
           </ModalBody>
@@ -88,6 +126,7 @@ export const ListFormModal = ({ setIsOpen }: Props) => {
               label="Add List"
               type="submit"
               className="w-[378px] rounded-lg mt-36 py-3"
+              isLoading={isPending}
               disabled={!isValid}
             />
           </ModalFooter>

@@ -3,7 +3,6 @@
 import ApprovalListLayout from "@/components/Account/GeneralLedger/ApprovalList/ApprovalListLayout";
 import LedgerListLayout from "@/components/Account/GeneralLedger/LedgerList/LedgerListLayout";
 import ListLayout from "@/components/Account/GeneralLedger/List/ListLayout";
-import Configuration from "@/components/Admin/LookUp/Configuration";
 import TopBar from "@/components/Dashboard/otherComp/TopBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";

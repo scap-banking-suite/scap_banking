@@ -2,7 +2,6 @@
 import { AddIcon, SortIcon } from "@/icons/svgComp/RegionIcons";
 import { useState } from "react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import { useRegions } from "@/components/api/crud/region";
 import RegionSearchComp from "../Region/RegionSearchComp";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import GeoTable from "./GeoTable";
