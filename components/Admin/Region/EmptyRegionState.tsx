@@ -7,12 +7,14 @@ import { RegionFormModal } from "./RegionFormModal";
 import { BranchFormModal } from "./BranchFormModal";
 import { SectorFormModal } from "../LookUp/SectorFormModal";
 import { NewApprovalFormModal } from "../LookUp/NewApprovalFormModal";
+import { ListFormModal } from "@/components/Account/GeneralLedger/List/ListFormModal";
 
 // Hook to map titles to their respective form components
 const useFormModal = (title: string, setIsOpen: Dispatch<SetStateAction<boolean>>): ReactNode => {
   const formModals: Record<string, ReactNode> = {
     Branch: <BranchFormModal setIsOpen={setIsOpen} />,
     Sector: <SectorFormModal setIsOpen={setIsOpen} />,
+    List: <ListFormModal setIsOpen={setIsOpen} />,
     "Geo Area": <NewApprovalFormModal setIsOpen={setIsOpen} />,
     default: <RegionFormModal setIsOpen={setIsOpen} />, // Default fallback
   };

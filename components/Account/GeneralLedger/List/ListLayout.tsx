@@ -8,12 +8,13 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
 import ListTable from "./ListTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { ListFormModal } from "./ListFormModal";
 import { useLedgerList } from "@/components/api/crud/ledgerList";
 import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
 import EmptyRegionState from "@/components/Admin/Region/EmptyRegionState";
+import Pagination from "@/components/ui/Pagination";
 
 const fields: Field[] = [
   {
@@ -55,10 +56,37 @@ const ListLayout = () => {
 
   const { getLists } = useLedgerList();
   const { data: lists, isPending } = getLists();
-
   const listData = lists?.data || [];
+  const totalEntries = listData?.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState<number>(10);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(listData, "list_data__");
+  const filteredListData = listData.filter((item) => {
+    return (
+      item?.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+      // item?.ledgerClassID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      // item?.parentID.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = listData?.slice(indexOfFirstEntry, indexOfLastEntry);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage, searchTerm]);
+
+  const handleEntriesPerPageChange = (value: string) => {
+    setEntriesPerPage(Number(value)); 
+  };
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term); // Update search term
+  };
+
+
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -70,7 +98,6 @@ const ListLayout = () => {
               name="bank"
               options={showList}
               control={control}
-              rules={{ required: true }}
               placeholder="10"
               className="bg-transparent h-[40px] w-[69px] rounded-[10px]"
             />
@@ -88,7 +115,7 @@ const ListLayout = () => {
             <ListFormModal setIsOpen={setIsOpen} />
           </Sheet>
 
-          <RegionSearchComp className="w-[401px]" />
+          <RegionSearchComp onSearch={handleSearch} className="w-[401px]" />
         </div>
         <div className="flex items-center gap-3">
           <CustomButton
@@ -110,13 +137,19 @@ const ListLayout = () => {
       <main className="my-4">
         {isPending ? (
           <SkeletonTableLoader />
-        ) : listData?.length > 0 ? (
-          <ListTable listData={listData} />
+        ) : filteredListData?.length > 0 ? (
+          <ListTable listData={currentEntries} />
         ) : (
           <div className="flex h-[50vh] items-center mx-auto w-1/2">
             <EmptyRegionState title="List" />
           </div>
         )}
+        <Pagination
+          currentPage={currentPage}
+          totalEntries={totalEntries}
+          entriesPerPage={entriesPerPage}
+          onPageChange={(page:any) => setCurrentPage(page)}
+        />
       </main>
     </section>
   );

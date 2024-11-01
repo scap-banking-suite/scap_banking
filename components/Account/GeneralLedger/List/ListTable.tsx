@@ -41,7 +41,7 @@ const ListTable = ({listData}: listType) => {
         data={listData}
         renderRow={renderRow}
       />
-      <Pagination/>
+      {/* <Pagination/> */}
     </div>
   );
 };

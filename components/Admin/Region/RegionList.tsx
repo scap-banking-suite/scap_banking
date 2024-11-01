@@ -4,7 +4,7 @@ import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
-import { RegionDataItem, Region } from "@/components/api/type";
+import { Region, RegionDataItem } from "@/components/api/crud/region";
 
 type listType = {
   regionListData: Region["data"];
