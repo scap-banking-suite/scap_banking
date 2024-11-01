@@ -4,7 +4,7 @@ import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
-import { Branch, BranchDataItem } from "@/components/api/type";
+import { Branch, BranchDataItem } from "@/components/api/crud/branch";
 
 type BranchlistType = {
   branchListData: Branch["data"];

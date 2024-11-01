@@ -2,7 +2,7 @@ import { CallIcon, MailIcon, ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userAvatar from "@/icons/svgs/UserAvatar.svg";
 import Image from "next/image";
-import { BranchDataItem } from "@/components/api/type";
+import { BranchDataItem } from "@/components/api/crud/branch";
 
 type dataType = {
   value: BranchDataItem;

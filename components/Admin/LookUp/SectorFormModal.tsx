@@ -4,7 +4,7 @@ import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import { ManagerOption, Region, Userdata } from "@/components/api/type";
+import { ManagerOption, Userdata } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { toast } from "sonner";
@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
 import { useSectors } from "@/components/api/crud/sector";
+import { Region } from "@/components/api/crud/region";
 
 const categoryOption = [
   { value: "assigned", label: "Assigned" },
