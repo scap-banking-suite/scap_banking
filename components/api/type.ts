@@ -30,11 +30,13 @@ export type GeoDataItem = {
   name: string;
   country: string;
   parentId: ID;
+  stateOrLgaOrCountry: string;
 };
 export interface GeoArea {
   parentId: ID;
   code: string;
   name: string;
+  stateOrLgaOrCountry: string;
   data: GeoDataItem[];
 }
 

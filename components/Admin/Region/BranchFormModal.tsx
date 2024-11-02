@@ -6,10 +6,7 @@ import { ChevronLeft, X } from "lucide-react";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
-import {
-  AuthUser,
-  Userdata,
-} from "@/components/api/type";
+import { AuthUser, Userdata } from "@/components/api/type";
 import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import { CustomButton } from "@/components/clickable/CustomButton";
 import { RegionDataItem, useRegions } from "@/components/api/crud/region";

@@ -29,10 +29,36 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
-  const pageNumbers = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1
-  );
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxVisiblePages = 3;
+
+    if (totalPages <= 6) {
+      // Show all pages if there are 6 or fewer
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show the first 3 and last 3 pages
+      for (let i = 1; i <= maxVisiblePages; i++) {
+        pages.push(i);
+      }
+      if (
+        currentPage > maxVisiblePages &&
+        currentPage < totalPages - maxVisiblePages + 1
+      ) {
+        pages.push(currentPage, "...");
+      } else if (currentPage >= totalPages - maxVisiblePages + 1) {
+        pages.push("...");
+      }
+      for (let i = totalPages - maxVisiblePages + 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    }
+    return pages;
+  };
+
+  const pageNumbers = getPageNumbers();
 
   return (
     <div className="bg-white border-b border-operationBg py-4">
@@ -50,14 +76,14 @@ const Pagination: React.FC<PaginationProps> = ({
           >
             <ArrowLeft />
           </button>
-          <div className="flex items-center justify-between gap-1 rounded-[29px] bg-[#F3F2F7] h-[29px] w-[125px]">
-            {pageNumbers.map((page) => (
+          <div className="flex items-center justify-between gap-1 rounded-[29px] bg-[#F3F2F7] h-[29px]">
+            {pageNumbers?.map((page, index) => (
               <p
-                key={page}
+                key={index}
                 className={`rounded-[29px] h-[29px] w-[29px] flex items-center justify-center ${
                   currentPage === page ? "text-white bg-[#001F56]" : ""
-                }`}
-                onClick={() => onPageChange(page)}
+                } ${page === "..." ? "cursor-default text-gray-500" : ""}`}
+                onClick={() => typeof page === "number" && onPageChange(page)}
               >
                 {page}
               </p>

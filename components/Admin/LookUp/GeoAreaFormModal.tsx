@@ -12,13 +12,16 @@ import { X } from "lucide-react";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
 import { useGeoArea } from "@/components/api/crud/geoArea";
-import { Region } from "@/components/api/crud/region";
+import { StateLGAItem, useStateLGA } from "@/components/api/crud/stateLga";
+import { GeoArea } from "@/components/api/type";
 
 const areaType = [
   { value: "LGA", label: "LGA" },
   { value: "State", label: "State" },
   { value: "Country", label: "Country" },
 ];
+
+type AddressOption = { value: string; label: string };
 
 const fields: Field[] = [
   {
@@ -31,7 +34,7 @@ const fields: Field[] = [
     name: "stateOrLgaOrCountry",
     type: "text",
     errorMessage: "Area is required",
-    isRequired: true,
+    // isRequired: true,
   },
   {
     name: "name",
@@ -43,7 +46,7 @@ const fields: Field[] = [
     name: "parentId",
     type: "text",
     errorMessage: "Parent is required",
-    isRequired: true,
+    // isRequired: true,
   },
 ];
 
@@ -52,16 +55,36 @@ type Props = {
 };
 
 export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
+  const { control, handleSubmit, formState, reset, watch } =
+    useDynamicForm<GeoArea>(fields, {});
 
+  const areaTypeValue = watch("stateOrLgaOrCountry");
 
-  const { control, handleSubmit, formState, reset } =
-    useDynamicForm<Region>(fields, {});
+  const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
+  const [selectedAreaType, setSelectedAreaType] = useState("");
 
   const { isValid } = formState;
 
   const { addGeoArea, getGeoLists } = useGeoArea();
+  const { getStateLGA } = useStateLGA();
 
   const { refetch } = getGeoLists();
+  const { data: stateLGAList, refetch:stateRefetch } = getStateLGA();
+
+  const stateLGAListData = stateLGAList?.data || [];
+
+  useEffect(() => {
+    const lowercaseAreaType = areaTypeValue?.toLowerCase();
+    const options = stateLGAListData
+      ?.filter(
+        (item: StateLGAItem) =>
+          item?.stateOrLgaOrCountry?.toLowerCase() === lowercaseAreaType
+      )
+      .map((item: StateLGAItem) => ({ value: item?.id.toString(), label: item?.name }));
+
+    setFilteredOptions(options);
+    setSelectedAreaType(areaTypeValue);
+  }, [areaTypeValue, stateLGAListData]);
 
   const { mutate, isPending } = addGeoArea;
 
@@ -70,6 +93,7 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
       onSuccess: (response: any) => {
         toast.success(response?.message);
         refetch();
+        stateRefetch()
         reset();
         setIsOpen(false);
       },
@@ -104,8 +128,6 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
                 rules={{ required: true }}
                 variant="primary"
               />
-            </div>
-            <div className="grid w-full grid-cols-1 md:grid-cols-2  gap-3">
               <CustomSelect
                 options={areaType}
                 control={control}
@@ -115,15 +137,16 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
                 name="stateOrLgaOrCountry"
                 dropdownChoice
               />
-              <ControlledInput
-                name="parentId"
-                control={control}
-                placeholder="Enter Parent name"
-                type="text"
-                label="Parent"
-                // rules={{ required: true }}
-                variant="primary"
-              />
+              {selectedAreaType && (
+                <CustomSelect
+                  options={filteredOptions}
+                  control={control}
+                  placeholder="Select Parent"
+                  label="Parent"
+                  name="parentId"
+                  dropdownChoice
+                />
+              )}
             </div>
           </ModalBody>
           <ModalFooter>
