@@ -11,8 +11,11 @@ import LedgerListTable from "./LedgerListTable";
 
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { LedgerFormModal } from "./LedgerFormModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLedgerList } from "@/components/api/crud/ledgerList";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
+import EmptyRegionState from "@/components/Admin/Region/EmptyRegionState";
+import Pagination from "@/components/ui/Pagination";
 
 const fields: Field[] = [
   {
@@ -21,24 +24,7 @@ const fields: Field[] = [
     errorMessage: "Email is required",
     isRequired: true,
   },
-  {
-    name: "referal",
-    type: "text",
-    errorMessage: "Select a reference",
-    isRequired: true,
-  },
-  {
-    name: "account_type",
-    type: "text",
-    errorMessage: "Enter Type",
-    isRequired: true,
-  },
-  {
-    name: "account_status",
-    type: "text",
-    errorMessage: "Enter Status",
-    isRequired: true,
-  },
+  
 ];
 
 const LedgerListLayout = () => {
@@ -52,12 +38,38 @@ const LedgerListLayout = () => {
   ];
   const [isOpen, setIsOpen] = useState(false);
 
-  // const {  getLists } = useLedgerList();
+  const { getLedgerList } = useLedgerList();
+  const { data: lists, isPending } = getLedgerList();
 
-  // const { data:lists } = getLists();
+  const listData = lists?.data || [];
+  console.log(lists, "list_data__");
 
-  // console.log(lists, "list_data__");
-  
+  const totalEntries = listData?.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState<number>(10);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredListData = listData?.filter((item) => {
+    return item?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+    // item?.ledgerClassID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    // item?.parentID.toLowerCase().includes(searchTerm.toLowerCase())
+  });
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = listData?.slice(indexOfFirstEntry, indexOfLastEntry);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage, searchTerm]);
+
+  const handleEntriesPerPageChange = (value: string) => {
+    setEntriesPerPage(Number(value));
+  };
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term); // Update search term
+  };
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -87,7 +99,7 @@ const LedgerListLayout = () => {
             <LedgerFormModal setIsOpen={setIsOpen} />
           </Sheet>
 
-          <RegionSearchComp className="w-[401px]" />
+          <RegionSearchComp onSearch={handleSearch} className="w-[401px]" />
         </div>
         <div className="flex items-center gap-3">
           <CustomButton
@@ -106,7 +118,21 @@ const LedgerListLayout = () => {
         </div>
       </div>
       <main className="my-4">
-        <LedgerListTable />
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : filteredListData?.length > 0 ? (
+          <LedgerListTable listData={currentEntries} />
+        ) : (
+          <div className="flex h-[50vh] items-center mx-auto w-1/2">
+            <EmptyRegionState title="Ledger List" />
+          </div>
+        )}
+        <Pagination
+          currentPage={currentPage}
+          totalEntries={totalEntries}
+          entriesPerPage={entriesPerPage}
+          onPageChange={(page: any) => setCurrentPage(page)}
+        />
       </main>
     </section>
   );
