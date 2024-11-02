@@ -5,9 +5,15 @@ import { useApiQuery } from "@/hooks/useApiQuery";
 export type LedgerListItem = {
   code: string;
   subName: string;
+  acctName: string;
   name: string;
+  currencyCode: string;
+  status: boolean;
   ledgerClassID: ID;
+  ledgerSubClassID: ID;
   parentID: ID;
+  accountClassificationID: ID;
+  branchID: ID;
   id: ID;
 };
 export interface LedgerList {
@@ -15,8 +21,14 @@ export interface LedgerList {
   id: ID;
   code: string;
   subName: string;
+  acctName: string;
   name: string;
   ledgerClassID: ID;
+  branchID: ID;
+  ledgerSubClassID: ID;
+  accountClassificationID: ID;
+  currencyCode: ID;
+  status: boolean;
   data: LedgerListItem[];
 }
 
@@ -37,16 +49,27 @@ export const useLedgerList = () => {
     method: "POST",
   });
 
+  const addLedger = useApiMutation<AuthResponse, FormData>({
+    url: "/Ledger/new-ledger",
+    method: "POST",
+  });
+
   const updateList = useApiMutation<AuthResponse, FormData>({
     url: "/LedgerSubClass/ledger-subclass-details ",
     method: "POST",
   });
 
   const getLedgerClass = () =>
-    useApiQuery<ClassList>(["ledgerlist"], {
+    useApiQuery<ClassList>(["ledgerclasslist"], {
       url: `/LedgerClass/ledgerclasslist`,
       method: "GET",
     });
+
+    const getLedgerList = () =>
+      useApiQuery<LedgerList>(["ledgerlist"], {
+        url: `/Ledger/ledger-list`,
+        method: "GET",
+      });
 
   const getLists = (parentId?: ID, legerClass?: ID) =>
     useApiQuery<LedgerList>(["ledgerlist", parentId, legerClass], {
@@ -60,7 +83,9 @@ export const useLedgerList = () => {
 
   return {
     addList,
+    addLedger,
     getLists,
+    getLedgerList,
     updateList,
     getLedgerClass,
   };

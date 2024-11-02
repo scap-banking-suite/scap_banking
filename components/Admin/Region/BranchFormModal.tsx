@@ -92,7 +92,7 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
   const { getAllUsers } = useUsers();
   const { addBranch, getBranchLists } = useBranches();
 
-  const { data: regionList, isPending: regionPending } = getRegionLists();
+  const { data: regionList } = getRegionLists();
   const { refetch } = getBranchLists();
   const { data: allUsers } = getAllUsers();
 

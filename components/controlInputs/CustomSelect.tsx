@@ -48,7 +48,7 @@ export const CustomSelect = ({
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredOptions = options?.filter((option: any) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    option?.label?.toLowerCase()?.includes(searchTerm?.toLowerCase())
   );
 
   const baseStyles =

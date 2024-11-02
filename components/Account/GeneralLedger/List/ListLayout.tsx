@@ -62,9 +62,9 @@ const ListLayout = () => {
   const [entriesPerPage, setEntriesPerPage] = useState<number>(10);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredListData = listData.filter((item) => {
+  const filteredListData = listData?.filter((item) => {
     return (
-      item?.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+      item?.name.toLowerCase()?.includes(searchTerm?.toLowerCase()) 
       // item?.ledgerClassID.toLowerCase().includes(searchTerm.toLowerCase()) ||
       // item?.parentID.toLowerCase().includes(searchTerm.toLowerCase())
     );
