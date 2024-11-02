@@ -42,7 +42,6 @@ const LedgerListLayout = () => {
   const { data: lists, isPending } = getLedgerList();
 
   const listData = lists?.data || [];
-  console.log(lists, "list_data__");
 
   const totalEntries = listData?.length;
   const [currentPage, setCurrentPage] = useState(1);

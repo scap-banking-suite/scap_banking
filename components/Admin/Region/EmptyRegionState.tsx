@@ -9,6 +9,7 @@ import { SectorFormModal } from "../LookUp/SectorFormModal";
 import { NewApprovalFormModal } from "../LookUp/NewApprovalFormModal";
 import { ListFormModal } from "@/components/Account/GeneralLedger/List/ListFormModal";
 import { LedgerFormModal } from "@/components/Account/GeneralLedger/LedgerList/LedgerFormModal";
+import { GeoAreaFormModal } from "../LookUp/GeoAreaFormModal";
 
 // Hook to map titles to their respective form components
 const useFormModal = (title: string, setIsOpen: Dispatch<SetStateAction<boolean>>): ReactNode => {
@@ -17,6 +18,7 @@ const useFormModal = (title: string, setIsOpen: Dispatch<SetStateAction<boolean>
     Sector: <SectorFormModal setIsOpen={setIsOpen} />,
     List: <ListFormModal setIsOpen={setIsOpen} />,
     "Geo Area": <NewApprovalFormModal setIsOpen={setIsOpen} />,
+    "New Geo Area": <GeoAreaFormModal setIsOpen={setIsOpen} />,
     "Ledger List": <LedgerFormModal setIsOpen={setIsOpen} />,
     default: <RegionFormModal setIsOpen={setIsOpen} />, // Default fallback
   };
