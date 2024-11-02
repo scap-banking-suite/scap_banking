@@ -10,12 +10,22 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  const { notificationVisible } = notificationStore();
+  const { notificationVisible, sideBarVisible } = notificationStore();
 
   return (
     <div className="flex bg-[url('/backgrounddash.png')] bg-no-repeat bg-contain bg-bottom ">
-      <Sidebar />
-      <div className={` ${notificationVisible ? "w-[66%]" : "w-[84%]"}`}>
+      {sideBarVisible && <Sidebar />}
+      <div
+        className={` ${
+          notificationVisible && !sideBarVisible
+            ? "w-[82%]"
+            : !notificationVisible && sideBarVisible
+            ? "w-[84%]"
+            : !sideBarVisible && !notificationVisible
+            ? "w-full"
+            : "w-[66%]"
+        }`}
+      >
         <Navbar />
         <div className="pl-[34px] pr-[30px] overflow-y-scroll scrollbar-hidden h-[90vh]">
           {children}
