@@ -310,84 +310,95 @@ export const Sidebar = ({}: Props) => {
   };
 
   return (
-    <div className="bg-darkBlue text-white h-screen w-[16%] overflow-y-scroll scrollbar-hidden">
-      <div className="p-4">
-        {/* Logo */}
-        <div className="mb-6">
-          <Image src={BankX} alt="BankX" />
-        </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 100, opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-darkBlue text-white h-screen w-[16%] overflow-y-scroll scrollbar-hidden"
+      >
+        <div className="p-4">
+          {/* Logo */}
+          <div className="mb-6">
+            <Image src={BankX} alt="BankX" />
+          </div>
 
-        {/* Menu Items */}
-        <ul>
-          <h6 className="text-sm font-medium py-3 text-white">MENU</h6>
-          {sidebarItems.map((item, index) => (
-            <li key={index} className="">
-              <div
-                className={`flex items-center justify-between rounded-[10px] px-3 py-3 hover:bg-primary cursor-pointer ${
-                  openDropdownIndex === index || activeLink.includes(item.name)
-                    ? "bg-primary"
-                    : ""
-                }`}
-                onClick={() => {
-                  handleToggle(index);
-                  if (item.link) handleLinkClick(item.link);
-                }}
-              >
-                <div className="flex items-center">
-                  <p>{item.icon}</p>
-                  <span className="ml-2 text">
-                    {item.name?.length > 15
-                      ? `${item?.name?.substring(0, 15) + "."}`
-                      : item?.name}
-                  </span>
-                </div>
-                {item.isDrop && (
-                  <motion.div
-                    animate={{ rotate: openDropdownIndex === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-4 h-4 flex items-center justify-center"
-                  >
-                    <DropdownIconUP />
-                  </motion.div>
-                )}
-              </div>
-
-              {item.isDrop && (
-                <AnimatePresence>
-                  {openDropdownIndex === index && (
-                    <motion.ul
-                      className="ml-3 mt-2"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
+          {/* Menu Items */}
+          <ul>
+            <h6 className="text-sm font-medium py-3 text-white">MENU</h6>
+            {sidebarItems.map((item, index) => (
+              <li key={index} className="">
+                <div
+                  className={`flex items-center justify-between rounded-[10px] px-3 py-3 hover:bg-primary cursor-pointer ${
+                    openDropdownIndex === index ||
+                    activeLink.includes(item.name)
+                      ? "bg-primary"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    handleToggle(index);
+                    if (item.link) handleLinkClick(item.link);
+                  }}
+                >
+                  <div className="flex items-center">
+                    <p>{item.icon}</p>
+                    <span className="ml-2 text">
+                      {item.name?.length > 15
+                        ? `${item?.name?.substring(0, 15) + "."}`
+                        : item?.name}
+                    </span>
+                  </div>
+                  {item.isDrop && (
+                    <motion.div
+                      animate={{
+                        rotate: openDropdownIndex === index ? 180 : 0,
+                      }}
                       transition={{ duration: 0.3 }}
+                      className="w-4 h-4 flex items-center justify-center"
                     >
-                      {item.dropdownItems?.map((dropdownItem, idx) => (
-                        <li key={idx} className="mb-2">
-                          <Link
-                            href={dropdownItem.link}
-                            className={`flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-primary w-full ${
-                              activeLink === dropdownItem.link
-                                ? "bg-primary"
-                                : ""
-                            }`}
-                            onClick={() => handleLinkClick(dropdownItem.link)}
-                          >
-                            <p>{dropdownItem.icon}</p>
-                            <span className="ml-2 text-xs">
-                              {dropdownItem.name}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
-                    </motion.ul>
+                      <DropdownIconUP />
+                    </motion.div>
                   )}
-                </AnimatePresence>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+                </div>
+
+                {item.isDrop && (
+                  <AnimatePresence>
+                    {openDropdownIndex === index && (
+                      <motion.ul
+                        className="ml-3 mt-2"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.dropdownItems?.map((dropdownItem, idx) => (
+                          <li key={idx} className="mb-2">
+                            <Link
+                              href={dropdownItem.link}
+                              className={`flex items-center rounded-[10px] px-3 py-3 cursor-pointer hover:bg-primary w-full ${
+                                activeLink === dropdownItem.link
+                                  ? "bg-primary"
+                                  : ""
+                              }`}
+                              onClick={() => handleLinkClick(dropdownItem.link)}
+                            >
+                              <p>{dropdownItem.icon}</p>
+                              <span className="ml-2 text-xs">
+                                {dropdownItem.name}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

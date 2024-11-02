@@ -13,7 +13,8 @@ import notificationStore from "@/store/notificationStore";
 
 export const Navbar = () => {
   const path = usePathname();
-  const { toggleNotification } = notificationStore();
+  const { toggleNotification, setSideBarVisible, sideBarVisible } =
+    notificationStore();
 
   const value1 = path?.split("/")[1];
   const value2 = path?.split("/")[2];
@@ -29,7 +30,9 @@ export const Navbar = () => {
     <nav className="bg-white border-b border-b-black border-opacity-10 h-[68px] flex items-center justify-between py-4 px-7">
       {/* <p>bjv</p> */}
       <div className="flex gap-5 items-center">
-        <CollapseActiveIcon />
+        <div className="cursor-pointer" onClick={() => setSideBarVisible(!sideBarVisible)}>
+          <CollapseActiveIcon />
+        </div>
         <FavouriteIcon />
         <div className="flex items-center gap-4">
           <p className="text-sm text-black opacity-40 font-normal">
