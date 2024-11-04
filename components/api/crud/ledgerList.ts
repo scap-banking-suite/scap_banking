@@ -8,10 +8,12 @@ export type LedgerListItem = {
   acctName: string;
   name: string;
   currencyCode: string;
+  currency: any;
   status: boolean;
   ledgerClassID: ID;
   ledgerSubClassID: ID;
   parentID: ID;
+  regionID: ID;
   accountClassificationID: ID;
   branchID: ID;
   id: ID;

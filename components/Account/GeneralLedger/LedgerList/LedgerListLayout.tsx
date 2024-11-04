@@ -49,7 +49,7 @@ const LedgerListLayout = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredListData = listData?.filter((item) => {
-    return item?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+    return item?.acctName?.toLowerCase()?.includes(searchTerm?.toLowerCase());
     // item?.ledgerClassID.toLowerCase().includes(searchTerm.toLowerCase()) ||
     // item?.parentID.toLowerCase().includes(searchTerm.toLowerCase())
   });
@@ -69,6 +69,7 @@ const LedgerListLayout = () => {
   const handleSearch = (term: string) => {
     setSearchTerm(term); // Update search term
   };
+
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
