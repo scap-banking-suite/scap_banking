@@ -32,8 +32,8 @@ const renderRow = (item: LedgerListItem, index: number) => {
       <td className="py-1 px-4">{index+ 1}</td>
       <td className="py-1 px-4">{item?.acctName}</td>
       <td className="py-1 px-4 text-center">{item?.regionID}</td>
-      <td className="py-1 px-4 text-center">{item?.branchID}</td>
-      <td className="py-1 px-4 text-center">{item?.ledgerClassID}</td>
+      <td className="py-1 px-4 text-center">{item?.branch?.branchName}</td>
+      <td className="py-1 px-4 text-center">{item?.ledgerClass?.name}</td>
       <td className="py-1 px-4 text-center">{item?.ledgerSubClassID}</td>
       <td className="py-1 px-4 text-center">{item?.accountClassificationID}</td>
       <td className="py-1 px-4">{item?.currency?.curr}</td>

@@ -17,6 +17,15 @@ export type LedgerListItem = {
   accountClassificationID: ID;
   branchID: ID;
   id: ID;
+  ledgerclass: {
+    name: string;
+  };
+  ledgerClass: {
+    name: string;
+  };
+  branch: {
+    branchName: string;
+  };
 };
 export interface LedgerList {
   parentID: ID;
@@ -31,6 +40,15 @@ export interface LedgerList {
   accountClassificationID: ID;
   currencyCode: ID;
   status: boolean;
+  ledgerclass: {
+    name: string;
+  };
+  ledgerClass: {
+    name: string;
+  };
+  branch: {
+    branchName: string;
+  };
   data: LedgerListItem[];
 }
 
@@ -67,11 +85,11 @@ export const useLedgerList = () => {
       method: "GET",
     });
 
-    const getLedgerList = () =>
-      useApiQuery<LedgerList>(["ledgerlist"], {
-        url: `/Ledger/ledger-list`,
-        method: "GET",
-      });
+  const getLedgerList = () =>
+    useApiQuery<LedgerList>(["ledgerlist"], {
+      url: `/Ledger/ledger-list`,
+      method: "GET",
+    });
 
   const getLists = (parentId?: ID, legerClass?: ID) =>
     useApiQuery<LedgerList>(["ledgerlist", parentId, legerClass], {
