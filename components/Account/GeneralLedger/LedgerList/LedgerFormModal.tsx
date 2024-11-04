@@ -102,7 +102,6 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
     undefined
   );
 
-
   const regionListData = regionList?.data || [];
   const branchListData = branchList?.data || [];
   const classListData = ledgerClassList?.data || [];
@@ -110,7 +109,7 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
   const ListData = lists?.data || [];
   const currencyListData = currencyList?.data || [];
 
-  console.log(currencyListData, 'currency')
+  console.log(currencyListData, "currency");
 
   useEffect(() => {
     if (ledgerClassID) {
@@ -174,11 +173,16 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
   const { mutate, isPending } = addLedger;
 
   const onSubmit = (data: any) => {
-
     const transformedData = {
       ...data,
-      isControlGL: data.isControlGL === "true",
-      status:true
+      branchID: Number(data?.branchID),
+      regionID: Number(data?.regionID),
+      ledgerClassID: Number(data?.ledgerClassID),
+      ledgerSubClassID: Number(data?.ledgerSubClassID),
+      accountClassificationID: Number(data?.accountClassificationID),
+      currencyCode: Number(data?.currencyCode),
+      isControlGL: data?.isControlGL === "true",
+      status: true,
     };
 
     mutate(transformedData, {
@@ -275,7 +279,6 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
                 name="isControlGL"
                 dropdownChoice
               />
-              
             </div>
           </ModalBody>
           <ModalFooter>
