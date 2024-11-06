@@ -14,7 +14,12 @@ export type LedgerListItem = {
   ledgerSubClassID: ID;
   parentID: ID;
   regionID: ID;
+  regionName: string;
   accountClassificationID: ID;
+  accountClassificationName:string
+  currencyName:string
+  ledgerSubClassName:string
+  ledgerClassName:string
   branchID: ID;
   id: ID;
   ledgerclass: {
@@ -23,9 +28,8 @@ export type LedgerListItem = {
   ledgerClass: {
     name: string;
   };
-  branch: {
-    branchName: string;
-  };
+
+  branchName: string;
 };
 export interface LedgerList {
   parentID: ID;
