@@ -16,6 +16,7 @@ import { useUsers } from "@/components/api/crud/allUsers";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { ModalBody } from "@/components/modal/ModalBody";
 import { ModalFooter } from "@/components/modal/ModalFooter";
+import { StateLGAItem, useStateLGA } from "@/components/api/crud/stateLga";
 
 const status = [
   { value: "true", label: "True" },
@@ -87,14 +88,24 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
 
   const { getRegionLists } = useRegions();
   const { getAllUsers } = useUsers();
+  const { getStateLGA } = useStateLGA();
   const { addBranch, getBranchLists } = useBranches();
 
   const { data: regionList } = getRegionLists();
   const { refetch } = getBranchLists();
   const { data: allUsers } = getAllUsers();
+  const { data: stateLGAList } = getStateLGA();
 
+  const stateLGAListData = stateLGAList?.data || [];
   const regionListData = regionList?.data || [];
   const userListData = allUsers?.data || [];
+
+  const stateOptions = stateLGAListData
+    ?.filter((item: StateLGAItem) => item?.stateOrLgaOrCountry === "State")
+    .map((item: StateLGAItem) => ({
+      value: item?.name,
+      label: item?.name,
+    }));
 
   const RegionOptions = regionListData?.map((reg: RegionDataItem) => ({
     value: reg?.id?.toString(),
@@ -179,11 +190,11 @@ export const BranchFormModal = ({ setIsOpen }: Props) => {
                 dropdownChoice
               />
 
-              <ControlledInput
+              <CustomSelect
                 name="branchState"
                 control={control}
-                placeholder="Enter Branch State"
-                type="text"
+                placeholder="Select Branch State"
+                options={stateOptions}
                 label="Branch State"
                 rules={{ required: true }}
                 variant="primary"
