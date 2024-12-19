@@ -10,12 +10,13 @@ type listType = {
 
 const headers = [
   { content: <>S/N</> },
-  { content: <>Ledger Name</> },
-  { content: <> Region</> },
-  { content: <> Branch</> },
-  { content: <> Class</> },
-  { content: <> Sub Class</> },
-  { content: <> Classification</> },
+  { content: <>Account Name</> },
+  { content: <> Branch ID</> },
+  // { content: <> Region</> },
+  // { content: <> Branch</> },
+  { content: <> Ledger Class</> },
+  { content: <> Ledger Sub Class</> },
+  { content: <> Acc. Classification</> },
   { content: <> Currency</> },
   { content: <> Status</> },
 ];
@@ -31,8 +32,9 @@ const renderRow = (item: LedgerListItem, index: number) => {
       {/* <td className="py-1 px-4">{item?.id}</td> */}
       <td className="py-1 px-4">{index+ 1}</td>
       <td className="py-1 px-4">{item?.acctName}</td>
-      <td className="py-1 px-4 text-center">{item?.regionName}</td>
-      <td className="py-1 px-4 text-center">{item?.branchName}</td>
+      <td className="py-1 px-4 text-center">{item?.branchID}</td>
+      {/* <td className="py-1 px-4 text-center">{item?.regionName}</td>
+      <td className="py-1 px-4 text-center">{item?.branchName}</td> */}
       <td className="py-1 px-4 text-center">{item?.ledgerClassName}</td>
       <td className="py-1 px-4 text-center">{item?.ledgerSubClassName}</td>
       <td className="py-1 px-4 text-center">{item?.accountClassificationName}</td>
@@ -54,7 +56,7 @@ const renderRow = (item: LedgerListItem, index: number) => {
 };
 
 const LedgerListTable = ({ listData }: listType) => {
-  console.log("listData", listData);
+  // console.log("listData", listData);
 
   return (
     <div className="bg-[#E7EEFA]">

@@ -266,7 +266,7 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
                 options={currencyListOption}
                 control={control}
                 placeholder="Select Currency"
-                label="Currency"
+                label="Currency Code"
                 name="currencyCode"
                 dropdownChoice
               />
@@ -274,8 +274,8 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
                 options={status}
                 control={control}
                 rules={{ required: true }}
-                placeholder="Select control"
-                label="Control"
+                placeholder="IsControlLG (TF)"
+                label="IsControlLG"
                 name="isControlGL"
                 dropdownChoice
               />

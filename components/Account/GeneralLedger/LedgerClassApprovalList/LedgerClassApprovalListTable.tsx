@@ -1,11 +1,13 @@
+"use client";
+
 import OperationsTableComp from "@/components/Operations/OperationsTableComp";
+import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/Pagination";
-import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { SquareDotIcon } from "@/icons/svgComp/TableIcons";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ApprovalFormModal } from "./ApprovalFormModal";
+import { LedgerClasssApprovalFormModal } from "./LedgerClasssApprovalFormModal";
+
 // Sample data type
 type DataItem = {
   id: number;
@@ -21,43 +23,58 @@ const sampleData: DataItem[] = [
   {
     id: 1,
     code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
-    status: "Approved",
+    name: "Loans and Advances",
+    class: "Incomes",
+    parent: "101",
+    status: "Pending",
   },
   {
     id: 1,
     code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
+    name: "Other Investments",
+    class: "Expenses",
+    parent: "102",
     status: "Denied",
   },
   {
     id: 1,
     code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
+    name: "Cash bank balances",
+    class: "Liabilities",
+    parent: "103",
+    status: "Approved",
+  },
+  {
+    id: 1,
+    code: "1",
+    name: "Cash bank balances",
+    class: "Capital and Reserves",
+    parent: "104",
+    status: "Approved",
+  },
+  {
+    id: 1,
+    code: "1",
+    name: "Cash bank balances",
+    class: "Asset",
+    parent: "105",
     status: "Approved",
   },
 ];
 
 const headers = [
   { content: <>S/N</> },
-  { content: <>Ledger Name</> },
+  { content: <>Ledger Subclass Name</> },
+  { content: <> ID</> },
   { content: <> Ledger Class</> },
-  { content: <> Ledger Parent</> },
 
   { content: <> Status</> },
-
   { content: <> </> },
 ];
 
 // Custom row render function
 
-const ApprovalListTable = () => {
+const LedgerClassApprovalListTable = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const renderRow = (item: DataItem, index: number) => (
@@ -67,8 +84,8 @@ const ApprovalListTable = () => {
     >
       <td className="py-1 px-4">{item.code}</td>
       <td className="py-1 px-4">{item.name}</td>
-      <td className="py-1 px-4">{item.class}</td>
       <td className="py-1 px-4">{item.parent}</td>
+      <td className="py-1 px-4">{item.class}</td>
       <td className="py-1 px-4 align-middle">
         <span
           className={` ${
@@ -88,7 +105,7 @@ const ApprovalListTable = () => {
               View
             </Button>
           </SheetTrigger>
-          <ApprovalFormModal setIsOpen={setIsOpen} />
+          <LedgerClasssApprovalFormModal setIsOpen={setIsOpen} />
         </Sheet>
       </td>
     </tr>
@@ -106,4 +123,4 @@ const ApprovalListTable = () => {
   );
 };
 
-export default ApprovalListTable;
+export default LedgerClassApprovalListTable;

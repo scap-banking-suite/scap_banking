@@ -7,8 +7,7 @@ import { CustomSelect } from "@/components/controlInputs/CustomSelect";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
-import ApprovalListTable from "./ApprovalListTable";
-import { useState } from "react";
+import LedgerClassTable from "./LedgerClassTable";
 
 const fields: Field[] = [
   {
@@ -37,7 +36,7 @@ const fields: Field[] = [
   },
 ];
 
-const ApprovalListLayout = () => {
+const LedgerClassLayout = () => {
   const { control, handleSubmit, formState, getValues } =
     useDynamicForm<AuthUser>(fields, {});
 
@@ -46,8 +45,6 @@ const ApprovalListLayout = () => {
     { value: "10", label: "20" },
     { value: "4", label: "4" },
   ];
-
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -84,10 +81,10 @@ const ApprovalListLayout = () => {
         </div>
       </div>
       <main className="my-4">
-        <ApprovalListTable />
+        <LedgerClassTable />
       </main>
     </section>
   );
 };
 
-export default ApprovalListLayout;
+export default LedgerClassLayout;
