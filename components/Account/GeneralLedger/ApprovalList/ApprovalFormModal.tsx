@@ -40,7 +40,11 @@ export const ApprovalFormModal = ({ setIsOpen }: Props) => {
   return (
     <>
       <SheetContent side="adjusted" className="">
-        <ModalHeader title="Ledger Approval" icon={X} description="Close" />
+        <ModalHeader
+          title="Ledger Approval"
+          icon={X}
+          description="Close"
+        />
         <form>
           <p className="my-5 text-sm text-placeholderText">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
@@ -65,13 +69,13 @@ export const ApprovalFormModal = ({ setIsOpen }: Props) => {
           <section className="space-y-5 mt-10">
             <div className="flex items-center">
               <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
-                Ledger Name
+              Ledger  Name
               </h3>
               <p className="text-xs text-placeholderText">Ledger Name</p>
             </div>
             <div className="flex items-center">
               <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
-                Ledger Subclass Name
+              Ledger Subclass Name
               </h3>
               <p className="text-xs text-placeholderText">Ledger Name</p>
             </div>
