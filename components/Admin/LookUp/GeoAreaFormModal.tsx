@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { SheetContent } from "@/components/ui/sheet";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "@/components/controlInputs/ControlledInput";
@@ -60,8 +60,8 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
 
   const areaTypeValue = watch("stateOrLgaOrCountry");
 
-  const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
-  const [selectedAreaType, setSelectedAreaType] = useState("");
+  // const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
+  // const [selectedAreaType, setSelectedAreaType] = useState("");
 
   const { isValid } = formState;
 
@@ -69,21 +69,21 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
   const { getStateLGA } = useStateLGA();
 
   const { refetch } = getGeoLists();
-  const { data: stateLGAList, refetch:stateRefetch } = getStateLGA();
+  const { data: stateLGAList, refetch: stateRefetch } = getStateLGA();
 
   const stateLGAListData = stateLGAList?.data || [];
 
-  useEffect(() => {
+  const filteredOptions = useMemo(() => {
     const lowercaseAreaType = areaTypeValue?.toLowerCase();
-    const options = stateLGAListData
+    return stateLGAListData
       ?.filter(
         (item: StateLGAItem) =>
           item?.stateOrLgaOrCountry?.toLowerCase() === lowercaseAreaType
       )
-      .map((item: StateLGAItem) => ({ value: item?.id.toString(), label: item?.name }));
-
-    setFilteredOptions(options);
-    setSelectedAreaType(areaTypeValue);
+      .map((item: StateLGAItem) => ({
+        value: item?.id.toString(),
+        label: item?.name,
+      }));
   }, [areaTypeValue, stateLGAListData]);
 
   const { mutate, isPending } = addGeoArea;
@@ -93,7 +93,7 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
       onSuccess: (response: any) => {
         toast.success(response?.message);
         refetch();
-        stateRefetch()
+        stateRefetch();
         reset();
         setIsOpen(false);
       },
@@ -137,7 +137,7 @@ export const GeoAreaFormModal = ({ setIsOpen }: Props) => {
                 name="stateOrLgaOrCountry"
                 dropdownChoice
               />
-              {selectedAreaType && (
+              {areaTypeValue && (
                 <CustomSelect
                   options={filteredOptions}
                   control={control}
