@@ -53,7 +53,7 @@ const ApprovalListLayout = () => {
   const { getMessageList, getApprovalists } = useLedgerList();
   const { data: lists } = getMessageList();
 
-  const MessageConfigId = lists?.data?.[1]?.configId;
+  const MessageConfigId = lists?.data?.[0]?.configId;
   const { data: applists, isPending } = getApprovalists(MessageConfigId, `NEW`);
   const listData = applists?.data || [];
 
@@ -124,14 +124,16 @@ const ApprovalListLayout = () => {
         ) : filteredListData?.length > 0 ? (
           <ApprovalListTable listData={currentEntries} />
         ) : (
-          <div className="text-center text-sm mb-5">There is no data</div>
+          <div className="flex items-center justify-center text-center text-sm mb-5 h-[20vh]">There are no Pending Approval data</div>
         )}
-        <Pagination
-          currentPage={currentPage}
-          totalEntries={totalEntries}
-          entriesPerPage={entriesPerPage}
-          onPageChange={(page: any) => setCurrentPage(page)}
-        />
+        {filteredListData?.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalEntries={totalEntries}
+            entriesPerPage={entriesPerPage}
+            onPageChange={(page: any) => setCurrentPage(page)}
+          />
+        )}
       </main>
     </section>
   );
