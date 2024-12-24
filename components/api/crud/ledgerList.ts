@@ -88,6 +88,11 @@ export const useLedgerList = () => {
     method: "POST",
   });
 
+  const approveDisapproveLedger = useApiMutation<AuthResponse, FormData>({
+    url: "/Ledger/appdec-deactivate-ledger",
+    method: "POST",
+  });
+
   const getLedgerClass = () =>
     useApiQuery<ClassList>(["ledgerclasslist"], {
       url: `/LedgerClass/ledgerclasslist`,
@@ -136,6 +141,7 @@ export const useLedgerList = () => {
     updateList,
     getLedgerClass,
     getMessageList,
-    getApprovalists
+    getApprovalists,
+    approveDisapproveLedger
   };
 };

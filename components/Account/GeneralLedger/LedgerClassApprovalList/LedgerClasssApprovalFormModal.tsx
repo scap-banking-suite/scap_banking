@@ -9,6 +9,7 @@ import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { SquareDotIcon } from "@/icons/svgComp/TableIcons";
 import { formatDate } from "@/utils/formatdate";
+import { useLedgerList } from "@/components/api/crud/ledgerList";
 
 const fields: Field[] = [
   {
@@ -37,9 +38,48 @@ type Props = {
 
 export const LedgerClasssApprovalFormModal = ({ setIsOpen, item }: Props) => {
   if (!item) return null;
-  const { control, handleSubmit, formState, reset, watch } =
-    useDynamicForm<any>(fields, {});
 
+  const { approveDisapproveLedger } = useLedgerList();
+
+  const { mutate: approveLedger, isPending } = approveDisapproveLedger;
+  const { mutate: denyLedger, isPending: denyPending } =
+    approveDisapproveLedger;
+
+  const onApproveLedger = (data: any) => {
+    const transformedData = {
+      ...data,
+      messageID: item?.messageID,
+      msgCommand: 1,
+    };
+
+    approveLedger(transformedData, {
+      onSuccess: (response: any) => {
+        toast.success(response?.message);
+        setIsOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message || "Error Approving List");
+      },
+    });
+  };
+
+  const onDenyLedger = (data: any) => {
+    const transformedData = {
+      ...data,
+      messageID: item?.messageID,
+      msgCommand: 0,
+    };
+
+    denyLedger(transformedData, {
+      onSuccess: (response: any) => {
+        toast.success(response?.message);
+        setIsOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message || "Error Denying List");
+      },
+    });
+  };
   return (
     <>
       <SheetContent side="adjusted" className="">
@@ -58,12 +98,16 @@ export const LedgerClasssApprovalFormModal = ({ setIsOpen, item }: Props) => {
               className="rounded-[4px] w-fit bg-[#E1FCEF] font-normal h-[40px] text-[#14804A] text-xs px-2"
               icon={SquareDotIcon}
               label="Approve"
+              onClick={onApproveLedger}
+              isLoading={isPending}
             />
             <CustomButton
               variant="primary"
               className="rounded-[4px] w-fit bg-[#FFDED3] font-normal h-[40px] text-[#F3542C] text-xs px-2"
               icon={SquareDotIcon}
               label="Deny"
+              onClick={onDenyLedger}
+              isLoading={denyPending}
             />
           </div>
           <section className="space-y-5 mt-10">
