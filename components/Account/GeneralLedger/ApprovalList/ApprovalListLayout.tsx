@@ -8,7 +8,10 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import RegionSearchComp from "@/components/Admin/Region/RegionSearchComp";
 import ApprovalListTable from "./ApprovalListTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLedgerList } from "@/components/api/crud/ledgerList";
+import SkeletonTableLoader from "@/components/Dashboard/otherComp/SkeletonTableLoader";
+import Pagination from "@/components/ui/Pagination";
 
 const fields: Field[] = [
   {
@@ -47,7 +50,39 @@ const ApprovalListLayout = () => {
     { value: "4", label: "4" },
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
+  const { getMessageList, getApprovalists } = useLedgerList();
+  const { data: lists } = getMessageList();
+
+  const MessageConfigId = lists?.data?.[1]?.configId;
+  const { data: applists, isPending } = getApprovalists(MessageConfigId, `NEW`);
+  const listData = applists?.data || [];
+
+  const totalEntries = listData?.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState<number>(10);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredListData = listData?.filter((item) => {
+    return item?.branchCode.toLowerCase()?.includes(searchTerm?.toLowerCase());
+    // item?.ledgerClassID.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    // item?.parentID.toLowerCase().includes(searchTerm.toLowerCase())
+  });
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = listData?.slice(indexOfFirstEntry, indexOfLastEntry);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage, searchTerm]);
+
+  const handleEntriesPerPageChange = (value: string) => {
+    setEntriesPerPage(Number(value));
+  };
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term); // Update search term
+  };
 
   return (
     <section className="bg-white rounded-[30px] px-6 py-6 mt-6">
@@ -84,7 +119,19 @@ const ApprovalListLayout = () => {
         </div>
       </div>
       <main className="my-4">
-        <ApprovalListTable />
+        {isPending ? (
+          <SkeletonTableLoader />
+        ) : filteredListData?.length > 0 ? (
+          <ApprovalListTable listData={currentEntries} />
+        ) : (
+          <div className="text-center text-sm mb-5">There is no data</div>
+        )}
+        <Pagination
+          currentPage={currentPage}
+          totalEntries={totalEntries}
+          entriesPerPage={entriesPerPage}
+          onPageChange={(page: any) => setCurrentPage(page)}
+        />
       </main>
     </section>
   );

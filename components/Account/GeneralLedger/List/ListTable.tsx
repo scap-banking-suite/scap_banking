@@ -1,11 +1,5 @@
 import { LedgerList, LedgerListItem } from "@/components/api/crud/ledgerList";
 import OperationsTableComp from "@/components/Operations/OperationsTableComp";
-import Pagination from "@/components/ui/Pagination";
-import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
-
-
-
-
 
 type listType = {
   listData: LedgerList["data"];
@@ -33,7 +27,7 @@ const renderRow = (item: LedgerListItem, index: number) => (
   </tr>
 );
 
-const ListTable = ({listData}: listType) => {
+const ListTable = ({ listData }: listType) => {
   return (
     <div className="bg-[#E7EEFA]">
       <OperationsTableComp

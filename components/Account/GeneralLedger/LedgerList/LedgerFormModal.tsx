@@ -109,8 +109,6 @@ export const LedgerFormModal = ({ setIsOpen }: Props) => {
   const ListData = lists?.data || [];
   const currencyListData = currencyList?.data || [];
 
-  console.log(currencyListData, "currency");
-
   useEffect(() => {
     if (ledgerClassID) {
       setShowSubClassField(true);

@@ -16,10 +16,10 @@ export type LedgerListItem = {
   regionID: ID;
   regionName: string;
   accountClassificationID: ID;
-  accountClassificationName:string
-  currencyName:string
-  ledgerSubClassName:string
-  ledgerClassName:string
+  accountClassificationName: string;
+  currencyName: string;
+  ledgerSubClassName: string;
+  ledgerClassName: string;
   branchID: ID;
   id: ID;
   ledgerclass: {
@@ -30,6 +30,11 @@ export type LedgerListItem = {
   };
 
   branchName: string;
+  configId: string;
+  branchCode: string;
+  mailMessage: string;
+  messageStatus: string;
+  createdDate: string;
 };
 export interface LedgerList {
   parentID: ID;
@@ -95,6 +100,14 @@ export const useLedgerList = () => {
       method: "GET",
     });
 
+  const getMessageList = () =>
+    useApiQuery<LedgerList>(["messageledgerlist"], {
+      url: `/MsgConfig/allmsgconfigs`,
+      method: "GET",
+    });
+
+
+
   const getLists = (parentId?: ID, legerClass?: ID) =>
     useApiQuery<LedgerList>(["ledgerlist", parentId, legerClass], {
       url: `/LedgerSubClass/ledger-subclass-list-filter`,
@@ -105,6 +118,16 @@ export const useLedgerList = () => {
       },
     });
 
+    const getApprovalists = (MessageConfigId?: ID, MessageStatus?: ID) =>
+      useApiQuery<LedgerList>(["approvalLedgerlist", MessageConfigId, MessageStatus], {
+        url: `/Message/messagelist-filter`,
+        method: "GET",
+        params: {
+          ...(MessageConfigId && { MessageConfigId }),
+          ...(MessageStatus && { MessageStatus }),
+        },
+      });
+
   return {
     addList,
     addLedger,
@@ -112,5 +135,7 @@ export const useLedgerList = () => {
     getLedgerList,
     updateList,
     getLedgerClass,
+    getMessageList,
+    getApprovalists
   };
 };
