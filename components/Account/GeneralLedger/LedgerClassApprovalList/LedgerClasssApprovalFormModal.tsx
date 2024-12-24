@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { ModalHeader } from "@/components/modal/ModalHeader";
 import { X } from "lucide-react";
 import { SquareDotIcon } from "@/icons/svgComp/TableIcons";
+import { formatDate } from "@/utils/formatdate";
 
 const fields: Field[] = [
   {
@@ -31,9 +32,11 @@ const fields: Field[] = [
 
 type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  item: any;
 };
 
-export const LedgerClasssApprovalFormModal = ({ setIsOpen }: Props) => {
+export const LedgerClasssApprovalFormModal = ({ setIsOpen, item }: Props) => {
+  if (!item) return null;
   const { control, handleSubmit, formState, reset, watch } =
     useDynamicForm<any>(fields, {});
 
@@ -47,10 +50,7 @@ export const LedgerClasssApprovalFormModal = ({ setIsOpen }: Props) => {
         />
         <form>
           <p className="my-5 text-sm text-placeholderText">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis,
+            {item?.mailMessage}
           </p>
           <div className="flex gap-4 items-center">
             <CustomButton
@@ -69,21 +69,40 @@ export const LedgerClasssApprovalFormModal = ({ setIsOpen }: Props) => {
           <section className="space-y-5 mt-10">
             <div className="flex items-center">
               <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
-                Ledger Subclass Name
+                Branch
               </h3>
-              <p className="text-xs text-placeholderText">Ledger Name</p>
+              <p className="text-xs text-placeholderText">{item?.branchCode}</p>
             </div>
             <div className="flex items-center">
               <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
-                Ledger Class
+                Approve Role
               </h3>
-              <p className="text-xs text-placeholderText">Ledger Class</p>
+              <p className="text-xs text-placeholderText">
+                {item?.approveRole}
+              </p>
             </div>
             <div className="flex items-center">
               <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
-                Ledger Parent
+                Status
               </h3>
-              <p className="text-xs text-placeholderText">Ledger Parent</p>
+              <p
+                className={` ${
+                  item?.messageStatus === "Denied"
+                    ? "bg-[#FFDEDC] text-[#FF361B]"
+                    : "text-[#14804A] bg-[#E1FCEF]"
+                }  rounded-sm flex justify-center items-center gap-2 h-[22px] w-[92px]`}
+              >
+                <SquareDotIcon />
+                {item?.messageStatus}
+              </p>
+            </div>
+            <div className="flex items-center">
+              <h3 className="w-[30%] text-darkBlue font-semibold text-sm">
+                Date Created
+              </h3>
+              <p className="text-xs text-placeholderText">
+                {formatDate(item?.createdDate)}
+              </p>
             </div>
           </section>
         </form>
