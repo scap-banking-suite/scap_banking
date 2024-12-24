@@ -1,86 +1,52 @@
 import OperationsTableComp from "@/components/Operations/OperationsTableComp";
 import Pagination from "@/components/ui/Pagination";
-import { ThreeDotIcon } from "@/icons/svgComp/RegionIcons";
 import { SquareDotIcon } from "@/icons/svgComp/TableIcons";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ApprovalFormModal } from "./ApprovalFormModal";
-// Sample data type
-type DataItem = {
-  id: number;
-  code: string;
-  class: string;
-  name: string;
-  parent: string;
+import { LedgerList, LedgerListItem } from "@/components/api/crud/ledgerList";
+import { formatDate } from "@/utils/formatdate";
 
-  status: string;
+type listType = {
+  listData: LedgerList["data"];
 };
-
-const sampleData: DataItem[] = [
-  {
-    id: 1,
-    code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
-    status: "Approved",
-  },
-  {
-    id: 1,
-    code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
-    status: "Denied",
-  },
-  {
-    id: 1,
-    code: "1",
-    name: "Ledger Name",
-    class: "Ledger Class",
-    parent: "Ledger Parent",
-    status: "Approved",
-  },
-];
 
 const headers = [
   { content: <>S/N</> },
-  { content: <>Ledger Name</> },
-  { content: <> Ledger Class</> },
-  { content: <> Ledger Parent</> },
-
+  { content: <> Branch</> },
+  { content: <>Mail Message</> },
   { content: <> Status</> },
-
-  { content: <> </> },
+  { content: <>Date </> },
+  { content: <>Action </> },
 ];
 
 // Custom row render function
 
-const ApprovalListTable = () => {
+const ApprovalListTable = ({ listData }: listType) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderRow = (item: DataItem, index: number) => (
+  const renderRow = (item: LedgerListItem, index: number) => (
     <tr
       key={index}
       className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
     >
-      <td className="py-1 px-4">{item.code}</td>
-      <td className="py-1 px-4">{item.name}</td>
-      <td className="py-1 px-4">{item.class}</td>
-      <td className="py-1 px-4">{item.parent}</td>
-      <td className="py-1 px-4 align-middle">
+      <td className="py-1 px-4">{index + 1}</td>
+      <td className="py-1 px-4 whitespace-nowrap">{item?.branchCode}</td>
+      <td className="py-1 px-4 max-w-[300px]">{item?.mailMessage}</td>
+      <td className="py-1 px-4 ">
         <span
           className={` ${
-            item?.status === "Denied"
+            item?.messageStatus === "Denied"
               ? "bg-[#FFDEDC] text-[#FF361B]"
               : "text-[#14804A] bg-[#E1FCEF]"
           }  rounded-sm flex justify-center items-center gap-2 h-[22px] w-[92px]`}
         >
           <SquareDotIcon />
-          {item?.status}
+          {item?.messageStatus}
         </span>
       </td>
+      <td className="py-1 px-4">{formatDate(item?.createdDate)}</td>
       <td className="py-1 px-4">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger>
@@ -88,7 +54,7 @@ const ApprovalListTable = () => {
               View
             </Button>
           </SheetTrigger>
-          <ApprovalFormModal setIsOpen={setIsOpen} />
+          <ApprovalFormModal setIsOpen={setIsOpen} item={item} />
         </Sheet>
       </td>
     </tr>
@@ -98,10 +64,9 @@ const ApprovalListTable = () => {
     <div className="bg-[#E7EEFA]">
       <OperationsTableComp
         headers={headers}
-        data={sampleData}
+        data={listData}
         renderRow={renderRow}
       />
-      <Pagination />
     </div>
   );
 };
